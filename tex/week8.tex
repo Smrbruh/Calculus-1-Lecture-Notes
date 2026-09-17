@@ -1,0 +1,373 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Lecture Notes: Definite Integrals}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\titleformat{\section}{\Large\bfseries}{Section \thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{4cm}
+{\Huge\bfseries Lecture Notes:\\ Definite Integrals\par}
+\vspace{1cm}
+{\Large Calculus I\par}
+\vspace{2cm}
+{\large \textbf{Author:} Bakdaulet Sotsial\par}
+\vspace{1cm}
+\vfill
+{\small Astana IT University \par}
+\vspace*{2cm}
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{Area and Estimating with Finite Sums}
+\begin{definition}[Area Problem]
+Given a function $f(x) \geq 0$ on an interval $[a, b]$, we wish to find the area $A$ of the region bounded by the graph of $f$, the $x$-axis, and the vertical lines $x = a$ and $x = b$.
+\end{definition}
+\begin{definition}[Partition]
+A \textit{partition} of $[a, b]$ is a finite set of points $P = \{x_0, x_1, x_2, \dots, x_n\}$ such that
+\[
+a = x_0 < x_1 < x_2 < \dots < x_n = b.
+\]
+The subintervals are $[x_{i-1}, x_i]$ for $i = 1, 2, \dots, n$. The width of the $i$-th subinterval is $\Delta x_i = x_i - x_{i-1}$. If all subintervals have the same width, then $\Delta x = \frac{b - a}{n}$.
+\end{definition}
+\begin{definition}[Riemann Sum]
+Let $f$ be defined on $[a, b]$ and let $P$ be a partition of $[a, b]$. Let $c_i$ be any sample point in the subinterval $[x_{i-1}, x_i]$. The sum
+\[
+S = \sum_{i=1}^n f(c_i) \Delta x_i
+\]
+is called a \textit{Riemann sum} for $f$ on $[a, b]$.
+\end{definition}
+\begin{example}
+Estimate the area under $f(x) = x^2$ on $[0, 1]$ using four rectangles and right endpoints.
+With $n = 4$, $\Delta x = \frac{1 - 0}{4} = 0.25$. The right endpoints are $c_1 = 0.25$, $c_2 = 0.5$, $c_3 = 0.75$, $c_4 = 1.0$.
+\[
+S_4 = f(0.25) \cdot 0.25 + f(0.5) \cdot 0.25 + f(0.75) \cdot 0.25 + f(1.0) \cdot 0.25
+\]
+\[
+= (0.0625 + 0.25 + 0.5625 + 1) \cdot 0.25 = 1.875 \cdot 0.25 = 0.46875.
+\]
+Using left endpoints: $c_1 = 0$, $c_2 = 0.25$, $c_3 = 0.5$, $c_4 = 0.75$.
+\[
+S_4 = (0 + 0.0625 + 0.25 + 0.5625) \cdot 0.25 = 0.875 \cdot 0.25 = 0.21875.
+\]
+The actual area is $\frac{1}{3} \approx 0.3333$.
+\end{example}
+\begin{definition}[Lower and Upper Sums]
+If $f$ is bounded on $[a, b]$, the \textit{lower sum} $L(f, P)$ uses the minimum value of $f$ on each subinterval, and the \textit{upper sum} $U(f, P)$ uses the maximum value.
+\end{definition}
+\section{Sigma Notation and Limits of Finite Sums}
+\begin{definition}[Sigma Notation]
+The sum $a_1 + a_2 + \dots + a_n$ is written compactly as
+\[
+\sum_{i=1}^n a_i,
+\]
+where $i$ is the index of summation, $1$ is the lower limit, and $n$ is the upper limit.
+\end{definition}
+\begin{theorem}[Properties of Sigma Notation]
+\begin{enumerate}
+\item $\displaystyle \sum_{i=1}^n (a_i + b_i) = \sum_{i=1}^n a_i + \sum_{i=1}^n b_i$.
+\item $\displaystyle \sum_{i=1}^n c a_i = c \sum_{i=1}^n a_i$ for any constant $c$.
+\item $\displaystyle \sum_{i=1}^n c = n c$.
+\item $\displaystyle \sum_{i=1}^n i = \frac{n(n+1)}{2}$.
+\item $\displaystyle \sum_{i=1}^n i^2 = \frac{n(n+1)(2n+1)}{6}$.
+\item $\displaystyle \sum_{i=1}^n i^3 = \left( \frac{n(n+1)}{2} \right)^2$.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \sum_{i=1}^{100} (2i - 1)$.
+\[
+\sum_{i=1}^{100} (2i - 1) = 2 \sum_{i=1}^{100} i - \sum_{i=1}^{100} 1 = 2 \cdot \frac{100 \cdot 101}{2} - 100 = 10100 - 100 = 10000.
+\]
+\end{example}
+\begin{definition}[Limit of a Riemann Sum]
+Let $f$ be defined on $[a, b]$. The \textit{definite integral} of $f$ from $a$ to $b$ is
+\[
+\int_a^b f(x) \, dx = \lim_{\|P\| \to 0} \sum_{i=1}^n f(c_i) \Delta x_i,
+\]
+provided this limit exists and is the same for all partitions $P$ and all choices of sample points $c_i$. Here $\|P\|$ is the norm of the partition, the largest subinterval width.
+\end{definition}
+\begin{theorem}[Integrability]
+If $f$ is continuous on $[a, b]$, or if $f$ is bounded on $[a, b]$ and has only finitely many discontinuities, then $f$ is integrable on $[a, b]$.
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \int_0^1 x^2 \, dx$ using the limit definition.
+Divide $[0, 1]$ into $n$ equal subintervals. Then $\Delta x = \frac{1}{n}$ and $c_i = \frac{i}{n}$ (right endpoints).
+\[
+S_n = \sum_{i=1}^n f\left( \frac{i}{n} \right) \frac{1}{n} = \sum_{i=1}^n \left( \frac{i}{n} \right)^2 \frac{1}{n} = \frac{1}{n^3} \sum_{i=1}^n i^2 = \frac{1}{n^3} \cdot \frac{n(n+1)(2n+1)}{6} = \frac{(n+1)(2n+1)}{6n^2}.
+\]
+Taking the limit as $n \to \infty$,
+\[
+\int_0^1 x^2 \, dx = \lim_{n \to \infty} \frac{(n+1)(2n+1)}{6n^2} = \lim_{n \to \infty} \frac{2n^2 + 3n + 1}{6n^2} = \frac{2}{6} = \frac{1}{3}.
+\]
+\end{example}
+\section{The Definite Integral}
+\begin{definition}[Definite Integral]
+The \textit{definite integral} of a function $f$ from $a$ to $b$ is the number
+\[
+\int_a^b f(x) \, dx = \lim_{n \to \infty} \sum_{i=1}^n f(c_i) \Delta x,
+\]
+where $\Delta x = \frac{b - a}{n}$ and $c_i$ is any point in the $i$-th subinterval $[x_{i-1}, x_i]$.
+\end{definition}
+\begin{theorem}[Properties of Definite Integrals]
+\begin{enumerate}
+\item $\displaystyle \int_a^a f(x) \, dx = 0$.
+\item $\displaystyle \int_a^b f(x) \, dx = -\int_b^a f(x) \, dx$.
+\item $\displaystyle \int_a^b c \, dx = c(b - a)$.
+\item $\displaystyle \int_a^b [f(x) + g(x)] \, dx = \int_a^b f(x) \, dx + \int_a^b g(x) \, dx$.
+\item $\displaystyle \int_a^b c f(x) \, dx = c \int_a^b f(x) \, dx$.
+\item $\displaystyle \int_a^b f(x) \, dx = \int_a^c f(x) \, dx + \int_c^b f(x) \, dx$ for any $c \in [a, b]$.
+\item If $f(x) \geq 0$ on $[a, b]$, then $\displaystyle \int_a^b f(x) \, dx \geq 0$.
+\item If $f(x) \geq g(x)$ on $[a, b]$, then $\displaystyle \int_a^b f(x) \, dx \geq \int_a^b g(x) \, dx$.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \int_0^2 (3x^2 - 2x) \, dx$ using the limit definition.
+$\Delta x = \frac{2}{n}$, $c_i = \frac{2i}{n}$.
+\[
+S_n = \sum_{i=1}^n \left( 3\left( \frac{2i}{n} \right)^2 - 2\left( \frac{2i}{n} \right) \right) \frac{2}{n} = \sum_{i=1}^n \left( \frac{12i^2}{n^2} - \frac{4i}{n} \right) \frac{2}{n} = \frac{24}{n^3} \sum_{i=1}^n i^2 - \frac{8}{n^2} \sum_{i=1}^n i.
+\]
+Using the sum formulas,
+\[
+S_n = \frac{24}{n^3} \cdot \frac{n(n+1)(2n+1)}{6} - \frac{8}{n^2} \cdot \frac{n(n+1)}{2} = \frac{4(n+1)(2n+1)}{n^2} - \frac{4(n+1)}{n}.
+\]
+Taking the limit as $n \to \infty$,
+\[
+\int_0^2 (3x^2 - 2x) \, dx = 8 - 4 = 4.
+\]
+\end{example}
+\section{The Fundamental Theorem of Calculus}
+\begin{theorem}[Fundamental Theorem of Calculus, Part 1]
+If $f$ is continuous on $[a, b]$, then the function $F$ defined by
+\[
+F(x) = \int_a^x f(t) \, dt, \quad a \leq x \leq b,
+\]
+is continuous on $[a, b]$, differentiable on $(a, b)$, and $F'(x) = f(x)$ for all $x \in (a, b)$.
+\end{theorem}
+\begin{proof}
+Let $x \in (a, b)$ and $h \neq 0$ such that $x + h \in (a, b)$. Then
+\[
+F(x + h) - F(x) = \int_a^{x+h} f(t) \, dt - \int_a^x f(t) \, dt = \int_x^{x+h} f(t) \, dt.
+\]
+By the Mean Value Theorem for Integrals, there exists $c$ between $x$ and $x+h$ such that
+\[
+\int_x^{x+h} f(t) \, dt = f(c) h.
+\]
+Thus, $\frac{F(x+h) - F(x)}{h} = f(c)$. As $h \to 0$, $c \to x$, and since $f$ is continuous, $f(c) \to f(x)$. Hence $F'(x) = f(x)$.
+\end{proof}
+\begin{theorem}[Fundamental Theorem of Calculus, Part 2]
+If $f$ is continuous on $[a, b]$ and $F$ is any antiderivative of $f$ on $[a, b]$, then
+\[
+\int_a^b f(x) \, dx = F(b) - F(a).
+\]
+\end{theorem}
+\begin{proof}
+Let $G(x) = \int_a^x f(t) \, dt$. By Part 1, $G'(x) = f(x)$, so $G$ is an antiderivative of $f$. Since $F$ is also an antiderivative, $F(x) = G(x) + C$ for some constant $C$. Then
+\[
+F(b) - F(a) = (G(b) + C) - (G(a) + C) = G(b) - G(a) = \int_a^b f(t) \, dt - \int_a^a f(t) \, dt = \int_a^b f(t) \, dt.
+\]
+\end{proof}
+\begin{remark}
+The notation $F(x) \Big|_a^b = F(b) - F(a)$ is often used.
+\end{remark}
+\begin{example}
+Evaluate $\displaystyle \int_1^3 x^2 \, dx$.
+An antiderivative of $x^2$ is $\frac{x^3}{3}$. Thus,
+\[
+\int_1^3 x^2 \, dx = \frac{x^3}{3} \Big|_1^3 = \frac{27}{3} - \frac{1}{3} = \frac{26}{3}.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int_0^{\pi/2} \cos x \, dx$.
+An antiderivative of $\cos x$ is $\sin x$. Thus,
+\[
+\int_0^{\pi/2} \cos x \, dx = \sin x \Big|_0^{\pi/2} = \sin\frac{\pi}{2} - \sin 0 = 1 - 0 = 1.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int_1^e \frac{1}{x} \, dx$.
+An antiderivative of $\frac{1}{x}$ is $\ln|x|$. Thus,
+\[
+\int_1^e \frac{1}{x} \, dx = \ln x \Big|_1^e = \ln e - \ln 1 = 1 - 0 = 1.
+\]
+\end{example}
+\begin{theorem}[Net Change Theorem]
+The integral of a rate of change is the net change:
+\[
+\int_a^b F'(x) \, dx = F(b) - F(a).
+\]
+\end{theorem}
+\begin{example}
+A particle moves along a line with velocity $v(t) = t^2 - 4t + 3$ m/s. Find the displacement from $t = 0$ to $t = 4$.
+\[
+\text{Displacement} = \int_0^4 (t^2 - 4t + 3) \, dt = \left[ \frac{t^3}{3} - 2t^2 + 3t \right]_0^4 = \left( \frac{64}{3} - 32 + 12 \right) - 0 = \frac{64}{3} - 20 = \frac{4}{3} \text{ m}.
+\]
+\end{example}
+\section{Substitution in Definite Integrals}
+\begin{theorem}[Substitution Rule for Definite Integrals]
+If $g'$ is continuous on $[a, b]$ and $f$ is continuous on the range of $g$, then
+\[
+\int_a^b f(g(x)) g'(x) \, dx = \int_{g(a)}^{g(b)} f(u) \, du.
+\]
+\end{theorem}
+\begin{proof}
+Let $F$ be an antiderivative of $f$. Then $\frac{d}{dx} F(g(x)) = F'(g(x)) g'(x) = f(g(x)) g'(x)$. By the Fundamental Theorem of Calculus,
+\[
+\int_a^b f(g(x)) g'(x) \, dx = F(g(x)) \Big|_a^b = F(g(b)) - F(g(a)).
+\]
+Also, $\int_{g(a)}^{g(b)} f(u) \, du = F(u) \Big|_{g(a)}^{g(b)} = F(g(b)) - F(g(a))$. The equality follows.
+\end{proof}
+\begin{example}
+Evaluate $\displaystyle \int_0^1 2x e^{x^2} \, dx$.
+Let $u = x^2$. Then $du = 2x \, dx$. When $x = 0$, $u = 0$. When $x = 1$, $u = 1$. Thus,
+\[
+\int_0^1 2x e^{x^2} \, dx = \int_0^1 e^u \, du = e^u \Big|_0^1 = e - 1.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int_0^{\pi/2} \sin^3 x \cos x \, dx$.
+Let $u = \sin x$. Then $du = \cos x \, dx$. When $x = 0$, $u = 0$. When $x = \pi/2$, $u = 1$. Thus,
+\[
+\int_0^{\pi/2} \sin^3 x \cos x \, dx = \int_0^1 u^3 \, du = \frac{u^4}{4} \Big|_0^1 = \frac{1}{4}.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int_1^2 \frac{1}{2x+1} \, dx$.
+Let $u = 2x + 1$. Then $du = 2 \, dx$, so $dx = \frac{du}{2}$. When $x = 1$, $u = 3$. When $x = 2$, $u = 5$. Thus,
+\[
+\int_1^2 \frac{1}{2x+1} \, dx = \int_3^5 \frac{1}{u} \cdot \frac{du}{2} = \frac{1}{2} \ln|u| \Big|_3^5 = \frac{1}{2} (\ln 5 - \ln 3) = \frac{1}{2} \ln\frac{5}{3}.
+\]
+\end{example}
+\begin{theorem}[Integrals of Even and Odd Functions]
+If $f$ is continuous on $[-a, a]$, then:
+\begin{enumerate}
+\item If $f$ is even, $\displaystyle \int_{-a}^a f(x) \, dx = 2 \int_0^a f(x) \, dx$.
+\item If $f$ is odd, $\displaystyle \int_{-a}^a f(x) \, dx = 0$.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \int_{-2}^2 (x^3 + x) \, dx$.
+The function $f(x) = x^3 + x$ is odd, so the integral is 0.
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int_{-1}^1 x^2 \, dx$.
+The function $f(x) = x^2$ is even, so
+\[
+\int_{-1}^1 x^2 \, dx = 2 \int_0^1 x^2 \, dx = 2 \cdot \frac{1}{3} = \frac{2}{3}.
+\]
+\end{example}
+\section{Improper Integrals}
+\begin{definition}[Improper Integral of Type I: Infinite Interval]
+If $\displaystyle \int_a^t f(x) \, dx$ exists for every $t \geq a$, then
+\[
+\int_a^{\infty} f(x) \, dx = \lim_{t \to \infty} \int_a^t f(x) \, dx,
+\]
+provided the limit exists. Similarly,
+\[
+\int_{-\infty}^b f(x) \, dx = \lim_{t \to -\infty} \int_t^b f(x) \, dx,
+\]
+and
+\[
+\int_{-\infty}^{\infty} f(x) \, dx = \int_{-\infty}^c f(x) \, dx + \int_c^{\infty} f(x) \, dx
+\]
+for any real number $c$. If the limit exists, the improper integral \textit{converges}; otherwise, it \textit{diverges}.
+\end{definition}
+\begin{example}
+Evaluate $\displaystyle \int_1^{\infty} \frac{1}{x^2} \, dx$.
+\[
+\int_1^{\infty} \frac{1}{x^2} \, dx = \lim_{t \to \infty} \int_1^t x^{-2} \, dx = \lim_{t \to \infty} \left[ -\frac{1}{x} \right]_1^t = \lim_{t \to \infty} \left( -\frac{1}{t} + 1 \right) = 1.
+\]
+The integral converges to 1.
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int_1^{\infty} \frac{1}{x} \, dx$.
+\[
+\int_1^{\infty} \frac{1}{x} \, dx = \lim_{t \to \infty} \int_1^t \frac{1}{x} \, dx = \lim_{t \to \infty} [\ln x]_1^t = \lim_{t \to \infty} \ln t = \infty.
+\]
+The integral diverges.
+\end{example}
+\begin{theorem}[$p$-Integral Test]
+The improper integral $\displaystyle \int_1^{\infty} \frac{1}{x^p} \, dx$ converges if $p > 1$ and diverges if $p \leq 1$.
+\end{theorem}
+\begin{proof}
+For $p \neq 1$,
+\[
+\int_1^t \frac{1}{x^p} \, dx = \left[ \frac{x^{1-p}}{1-p} \right]_1^t = \frac{t^{1-p} - 1}{1-p}.
+\]
+If $p > 1$, then $1 - p < 0$, so $t^{1-p} \to 0$ as $t \to \infty$, giving $\frac{1}{p-1}$. If $p < 1$, then $1 - p > 0$, so $t^{1-p} \to \infty$, and the integral diverges. For $p = 1$, the integral is $\ln t \to \infty$.
+\end{proof}
+\begin{definition}[Improper Integral of Type II: Infinite Discontinuity]
+If $f$ is continuous on $[a, b)$ and has an infinite discontinuity at $b$, then
+\[
+\int_a^b f(x) \, dx = \lim_{t \to b^-} \int_a^t f(x) \, dx,
+\]
+provided the limit exists. Similarly, if $f$ has an infinite discontinuity at $a$,
+\[
+\int_a^b f(x) \, dx = \lim_{t \to a^+} \int_t^b f(x) \, dx.
+\]
+If $f$ has a discontinuity at $c \in (a, b)$, then
+\[
+\int_a^b f(x) \, dx = \int_a^c f(x) \, dx + \int_c^b f(x) \, dx.
+\]
+\end{definition}
+\begin{example}
+Evaluate $\displaystyle \int_0^1 \frac{1}{\sqrt{x}} \, dx$.
+The integrand has an infinite discontinuity at $x = 0$.
+\[
+\int_0^1 \frac{1}{\sqrt{x}} \, dx = \lim_{t \to 0^+} \int_t^1 x^{-1/2} \, dx = \lim_{t \to 0^+} \left[ 2\sqrt{x} \right]_t^1 = \lim_{t \to 0^+} (2 - 2\sqrt{t}) = 2.
+\]
+The integral converges to 2.
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int_0^1 \frac{1}{x} \, dx$.
+The integrand has an infinite discontinuity at $x = 0$.
+\[
+\int_0^1 \frac{1}{x} \, dx = \lim_{t \to 0^+} \int_t^1 \frac{1}{x} \, dx = \lim_{t \to 0^+} [\ln x]_t^1 = \lim_{t \to 0^+} (0 - \ln t) = \infty.
+\]
+The integral diverges.
+\end{example}
+\begin{theorem}[Comparison Test for Improper Integrals]
+Suppose $f$ and $g$ are continuous on $[a, \infty)$ with $0 \leq f(x) \leq g(x)$ for all $x \geq a$.
+\begin{enumerate}
+\item If $\displaystyle \int_a^{\infty} g(x) \, dx$ converges, then $\displaystyle \int_a^{\infty} f(x) \, dx$ converges.
+\item If $\displaystyle \int_a^{\infty} f(x) \, dx$ diverges, then $\displaystyle \int_a^{\infty} g(x) \, dx$ diverges.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Determine whether $\displaystyle \int_1^{\infty} \frac{1}{x^3 + 1} \, dx$ converges.
+For $x \geq 1$, $x^3 + 1 > x^3$, so $\frac{1}{x^3 + 1} < \frac{1}{x^3}$. Since $\int_1^{\infty} \frac{1}{x^3} \, dx$ converges (p-integral with $p = 3 > 1$), by the Comparison Test, the given integral also converges.
+\end{example}
+\begin{example}
+Determine whether $\displaystyle \int_1^{\infty} \frac{1}{\sqrt{x} + 1} \, dx$ converges.
+For $x \geq 1$, $\sqrt{x} + 1 \leq 2\sqrt{x}$, so $\frac{1}{\sqrt{x} + 1} \geq \frac{1}{2\sqrt{x}}$. Since $\int_1^{\infty} \frac{1}{2\sqrt{x}} \, dx = \frac{1}{2} \int_1^{\infty} x^{-1/2} \, dx$ diverges (p-integral with $p = 1/2 \leq 1$), by the Comparison Test, the given integral diverges.
+\end{example}
+\begin{theorem}[Absolute Convergence]
+If $\displaystyle \int_a^{\infty} |f(x)| \, dx$ converges, then $\displaystyle \int_a^{\infty} f(x) \, dx$ also converges. In this case, we say the integral is \textit{absolutely convergent}.
+\end{theorem}
+\begin{example}
+Determine whether $\displaystyle \int_1^{\infty} \frac{\sin x}{x^2} \, dx$ converges.
+Since $\left| \frac{\sin x}{x^2} \right| \leq \frac{1}{x^2}$ and $\int_1^{\infty} \frac{1}{x^2} \, dx$ converges, the integral converges absolutely, hence converges.
+\end{example}
+\begin{remark}
+Improper integrals are essential in probability theory, physics, and engineering, particularly in the study of continuous distributions and Fourier analysis.
+\end{remark}
+\end{document}

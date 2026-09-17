@@ -1,0 +1,333 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Lecture Notes: Limits and Continuity}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\titleformat{\section}{\Large\bfseries}{Section \thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{4cm}
+{\Huge\bfseries Lecture Notes:\\ Limits and Continuity\par}
+\vspace{1cm}
+{\Large Calculus I\par}
+\vspace{2cm}
+{\large \textbf{Author:} Bakdaulet Sotsial\par}
+\vspace{1cm}
+\vfill
+{\small Astana IT University \par}
+\vspace*{2cm}
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{One-Sided Limits}
+\begin{definition}[Left-Hand Limit]
+Let $f$ be a function defined on an open interval $(c, a)$. The \textit{left-hand limit} of $f(x)$ as $x$ approaches $a$ from the left is $L$, written
+\[
+\lim_{x \to a^-} f(x) = L,
+\]
+if for every $\epsilon > 0$ there exists $\delta > 0$ such that if $a - \delta < x < a$, then $|f(x) - L| < \epsilon$.
+\end{definition}
+\begin{definition}[Right-Hand Limit]
+Let $f$ be a function defined on an open interval $(a, c)$. The \textit{right-hand limit} of $f(x)$ as $x$ approaches $a$ from the right is $L$, written
+\[
+\lim_{x \to a^+} f(x) = L,
+\]
+if for every $\epsilon > 0$ there exists $\delta > 0$ such that if $a < x < a + \delta$, then $|f(x) - L| < \epsilon$.
+\end{definition}
+\begin{theorem}[Relationship Between One-Sided and Two-Sided Limits]
+The two-sided limit $\displaystyle \lim_{x \to a} f(x)$ exists and equals $L$ if and only if both one-sided limits exist and are equal to $L$. That is,
+\[
+\lim_{x \to a} f(x) = L \iff \lim_{x \to a^-} f(x) = L \quad \text{and} \quad \lim_{x \to a^+} f(x) = L.
+\]
+\end{theorem}
+\begin{example}
+Consider the function $f(x) = \frac{|x|}{x}$. Find the one-sided limits as $x \to 0$.
+For $x > 0$, $|x| = x$, so $f(x) = 1$. Thus, $\lim_{x \to 0^+} f(x) = 1$.
+For $x < 0$, $|x| = -x$, so $f(x) = -1$. Thus, $\lim_{x \to 0^-} f(x) = -1$.
+Since the one-sided limits are different, the two-sided limit $\lim_{x \to 0} \frac{|x|}{x}$ does not exist.
+\end{example}
+\begin{example}
+Consider the piecewise function $g(x) = \begin{cases} x^2 + 1 & \text{if } x < 1 \\ 3x - 1 & \text{if } x \geq 1 \end{cases}$. Evaluate the limits as $x \to 1$.
+Left-hand limit: $\lim_{x \to 1^-} g(x) = \lim_{x \to 1^-} (x^2 + 1) = 1^2 + 1 = 2$.
+Right-hand limit: $\lim_{x \to 1^+} g(x) = \lim_{x \to 1^+} (3x - 1) = 3(1) - 1 = 2$.
+Since both one-sided limits are equal to 2, the two-sided limit exists and $\lim_{x \to 1} g(x) = 2$. Note that $g(1) = 3(1) - 1 = 2$, so the function is continuous at $x = 1$.
+\end{example}
+\section{Continuous Functions}
+\begin{definition}[Continuity at a Point]
+A function $f$ is \textit{continuous at a number} $a$ if the following three conditions are satisfied:
+\begin{enumerate}
+\item $f(a)$ is defined (i.e., $a$ is in the domain of $f$).
+\item $\displaystyle \lim_{x \to a} f(x)$ exists.
+\item $\displaystyle \lim_{x \to a} f(x) = f(a)$.
+\end{enumerate}
+If $f$ is not continuous at $a$, we say $f$ is \textit{discontinuous at $a$}, or $f$ has a \textit{discontinuity} at $a$.
+\end{definition}
+\begin{definition}[Continuity from the Left and Right]
+A function $f$ is \textit{continuous from the left} at $a$ if $\displaystyle \lim_{x \to a^-} f(x) = f(a)$.
+A function $f$ is \textit{continuous from the right} at $a$ if $\displaystyle \lim_{x \to a^+} f(x) = f(a)$.
+\end{definition}
+\begin{definition}[Continuity on an Interval]
+A function $f$ is \textit{continuous on an open interval} $(a, b)$ if it is continuous at every number in the interval.
+A function $f$ is \textit{continuous on a closed interval} $[a, b]$ if it is continuous on $(a, b)$, continuous from the right at $a$, and continuous from the left at $b$.
+\end{definition}
+\begin{theorem}[Properties of Continuous Functions]
+If $f$ and $g$ are continuous at $a$, and $c$ is a constant, then the following functions are also continuous at $a$:
+\begin{enumerate}
+\item $f + g$
+\item $f - g$
+\item $c f$
+\item $f g$
+\item $\displaystyle \frac{f}{g}$, provided $g(a) \neq 0$.
+\end{enumerate}
+\end{theorem}
+\begin{theorem}[Continuity of Composite Functions]
+If $f$ is continuous at $b$ and $\displaystyle \lim_{x \to a} g(x) = b$, then $\displaystyle \lim_{x \to a} f(g(x)) = f(b)$. In particular, if $g$ is continuous at $a$ and $f$ is continuous at $g(a)$, then the composite function $f \circ g$ is continuous at $a$.
+\end{theorem}
+\begin{theorem}[Continuity of Elementary Functions]
+The following types of functions are continuous at every number in their domains:
+\begin{itemize}
+\item Polynomials
+\item Rational functions
+\item Root functions
+\item Trigonometric functions
+\item Exponential functions
+\item Logarithmic functions
+\end{itemize}
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \lim_{x \to \pi} \frac{\sin x}{x^2 + 1}$.
+Since $\sin x$ and $x^2 + 1$ are continuous everywhere, and $x^2 + 1 \neq 0$ for all $x$, the function $f(x) = \frac{\sin x}{x^2 + 1}$ is continuous at $x = \pi$. Therefore, we can simply substitute:
+\[
+\lim_{x \to \pi} \frac{\sin x}{x^2 + 1} = \frac{\sin \pi}{\pi^2 + 1} = \frac{0}{\pi^2 + 1} = 0.
+\]
+\end{example}
+\section{Types of Discontinuities}
+\begin{definition}[Removable Discontinuity]
+A discontinuity at $a$ is called \textit{removable} if $\displaystyle \lim_{x \to a} f(x)$ exists but is not equal to $f(a)$ (or $f(a)$ is undefined). The graph has a hole at $a$. The discontinuity can be "removed" by redefining $f(a)$ to be the limit value.
+\end{definition}
+\begin{example}
+The function $f(x) = \frac{x^2 - 4}{x - 2}$ has a removable discontinuity at $x = 2$. Although $f(2)$ is undefined, $\lim_{x \to 2} \frac{x^2 - 4}{x - 2} = \lim_{x \to 2} (x + 2) = 4$.
+\end{example}
+\begin{definition}[Jump Discontinuity]
+A discontinuity at $a$ is called a \textit{jump discontinuity} if the one-sided limits $\displaystyle \lim_{x \to a^-} f(x)$ and $\displaystyle \lim_{x \to a^+} f(x)$ both exist but are not equal. The graph "jumps" from one value to another.
+\end{definition}
+\begin{example}
+The function $f(x) = \begin{cases} x & \text{if } x < 0 \\ x + 1 & \text{if } x \geq 0 \end{cases}$ has a jump discontinuity at $x = 0$. The left limit is 0 and the right limit is 1.
+\end{example}
+\begin{definition}[Infinite Discontinuity]
+A discontinuity at $a$ is called an \textit{infinite discontinuity} if at least one of the one-sided limits is $\infty$ or $-\infty$. This typically corresponds to a vertical asymptote.
+\end{definition}
+\begin{example}
+The function $f(x) = \frac{1}{x^2}$ has an infinite discontinuity at $x = 0$. As $x \to 0$, $f(x) \to \infty$.
+\end{example}
+\begin{definition}[Oscillating Discontinuity]
+A discontinuity at $a$ is called an \textit{oscillating discontinuity} if the function oscillates infinitely often between two values as $x$ approaches $a$, so the limit does not exist.
+\end{definition}
+\begin{example}
+The function $f(x) = \sin\left(\frac{1}{x}\right)$ has an oscillating discontinuity at $x = 0$. As $x \to 0$, the function oscillates between $-1$ and $1$ infinitely many times.
+\end{example}
+\section{The Intermediate Value Theorem}
+\begin{theorem}[Intermediate Value Theorem (IVT)]
+Suppose that $f$ is continuous on the closed interval $[a, b]$ and let $N$ be any number between $f(a)$ and $f(b)$, where $f(a) \neq f(b)$. Then there exists a number $c$ in $(a, b)$ such that $f(c) = N$.
+\end{theorem}
+\begin{proof}
+We prove the case where $f(a) < N < f(b)$. Let $S = \{x \in [a, b] \mid f(x) < N\}$. Since $a \in S$, $S$ is non-empty, and since $S \subseteq [a, b]$, it is bounded above. By the Completeness Axiom of real numbers, $S$ has a least upper bound. Let $c = \sup S$. We claim $f(c) = N$. Suppose $f(c) < N$. Since $f$ is continuous at $c$, there exists $\delta > 0$ such that for all $x \in (c - \delta, c + \delta) \cap [a, b]$, $f(x) < N$. This implies there are numbers greater than $c$ in $S$, contradicting that $c$ is an upper bound. Suppose $f(c) > N$. Again, by continuity, there exists $\delta > 0$ such that $f(x) > N$ for all $x \in (c - \delta, c + \delta) \cap [a, b]$. This implies $c - \delta$ is an upper bound for $S$, contradicting that $c$ is the least upper bound. Therefore, $f(c) = N$.
+\end{proof}
+\begin{example}[Root Finding]
+Show that the equation $x^3 - x - 1 = 0$ has a root in the interval $(1, 2)$.
+Let $f(x) = x^3 - x - 1$. Since $f$ is a polynomial, it is continuous everywhere.
+$f(1) = 1^3 - 1 - 1 = -1 < 0$.
+$f(2) = 2^3 - 2 - 1 = 8 - 2 - 1 = 5 > 0$.
+Since $f(1) < 0 < f(2)$, by the Intermediate Value Theorem, there exists at least one number $c \in (1, 2)$ such that $f(c) = 0$. Thus, the equation has a root in $(1, 2)$.
+\end{example}
+\begin{example}[Fixed Point]
+Show that the equation $\cos x = x$ has a solution.
+Let $f(x) = \cos x - x$. We seek $x$ such that $f(x) = 0$.
+$f(0) = \cos 0 - 0 = 1 > 0$.
+$f(\frac{\pi}{2}) = \cos \frac{\pi}{2} - \frac{\pi}{2} = 0 - \frac{\pi}{2} = -\frac{\pi}{2} < 0$.
+Since $f$ is continuous and $f(0) > 0 > f(\frac{\pi}{2})$, by the IVT, there exists $c \in (0, \frac{\pi}{2})$ such that $f(c) = 0$, i.e., $\cos c = c$.
+\end{example}
+\section{Limits Involving Infinity}
+\begin{definition}[Limits at Infinity]
+Let $f$ be a function defined on $(a, \infty)$. Then
+\[
+\lim_{x \to \infty} f(x) = L
+\]
+means that for every $\epsilon > 0$ there exists a number $N$ such that if $x > N$, then $|f(x) - L| < \epsilon$.
+Similarly, for $f$ defined on $(-\infty, a)$,
+\[
+\lim_{x \to -\infty} f(x) = L
+\]
+means that for every $\epsilon > 0$ there exists a number $N$ such that if $x < N$, then $|f(x) - L| < \epsilon$.
+\end{definition}
+\begin{definition}[Horizontal Asymptote]
+The line $y = L$ is called a \textit{horizontal asymptote} of the curve $y = f(x)$ if either $\displaystyle \lim_{x \to \infty} f(x) = L$ or $\displaystyle \lim_{x \to -\infty} f(x) = L$.
+\end{definition}
+\begin{theorem}[Limits at Infinity of Basic Functions]
+For any rational number $r > 0$:
+\[
+\lim_{x \to \infty} \frac{1}{x^r} = 0 \quad \text{and} \quad \lim_{x \to -\infty} \frac{1}{x^r} = 0 \quad (\text{if } x^r \text{ is defined for } x < 0).
+\]
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \lim_{x \to \infty} \frac{3x^2 - 2x + 1}{5x^2 + 4x - 7}$.
+Divide numerator and denominator by the highest power of $x$ in the denominator, which is $x^2$:
+\[
+\lim_{x \to \infty} \frac{3 - \frac{2}{x} + \frac{1}{x^2}}{5 + \frac{4}{x} - \frac{7}{x^2}} = \frac{3 - 0 + 0}{5 + 0 - 0} = \frac{3}{5}.
+\]
+Thus, the line $y = \frac{3}{5}$ is a horizontal asymptote.
+\end{example}
+\begin{definition}[Infinite Limits]
+Let $f$ be a function defined on an open interval containing $a$, except possibly at $a$. Then
+\[
+\lim_{x \to a} f(x) = \infty
+\]
+means that for every $M > 0$ there exists $\delta > 0$ such that if $0 < |x - a| < \delta$, then $f(x) > M$.
+Similarly, $\displaystyle \lim_{x \to a} f(x) = -\infty$ means that for every $M > 0$ there exists $\delta > 0$ such that if $0 < |x - a| < \delta$, then $f(x) < -M$.
+\end{definition}
+\begin{definition}[Vertical Asymptote]
+The line $x = a$ is called a \textit{vertical asymptote} of the curve $y = f(x)$ if at least one of the following holds: $\lim_{x \to a^-} f(x) = \pm \infty$, $\lim_{x \to a^+} f(x) = \pm \infty$, or $\lim_{x \to a} f(x) = \pm \infty$.
+\end{definition}
+\begin{example}
+Find the vertical asymptotes of $f(x) = \frac{x + 2}{x^2 - 4}$.
+Factor the denominator: $x^2 - 4 = (x - 2)(x + 2)$. Thus, $f(x) = \frac{x + 2}{(x - 2)(x + 2)}$.
+For $x \neq -2$, $f(x) = \frac{1}{x - 2}$.
+As $x \to 2^+$, $f(x) \to \infty$. As $x \to 2^-$, $f(x) \to -\infty$.
+Therefore, $x = 2$ is a vertical asymptote. At $x = -2$, there is a removable discontinuity (a hole), not a vertical asymptote.
+\end{example}
+\begin{theorem}[End Behavior of Polynomials]
+For a polynomial $P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_0$, the end behavior is determined by the leading term $a_n x^n$. That is,
+\[
+\lim_{x \to \infty} P(x) = \lim_{x \to \infty} a_n x^n \quad \text{and} \quad \lim_{x \to -\infty} P(x) = \lim_{x \to -\infty} a_n x^n.
+\]
+\end{theorem}
+\begin{theorem}[End Behavior of Rational Functions]
+For a rational function $f(x) = \frac{P(x)}{Q(x)}$, where $P(x)$ and $Q(x)$ are polynomials with leading terms $a_n x^n$ and $b_m x^m$ respectively:
+\begin{enumerate}
+\item If $n < m$, then $\displaystyle \lim_{x \to \pm\infty} f(x) = 0$ (horizontal asymptote $y = 0$).
+\item If $n = m$, then $\displaystyle \lim_{x \to \pm\infty} f(x) = \frac{a_n}{b_m}$ (horizontal asymptote $y = \frac{a_n}{b_m}$).
+\item If $n > m$, then $\displaystyle \lim_{x \to \pm\infty} f(x) = \pm\infty$ (no horizontal asymptote; the limit is infinite).
+\end{enumerate}
+\end{theorem}
+\section{Relative Rates of Growth}
+\begin{definition}[Faster, Slower, Same Rate]
+Let $f$ and $g$ be positive functions for sufficiently large $x$.
+\begin{itemize}
+\item $f$ \textit{grows faster} than $g$ as $x \to \infty$ if $\displaystyle \lim_{x \to \infty} \frac{f(x)}{g(x)} = \infty$. We write $f \gg g$.
+\item $f$ \textit{grows slower} than $g$ as $x \to \infty$ if $\displaystyle \lim_{x \to \infty} \frac{f(x)}{g(x)} = 0$. We write $f \ll g$.
+\item $f$ and $g$ \textit{grow at the same rate} as $x \to \infty$ if $\displaystyle \lim_{x \to \infty} \frac{f(x)}{g(x)} = L$, where $L$ is a positive finite constant.
+\end{itemize}
+\end{definition}
+\begin{definition}[Big-O and Little-o Notation]
+Let $f$ and $g$ be functions defined for sufficiently large $x$.
+\begin{itemize}
+\item $f(x) = O(g(x))$ as $x \to \infty$ if there exist constants $M > 0$ and $x_0$ such that $|f(x)| \leq M |g(x)|$ for all $x > x_0$.
+\item $f(x) = o(g(x))$ as $x \to \infty$ if $\displaystyle \lim_{x \to \infty} \frac{f(x)}{g(x)} = 0$.
+\end{itemize}
+\end{definition}
+\begin{theorem}[Hierarchy of Growth Rates]
+As $x \to \infty$, the following hierarchy holds for positive constants $a > 0$, $b > 1$, and $p > 0$:
+\[
+\ln x \ll x^p \ll b^x \ll x^x.
+\]
+More generally, any logarithmic function grows slower than any positive power function, which grows slower than any exponential function with base greater than 1.
+\end{theorem}
+\begin{example}
+Compare the growth rates of $f(x) = x^2$ and $g(x) = e^x$ as $x \to \infty$.
+\[
+\lim_{x \to \infty} \frac{x^2}{e^x} = 0.
+\]
+Therefore, $x^2 \ll e^x$. The exponential function grows much faster than the polynomial.
+\end{example}
+\begin{example}
+Compare the growth rates of $f(x) = \ln x$ and $g(x) = \sqrt{x}$ as $x \to \infty$.
+\[
+\lim_{x \to \infty} \frac{\ln x}{\sqrt{x}} = 0.
+\]
+Therefore, $\ln x \ll \sqrt{x}$. The square root function grows faster than the natural logarithm.
+\end{example}
+\subsection{Table of Equivalent Functions (Asymptotic Equivalences)}
+\begin{definition}[Asymptotic Equivalence]
+Two functions $f(x)$ and $g(x)$ are \textit{asymptotically equivalent} as $x \to a$ (where $a$ can be a finite number or $\pm\infty$), denoted $f(x) \sim g(x)$, if
+\[
+\lim_{x \to a} \frac{f(x)}{g(x)} = 1.
+\]
+\end{definition}
+The following table provides a list of common asymptotic equivalences used in calculus, particularly useful for evaluating limits and analyzing relative rates of growth.
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Function} & \textbf{Asymptotic Equivalent} & \textbf{Limit Condition} \\
+\hline
+$\sin x$ & $x$ & $x \to 0$ \\
+$\tan x$ & $x$ & $x \to 0$ \\
+$\arcsin x$ & $x$ & $x \to 0$ \\
+$\arctan x$ & $x$ & $x \to 0$ \\
+$1 - \cos x$ & $\frac{x^2}{2}$ & $x \to 0$ \\
+$e^x - 1$ & $x$ & $x \to 0$ \\
+$\ln(1 + x)$ & $x$ & $x \to 0$ \\
+$(1 + x)^\alpha - 1$ & $\alpha x$ & $x \to 0$ \\
+$\ln x$ & $x - 1$ & $x \to 1$ \\
+$a^x - 1$ & $x \ln a$ & $x \to 0$ \\
+\hline
+$P_n(x) = a_n x^n + \dots + a_0$ & $a_n x^n$ & $x \to \pm\infty$ \\
+\hline
+\end{tabular}
+\end{center}
+\begin{example}
+Evaluate $\displaystyle \lim_{x \to 0} \frac{1 - \cos x}{x^2}$.
+Using the asymptotic equivalence from the table, $1 - \cos x \sim \frac{x^2}{2}$ as $x \to 0$. Therefore,
+\[
+\lim_{x \to 0} \frac{1 - \cos x}{x^2} = \lim_{x \to 0} \frac{\frac{x^2}{2}}{x^2} = \frac{1}{2}.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \lim_{x \to 0} \frac{\ln(1 + x)}{x}$.
+Using the asymptotic equivalence, $\ln(1 + x) \sim x$ as $x \to 0$. Therefore,
+\[
+\lim_{x \to 0} \frac{\ln(1 + x)}{x} = \lim_{x \to 0} \frac{x}{x} = 1.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \lim_{x \to \infty} \frac{x^3 + 2x^2 + 1}{4x^3 - x + 5}$.
+Using the asymptotic equivalence for polynomials as $x \to \infty$, $x^3 + 2x^2 + 1 \sim x^3$ and $4x^3 - x + 5 \sim 4x^3$. Therefore,
+\[
+\lim_{x \to \infty} \frac{x^3 + 2x^2 + 1}{4x^3 - x + 5} = \lim_{x \to \infty} \frac{x^3}{4x^3} = \frac{1}{4}.
+\]
+\end{example}
+\begin{theorem}[Growth Rate Comparisons Involving Logarithms and Exponentials]
+For any constant $p > 0$ and any base $b > 1$:
+\begin{align*}
+\lim_{x \to \infty} \frac{\ln x}{x^p} &= 0, \\
+\lim_{x \to \infty} \frac{x^p}{b^x} &= 0, \\
+\lim_{x \to \infty} \frac{b^x}{x^x} &= 0.
+\end{align*}
+These limits formalize the hierarchy: logarithmic growth is slower than polynomial growth, which is slower than exponential growth, which is slower than factorial or $x^x$ growth.
+\end{theorem}
+\begin{example}
+Determine which function grows faster as $x \to \infty$: $f(x) = x^{100}$ or $g(x) = 2^x$.
+Despite the large exponent on $x$, the exponential function eventually outpaces any polynomial. By the theorem above with $p = 100$ and $b = 2$:
+\[
+\lim_{x \to \infty} \frac{x^{100}}{2^x} = 0.
+\]
+Therefore, $x^{100} \ll 2^x$.
+\end{example}
+\end{document}

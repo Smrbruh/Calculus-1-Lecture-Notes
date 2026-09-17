@@ -1,0 +1,363 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Lecture Notes: Integrals}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\titleformat{\section}{\Large\bfseries}{Section \thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{4cm}
+{\Huge\bfseries Lecture Notes:\\ Integrals\par}
+\vspace{1cm}
+{\Large Calculus I\par}
+\vspace{2cm}
+{\large \textbf{Author:} Bakdaulet Sotsial\par}
+\vspace{1cm}
+\vfill
+{\small Astana IT University \par}
+\vspace*{2cm}
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{Antiderivatives}
+\begin{definition}[Antiderivative]
+A function $F$ is called an \textit{antiderivative} of $f$ on an interval $I$ if $F'(x) = f(x)$ for all $x \in I$.
+\end{definition}
+\begin{theorem}[General Antiderivative]
+If $F$ is an antiderivative of $f$ on an interval $I$, then the most general antiderivative of $f$ on $I$ is
+\[
+F(x) + C,
+\]
+where $C$ is an arbitrary constant. This family of functions represents all possible antiderivatives of $f$.
+\end{theorem}
+\begin{proof}
+Let $G$ be any antiderivative of $f$. Then $G'(x) = f(x) = F'(x)$ for all $x \in I$. By the Mean Value Theorem corollary, $G(x) - F(x) = C$ for some constant $C$. Hence $G(x) = F(x) + C$.
+\end{proof}
+\begin{example}
+Find the general antiderivative of $f(x) = 3x^2$.
+Since $\frac{d}{dx}(x^3) = 3x^2$, an antiderivative is $F(x) = x^3$. The general antiderivative is $F(x) = x^3 + C$.
+\end{example}
+\begin{example}
+Find the general antiderivative of $f(x) = \cos x$.
+Since $\frac{d}{dx}(\sin x) = \cos x$, the general antiderivative is $F(x) = \sin x + C$.
+\end{example}
+\begin{example}
+Find the general antiderivative of $f(x) = \frac{1}{x}$ for $x > 0$.
+Since $\frac{d}{dx}(\ln x) = \frac{1}{x}$, the general antiderivative is $F(x) = \ln x + C$ for $x > 0$. For $x < 0$, we have $\frac{d}{dx}(\ln(-x)) = \frac{1}{x}$, so the general antiderivative on intervals not containing zero is $F(x) = \ln|x| + C$.
+\end{example}
+\begin{remark}
+Antiderivatives are not unique. The constant $C$ accounts for the vertical shift of the graph. Every antiderivative of $f$ can be obtained from any other by adding a constant.
+\end{remark}
+\section{Indefinite Integrals}
+\begin{definition}[Indefinite Integral]
+The notation $\int f(x) \, dx$ is called the \textit{indefinite integral} of $f$ with respect to $x$, and it represents the most general antiderivative of $f$. That is,
+\[
+\int f(x) \, dx = F(x) + C,
+\]
+where $F'(x) = f(x)$ and $C$ is an arbitrary constant. The function $f$ is called the \textit{integrand}, and $C$ is the \textit{constant of integration}.
+\end{definition}
+\begin{remark}
+The symbol $\int$ is called an integral sign, and $dx$ indicates the variable of integration. The process of finding an indefinite integral is called \textit{integration} or \textit{antidifferentiation}.
+\end{remark}
+\begin{theorem}[Linearity of Indefinite Integrals]
+If $f$ and $g$ have antiderivatives and $k$ is a constant, then
+\[
+\int [f(x) + g(x)] \, dx = \int f(x) \, dx + \int g(x) \, dx,
+\]
+\[
+\int k f(x) \, dx = k \int f(x) \, dx.
+\]
+\end{theorem}
+\begin{proof}
+These follow directly from the linearity of the derivative. If $F' = f$ and $G' = g$, then $(F + G)' = f + g$, so $\int (f+g) \, dx = F + G + C$. Similarly, $(kF)' = kf$, so $\int kf \, dx = kF + C$.
+\end{proof}
+\begin{example}
+Evaluate $\displaystyle \int (4x^3 - 2x + 5) \, dx$.
+Using linearity and the power rule,
+\[
+\int (4x^3 - 2x + 5) \, dx = 4 \int x^3 \, dx - 2 \int x \, dx + 5 \int 1 \, dx = 4 \cdot \frac{x^4}{4} - 2 \cdot \frac{x^2}{2} + 5x + C = x^4 - x^2 + 5x + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \left( \frac{1}{x^2} + \sqrt{x} \right) \, dx$ for $x > 0$.
+Rewrite the integrand:
+\[
+\int (x^{-2} + x^{1/2}) \, dx = \frac{x^{-1}}{-1} + \frac{x^{3/2}}{3/2} + C = -\frac{1}{x} + \frac{2}{3}x^{3/2} + C.
+\]
+\end{example}
+\section{Basic Integration Formulas}
+\begin{theorem}[Power Rule for Integration]
+For any real number $n \neq -1$,
+\[
+\int x^n \, dx = \frac{x^{n+1}}{n+1} + C.
+\]
+For $n = -1$,
+\[
+\int \frac{1}{x} \, dx = \ln|x| + C.
+\]
+\end{theorem}
+\begin{proof}
+Differentiate the right-hand side. For $n \neq -1$, $\frac{d}{dx}\left(\frac{x^{n+1}}{n+1}\right) = x^n$. For $n = -1$, $\frac{d}{dx}(\ln|x|) = \frac{1}{x}$ for $x \neq 0$.
+\end{proof}
+\begin{theorem}[Exponential and Logarithmic Formulas]
+\begin{align*}
+\int e^x \, dx &= e^x + C, \\
+\int a^x \, dx &= \frac{a^x}{\ln a} + C \quad (a > 0, a \neq 1), \\
+\int \ln x \, dx &= x \ln x - x + C.
+\end{align*}
+\end{theorem}
+\begin{proof}
+The first two follow from the corresponding derivative formulas. For the third, differentiate $x \ln x - x$: $1 \cdot \ln x + x \cdot \frac{1}{x} - 1 = \ln x$.
+\end{proof}
+\begin{theorem}[Trigonometric Integration Formulas]
+\begin{align*}
+\int \sin x \, dx &= -\cos x + C, \\
+\int \cos x \, dx &= \sin x + C, \\
+\int \sec^2 x \, dx &= \tan x + C, \\
+\int \csc^2 x \, dx &= -\cot x + C, \\
+\int \sec x \tan x \, dx &= \sec x + C, \\
+\int \csc x \cot x \, dx &= -\csc x + C.
+\end{align*}
+\end{theorem}
+\begin{proof}
+Each formula is verified by differentiating the right-hand side. For example, $\frac{d}{dx}(-\cos x) = \sin x$, so $\int \sin x \, dx = -\cos x + C$.
+\end{proof}
+\begin{theorem}[Inverse Trigonometric Integration Formulas]
+\begin{align*}
+\int \frac{1}{1+x^2} \, dx &= \arctan x + C, \\
+\int \frac{1}{\sqrt{1-x^2}} \, dx &= \arcsin x + C.
+\end{align*}
+\end{theorem}
+\begin{proof}
+These follow from the derivative formulas for arctangent and arcsine.
+\end{proof}
+\begin{example}
+Evaluate $\displaystyle \int (3\sin x - 2\sec^2 x) \, dx$.
+\[
+\int (3\sin x - 2\sec^2 x) \, dx = 3(-\cos x) - 2\tan x + C = -3\cos x - 2\tan x + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \left( \frac{1}{1+x^2} + \frac{1}{\sqrt{1-x^2}} \right) \, dx$.
+\[
+\int \left( \frac{1}{1+x^2} + \frac{1}{\sqrt{1-x^2}} \right) \, dx = \arctan x + \arcsin x + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int (2e^x + 3^x) \, dx$.
+\[
+\int (2e^x + 3^x) \, dx = 2e^x + \frac{3^x}{\ln 3} + C.
+\]
+\end{example}
+\section{Integration by Substitution}
+\begin{theorem}[Substitution Rule]
+If $u = g(x)$ is a differentiable function whose range is an interval $I$, and $f$ is continuous on $I$, then
+\[
+\int f(g(x)) g'(x) \, dx = \int f(u) \, du.
+\]
+In Leibniz notation, if $u = g(x)$, then $du = g'(x) \, dx$, so
+\[
+\int f(g(x)) g'(x) \, dx = \int f(u) \, du.
+\]
+\end{theorem}
+\begin{proof}
+Let $F$ be an antiderivative of $f$. Then $\frac{d}{dx} F(g(x)) = F'(g(x)) g'(x) = f(g(x)) g'(x)$. Thus, $\int f(g(x)) g'(x) \, dx = F(g(x)) + C$. Also, $\int f(u) \, du = F(u) + C = F(g(x)) + C$. Hence the equality holds.
+\end{proof}
+\begin{remark}
+The Substitution Rule is the reverse of the Chain Rule. It is often called $u$-substitution. To apply it, choose $u$ to be an inner function whose derivative also appears in the integrand (up to a constant factor).
+\end{remark}
+\begin{example}
+Evaluate $\displaystyle \int 2x \cos(x^2) \, dx$.
+Let $u = x^2$. Then $du = 2x \, dx$. The integral becomes
+\[
+\int \cos u \, du = \sin u + C = \sin(x^2) + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int e^{5x} \, dx$.
+Let $u = 5x$. Then $du = 5 \, dx$, so $dx = \frac{du}{5}$. The integral becomes
+\[
+\int e^u \cdot \frac{du}{5} = \frac{1}{5} e^u + C = \frac{1}{5} e^{5x} + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{1}{2x+1} \, dx$.
+Let $u = 2x+1$. Then $du = 2 \, dx$, so $dx = \frac{du}{2}$. The integral becomes
+\[
+\int \frac{1}{u} \cdot \frac{du}{2} = \frac{1}{2} \ln|u| + C = \frac{1}{2} \ln|2x+1| + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int x \sqrt{x^2 + 1} \, dx$.
+Let $u = x^2 + 1$. Then $du = 2x \, dx$, so $x \, dx = \frac{du}{2}$. The integral becomes
+\[
+\int \sqrt{u} \cdot \frac{du}{2} = \frac{1}{2} \cdot \frac{2}{3} u^{3/2} + C = \frac{1}{3} (x^2 + 1)^{3/2} + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \tan x \, dx$.
+Rewrite $\tan x = \frac{\sin x}{\cos x}$. Let $u = \cos x$. Then $du = -\sin x \, dx$, so $\sin x \, dx = -du$. The integral becomes
+\[
+\int \frac{\sin x}{\cos x} \, dx = \int \frac{-du}{u} = -\ln|u| + C = -\ln|\cos x| + C = \ln|\sec x| + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{e^x}{1 + e^x} \, dx$.
+Let $u = 1 + e^x$. Then $du = e^x \, dx$. The integral becomes
+\[
+\int \frac{du}{u} = \ln|u| + C = \ln(1 + e^x) + C.
+\]
+\end{example}
+\section{More Substitution Techniques}
+\begin{theorem}[Substitution with Definite Integrals]
+If $g'$ is continuous on $[a, b]$ and $f$ is continuous on the range of $g$, then
+\[
+\int_a^b f(g(x)) g'(x) \, dx = \int_{g(a)}^{g(b)} f(u) \, du.
+\]
+\end{theorem}
+\begin{proof}
+Let $F$ be an antiderivative of $f$. Then $\int_a^b f(g(x)) g'(x) \, dx = F(g(b)) - F(g(a))$. Also, $\int_{g(a)}^{g(b)} f(u) \, du = F(g(b)) - F(g(a))$. The equality follows.
+\end{proof}
+\begin{example}
+Evaluate $\displaystyle \int_0^1 2x e^{x^2} \, dx$.
+Let $u = x^2$. Then $du = 2x \, dx$. When $x = 0$, $u = 0$. When $x = 1$, $u = 1$. The integral becomes
+\[
+\int_0^1 e^u \, du = e^u \Big|_0^1 = e - 1.
+\]
+\end{example}
+\begin{theorem}[Trigonometric Substitution]
+For integrals involving $\sqrt{a^2 - x^2}$, substitute $x = a \sin \theta$.
+For integrals involving $\sqrt{a^2 + x^2}$, substitute $x = a \tan \theta$.
+For integrals involving $\sqrt{x^2 - a^2}$, substitute $x = a \sec \theta$.
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \int \frac{1}{\sqrt{1 - x^2}} \, dx$.
+Let $x = \sin \theta$. Then $dx = \cos \theta \, d\theta$. The integral becomes
+\[
+\int \frac{\cos \theta}{\sqrt{1 - \sin^2 \theta}} \, d\theta = \int \frac{\cos \theta}{\cos \theta} \, d\theta = \int 1 \, d\theta = \theta + C = \arcsin x + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{1}{1 + x^2} \, dx$.
+Let $x = \tan \theta$. Then $dx = \sec^2 \theta \, d\theta$. The integral becomes
+\[
+\int \frac{\sec^2 \theta}{1 + \tan^2 \theta} \, d\theta = \int \frac{\sec^2 \theta}{\sec^2 \theta} \, d\theta = \int 1 \, d\theta = \theta + C = \arctan x + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \sqrt{4 - x^2} \, dx$.
+Let $x = 2 \sin \theta$. Then $dx = 2 \cos \theta \, d\theta$ and $\sqrt{4 - x^2} = 2 \cos \theta$. The integral becomes
+\[
+\int 2 \cos \theta \cdot 2 \cos \theta \, d\theta = 4 \int \cos^2 \theta \, d\theta.
+\]
+Using the identity $\cos^2 \theta = \frac{1 + \cos 2\theta}{2}$,
+\[
+4 \int \frac{1 + \cos 2\theta}{2} \, d\theta = 2 \int (1 + \cos 2\theta) \, d\theta = 2 \left( \theta + \frac{\sin 2\theta}{2} \right) + C = 2\theta + \sin 2\theta + C.
+\]
+Since $x = 2 \sin \theta$, $\theta = \arcsin\left(\frac{x}{2}\right)$ and $\sin 2\theta = 2 \sin \theta \cos \theta = 2 \cdot \frac{x}{2} \cdot \frac{\sqrt{4 - x^2}}{2} = \frac{x \sqrt{4 - x^2}}{2}$. Thus,
+\[
+\int \sqrt{4 - x^2} \, dx = 2 \arcsin\left(\frac{x}{2}\right) + \frac{x \sqrt{4 - x^2}}{2} + C.
+\]
+\end{example}
+\section{Additional Examples and Applications}
+\begin{example}
+Evaluate $\displaystyle \int \frac{\ln x}{x} \, dx$.
+Let $u = \ln x$. Then $du = \frac{1}{x} \, dx$. The integral becomes
+\[
+\int u \, du = \frac{u^2}{2} + C = \frac{(\ln x)^2}{2} + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{1}{x \ln x} \, dx$ for $x > 1$.
+Let $u = \ln x$. Then $du = \frac{1}{x} \, dx$. The integral becomes
+\[
+\int \frac{du}{u} = \ln|u| + C = \ln(\ln x) + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \sin^3 x \cos x \, dx$.
+Let $u = \sin x$. Then $du = \cos x \, dx$. The integral becomes
+\[
+\int u^3 \, du = \frac{u^4}{4} + C = \frac{\sin^4 x}{4} + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{x}{\sqrt{x^2 + 4}} \, dx$.
+Let $u = x^2 + 4$. Then $du = 2x \, dx$, so $x \, dx = \frac{du}{2}$. The integral becomes
+\[
+\int \frac{1}{\sqrt{u}} \cdot \frac{du}{2} = \frac{1}{2} \int u^{-1/2} \, du = \frac{1}{2} \cdot 2 u^{1/2} + C = \sqrt{x^2 + 4} + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{e^{\sqrt{x}}}{\sqrt{x}} \, dx$.
+Let $u = \sqrt{x}$. Then $du = \frac{1}{2\sqrt{x}} \, dx$, so $\frac{dx}{\sqrt{x}} = 2 \, du$. The integral becomes
+\[
+\int e^u \cdot 2 \, du = 2e^u + C = 2e^{\sqrt{x}} + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{\cos x}{\sin^2 x} \, dx$.
+Let $u = \sin x$. Then $du = \cos x \, dx$. The integral becomes
+\[
+\int \frac{du}{u^2} = -\frac{1}{u} + C = -\csc x + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{1}{e^x + 1} \, dx$.
+Rewrite the integrand by multiplying numerator and denominator by $e^{-x}$:
+\[
+\int \frac{e^{-x}}{1 + e^{-x}} \, dx.
+\]
+Let $u = 1 + e^{-x}$. Then $du = -e^{-x} \, dx$, so $e^{-x} \, dx = -du$. The integral becomes
+\[
+\int \frac{-du}{u} = -\ln|u| + C = -\ln(1 + e^{-x}) + C.
+\]
+\end{example}
+\begin{theorem}[Integration of Rational Functions by Substitution]
+For integrals of the form $\displaystyle \int \frac{f'(x)}{f(x)} \, dx$, the substitution $u = f(x)$ gives $\displaystyle \int \frac{du}{u} = \ln|f(x)| + C$.
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \int \frac{2x + 1}{x^2 + x + 1} \, dx$.
+Let $u = x^2 + x + 1$. Then $du = (2x + 1) \, dx$. The integral becomes
+\[
+\int \frac{du}{u} = \ln|u| + C = \ln|x^2 + x + 1| + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{\sec^2 x}{\tan x} \, dx$.
+Let $u = \tan x$. Then $du = \sec^2 x \, dx$. The integral becomes
+\[
+\int \frac{du}{u} = \ln|u| + C = \ln|\tan x| + C.
+\]
+\end{example}
+\begin{remark}
+When using substitution, always remember to:
+\begin{enumerate}
+\item Choose $u$ carefully so that $du$ appears in the integrand.
+\item Convert the entire integral to $u$ and $du$.
+\item Evaluate the integral in terms of $u$.
+\item Substitute back to the original variable.
+\item Add the constant of integration $C$.
+\end{enumerate}
+\end{remark}
+\end{document}

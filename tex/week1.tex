@@ -1,0 +1,199 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\newtheorem{example}{Example}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Lecture Notes: Functions and Sets}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\titleformat{\section}{\Large\bfseries}{Section \thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{4cm}
+{\Huge\bfseries Lecture Notes:\\ Functions and Sets\par}
+\vspace{1cm}
+{\Large Calculus I\par}
+\vspace{2cm}
+{\large \textbf{Author:} Bakdaulet Sotsial\par}
+\vspace{1cm}
+\vfill
+{\small Astana IT University \par}
+\vspace*{2cm}
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{Sets and Intervals}
+\textbf{Definition (Set).} A \textit{set} is a collection of distinct objects, considered as an object in its own right. The objects in a set are called its \textit{elements}. If $a$ is an element of set $A$, we write $a \in A$. If $a$ is not an element of $A$, we write $a \notin A$. The set containing no elements is called the \textit{empty set} and is denoted by $\emptyset$.
+\textbf{Definition (Subset).} If every element of set $A$ is also an element of set $B$, then $A$ is a \textit{subset} of $B$, denoted $A \subseteq B$. If $A \subseteq B$ and $B \subseteq A$, then $A = B$. If there exists at least one element in $B$ that is not in $A$, then $A$ is a \textit{proper subset} of $B$, denoted $A \subset B$.
+\textbf{Definition (Set Operations).} Let $A$ and $B$ be sets.
+\begin{itemize}
+\item The \textit{union} of $A$ and $B$, denoted $A \cup B$, is the set of all elements that are in $A$ or in $B$ (or both).
+\item The \textit{intersection} of $A$ and $B$, denoted $A \cap B$, is the set of all elements that are in both $A$ and $B$.
+\item The \textit{difference} of $A$ and $B$, denoted $A \setminus B$, is the set of all elements that are in $A$ but not in $B$.
+\item The \textit{complement} of $A$, denoted $\bar{A}$ or $A^c$, is the set of all elements in the universal set $U$ that are not in $A$.
+\end{itemize}
+\textbf{Definition (Intervals).} An \textit{interval} is a subset of the real line $\mathbb{R}$ that contains all real numbers between any two numbers in the set. Let $a, b \in \mathbb{R}$ with $a < b$.
+\begin{itemize}
+\item \textbf{Open Interval:} $(a, b) = \{x \in \mathbb{R} \mid a < x < b\}$.
+\item \textbf{Closed Interval:} $[a, b] = \{x \in \mathbb{R} \mid a \leq x \leq b\}$.
+\item \textbf{Half-Open Intervals:} $[a, b) = \{x \in \mathbb{R} \mid a \leq x < b\}$ and $(a, b] = \{x \in \mathbb{R} \mid a < x \leq b\}$.
+\item \textbf{Infinite Intervals:} $(a, \infty) = \{x \in \mathbb{R} \mid x > a\}$, $(-\infty, b] = \{x \in \mathbb{R} \mid x \leq b\}$.
+\end{itemize}
+\textbf{Definition (Absolute Value).} The \textit{absolute value} of a real number $x$, denoted $|x|$, is defined as:
+\begin{equation*}
+|x| = \begin{cases} 
+x & \text{if } x \geq 0 \\
+-x & \text{if } x < 0 
+\end{cases}
+\end{equation*}
+\textbf{Properties of Absolute Value.}
+\begin{align*}
+|ab| &= |a||b|, & \left|\frac{a}{b}\right| &= \frac{|a|}{|b|} \quad (b \neq 0), \\
+|a + b| &\leq |a| + |b|, & |a - b| &\geq ||a| - |b||.
+\end{align*}
+\section{Functions and Their Graphs}
+\textbf{Definition (Function).} A \textit{function} $f$ from a set $D$ to a set $E$ is a rule that assigns to each element $x$ in $D$ exactly one element, called $f(x)$, in $E$. The set $D$ is called the \textit{domain} of $f$. The set $E$ is called the \textit{codomain} of $f$. The \textit{range} of $f$ is the set of all possible values $f(x)$ as $x$ varies throughout the domain. We denote this mapping by $f: D \to E$.
+\textbf{Remark (Vertical Line Test).} A curve in the $xy$-plane is the graph of a function of $x$ if and only if no vertical line intersects the curve more than once.
+\textbf{Definition (Piecewise Defined Functions).} A function may be defined by different formulas in different parts of its domain. Such a function is called a \textit{piecewise defined function}.
+\begin{example}
+The absolute value function $f(x) = |x|$ is a piecewise defined function.
+\end{example}
+\textbf{Definition (Even and Odd Functions).} Let $f$ be a function with domain $D$ symmetric about the origin (i.e., if $x \in D$, then $-x \in D$).
+\begin{itemize}
+\item $f$ is an \textit{even function} if $f(-x) = f(x)$ for all $x \in D$. The graph of an even function is symmetric with respect to the $y$-axis.
+\item $f$ is an \textit{odd function} if $f(-x) = -f(x)$ for all $x \in D$. The graph of an odd function is symmetric with respect to the origin.
+\end{itemize}
+\textbf{Definition (Increasing and Decreasing Functions).} A function $f$ is called:
+\begin{itemize}
+\item \textit{increasing} on an interval $I$ if $f(x_1) < f(x_2)$ whenever $x_1 < x_2$ in $I$.
+\item \textit{decreasing} on an interval $I$ if $f(x_1) > f(x_2)$ whenever $x_1 < x_2$ in $I$.
+\end{itemize}
+\section{Shifts and Scaling of Graphs}
+Given a basic function $y = f(x)$ and a constant $c > 0$, we can transform its graph in the following ways:
+\subsection{Vertical and Horizontal Shifts}
+\begin{itemize}
+\item \textbf{Vertical Shift:} $y = f(x) + c$ shifts the graph of $f$ \textbf{up} by $c$ units. $y = f(x) - c$ shifts it \textbf{down} by $c$ units.
+\item \textbf{Horizontal Shift:} $y = f(x - c)$ shifts the graph of $f$ \textbf{right} by $c$ units. $y = f(x + c)$ shifts it \textbf{left} by $c$ units.
+\end{itemize}
+\subsection{Scaling and Reflection}
+\begin{itemize}
+\item \textbf{Vertical Scaling:} $y = c f(x)$ stretches the graph vertically by a factor of $c$ if $c > 1$, and compresses it if $0 < c < 1$.
+\item \textbf{Horizontal Scaling:} $y = f(cx)$ compresses the graph horizontally by a factor of $c$ if $c > 1$, and stretches it if $0 < c < 1$.
+\item \textbf{Reflections:} 
+\begin{itemize}
+\item $y = -f(x)$ reflects the graph across the $x$-axis.
+\item $y = f(-x)$ reflects the graph across the $y$-axis.
+\end{itemize}
+\end{itemize}
+\begin{example}
+Consider $f(x) = x^2$. The graph of $y = (x-2)^2 + 3$ is obtained by shifting the parabola $y = x^2$ right by 2 units and up by 3 units.
+\end{example}
+\section{Elementary and Transcendental Functions}
+\textbf{Definition (Elementary Functions).} Elementary functions are functions built from basic building blocks using algebraic operations (addition, subtraction, multiplication, division) and composition. These include:
+\begin{itemize}
+\item \textbf{Polynomials:} $f(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0$, where $n \geq 0$ is an integer and $a_i$ are constants. The domain is $\mathbb{R}$.
+\item \textbf{Rational Functions:} $f(x) = \frac{P(x)}{Q(x)}$, where $P$ and $Q$ are polynomials. The domain is all $x$ such that $Q(x) \neq 0$.
+\item \textbf{Power Functions:} $f(x) = x^a$, where $a$ is a constant.
+\item \textbf{Root Functions:} $f(x) = \sqrt[n]{x}$.
+\end{itemize}
+\textbf{Definition (Transcendental Functions).} Transcendental functions are functions that are not algebraic. They cannot be expressed as a finite combination of algebraic operations.
+\begin{itemize}
+\item \textbf{Exponential Functions:} $f(x) = a^x$ (where $a > 0, a \neq 1$). The domain is $\mathbb{R}$, and the range is $(0, \infty)$. The most important base is Euler's number $e \approx 2.71828$, giving $f(x) = e^x$.
+\item \textbf{Logarithmic Functions:} $f(x) = \log_a x$. The domain is $(0, \infty)$, and the range is $\mathbb{R}$. The natural logarithm is $f(x) = \ln x = \log_e x$. 
+\item \textbf{Trigonometric Functions:} $\sin x, \cos x, \tan x, \cot x, \sec x, \csc x$.
+\end{itemize}
+\textbf{Properties of Exponential and Logarithmic Functions.}
+\begin{align*}
+a^{x+y} &= a^x a^y, & \log_a(xy) &= \log_a x + \log_a y, \\
+(a^x)^y &= a^{xy}, & \log_a(x^r) &= r \log_a x, \\
+a^{\log_a x} &= x, & \log_a(a^x) &= x.
+\end{align*}
+\section{Inverse Functions}
+\textbf{Definition (One-to-One Function).} A function $f$ is called \textit{one-to-one} (or injective) if it never takes on the same value twice; that is, $f(x_1) \neq f(x_2)$ whenever $x_1 \neq x_2$. Equivalently, $f(x_1) = f(x_2) \implies x_1 = x_2$.
+\textbf{Remark (Horizontal Line Test).} A function is one-to-one if and only if no horizontal line intersects its graph more than once.
+\textbf{Definition (Inverse Function).} Let $f$ be a one-to-one function with domain $D$ and range $R$. Its \textit{inverse function}, denoted $f^{-1}$, has domain $R$ and range $D$, and is defined by:
+\begin{equation*}
+f^{-1}(y) = x \iff f(x) = y.
+\end{equation*}
+\textbf{Theorem (Properties of Inverse Functions).} If $f$ is a one-to-one function, then:
+\begin{align*}
+f^{-1}(f(x)) &= x \quad \text{for every } x \in D, \\
+f(f^{-1}(y)) &= y \quad \text{for every } y \in R.
+\end{align*}
+\textbf{Steps to Find the Inverse of a One-to-One Function.}
+\begin{enumerate}
+\item Write $y = f(x)$.
+\item Interchange $x$ and $y$.
+\item Solve this equation for $y$ in terms of $x$.
+\item The resulting expression is $y = f^{-1}(x)$.
+\end{enumerate}
+\textbf{Remark.} The graph of $f^{-1}$ is obtained by reflecting the graph of $f$ across the line $y = x$.
+\begin{example}
+Find the inverse of $f(x) = 2x + 3$.
+Set $y = 2x + 3$. Interchange $x$ and $y$: $x = 2y + 3$. Solve for $y$: $2y = x - 3 \implies y = \frac{x-3}{2}$. Thus, $f^{-1}(x) = \frac{x-3}{2}$.
+\end{example}
+\section{The Composition of Functions}
+\textbf{Definition (Composition).} Given two functions $f$ and $g$, the \textit{composite function} $f \circ g$ (read as ``$f$ composed with $g$'') is defined by:
+\begin{equation*}
+(f \circ g)(x) = f(g(x)).
+\end{equation*}
+The domain of $f \circ g$ is the set of all $x$ in the domain of $g$ such that $g(x)$ is in the domain of $f$.
+\begin{example}
+Let $f(x) = \sqrt{x}$ and $g(x) = x - 2$. Find $(f \circ g)(x)$ and its domain.
+We have $(f \circ g)(x) = f(g(x)) = f(x-2) = \sqrt{x-2}$. For this to be defined, we need $x - 2 \geq 0$, so $x \geq 2$. The domain is $[2, \infty)$.
+\end{example}
+\begin{example}
+Let $f(x) = x^2$ and $g(x) = x + 1$. Find $(f \circ g)(x)$ and $(g \circ f)(x)$.
+\begin{align*}
+(f \circ g)(x) &= f(g(x)) = f(x + 1) = (x + 1)^2. \\
+(g \circ f)(x) &= g(f(x)) = g(x^2) = x^2 + 1.
+\end{align*}
+Note that $f \circ g \neq g \circ f$ in general.
+\end{example}
+\section{Trigonometric Functions}
+\textbf{Definition (Unit Circle Definition).} Let $t$ be a real number representing the length of an arc on the unit circle $x^2 + y^2 = 1$, starting from the point $(1, 0)$ and moving counterclockwise. If the terminal point of the arc is $(x, y)$, then:
+\begin{equation*}
+\cos t = x, \qquad \sin t = y, \qquad \tan t = \frac{y}{x} \quad (x \neq 0).
+\end{equation*}
+\textbf{Properties.}
+\begin{itemize}
+\item \textbf{Periodicity:} $\sin(t + 2\pi) = \sin t$ and $\cos(t + 2\pi) = \cos t$. The sine and cosine functions have period $2\pi$. The tangent function has period $\pi$.
+\item \textbf{Domain and Range:} The domain of $\sin t$ and $\cos t$ is $\mathbb{R}$, and their range is $[-1, 1]$. The domain of $\tan t$ is $t \neq \frac{\pi}{2} + k\pi, k \in \mathbb{Z}$.
+\item \textbf{Pythagorean Identity:} $\sin^2 t + \cos^2 t = 1$.
+\item \textbf{Sum and Difference Formulas:}
+\begin{align*}
+\sin(x + y) &= \sin x \cos y + \cos x \sin y, \\
+\cos(x + y) &= \cos x \cos y - \sin x \sin y.
+\end{align*}
+\item \textbf{Double Angle Formulas:}
+\begin{align*}
+\sin(2x) &= 2 \sin x \cos x, \\
+\cos(2x) &= \cos^2 x - \sin^2 x = 1 - 2\sin^2 x = 2\cos^2 x - 1.
+\end{align*}
+\end{itemize}
+\textbf{Graphs and Transformations.} For functions of the form $y = A \sin(B(x - C)) + D$:
+\begin{itemize}
+\item $A$ is the \textit{amplitude} (vertical scaling). The graph oscillates between $D - |A|$ and $D + |A|$.
+\item $B$ affects the \textit{period}, where Period $= \frac{2\pi}{|B|}$.
+\item $C$ is the \textit{phase shift} (horizontal shift).
+\item $D$ is the \textit{vertical shift}.
+\end{itemize}
+\textbf{Inverse Trigonometric Functions.} The inverse functions of sine, cosine, and tangent are defined by restricting their domains to ensure they are one-to-one:
+\begin{itemize}
+\item $y = \arcsin x \iff \sin y = x$, for $x \in [-1, 1]$ and $y \in [-\frac{\pi}{2}, \frac{\pi}{2}]$.
+\item $y = \arccos x \iff \cos y = x$, for $x \in [-1, 1]$ and $y \in [0, \pi]$.
+\item $y = \arctan x \iff \tan y = x$, for $x \in \mathbb{R}$ and $y \in (-\frac{\pi}{2}, \frac{\pi}{2})$.
+\end{itemize}
+\end{document}

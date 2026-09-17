@@ -1,0 +1,348 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Lecture Notes: Applications of Derivatives}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\titleformat{\section}{\Large\bfseries}{Section \thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{4cm}
+{\Huge\bfseries Lecture Notes:\\ Applications of Derivatives\par}
+\vspace{1cm}
+{\Large Calculus I\par}
+\vspace{2cm}
+{\large \textbf{Author:} Bakdaulet Sotsial\par}
+\vspace{1cm}
+\vfill
+{\small Astana IT University \par}
+\vspace*{2cm}
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{Maxima and Minima}
+\begin{definition}[Absolute Maximum and Minimum]
+Let $f$ be a function defined on a set $D$ containing $c$. Then $f(c)$ is the \textit{absolute maximum} of $f$ on $D$ if $f(c) \geq f(x)$ for all $x \in D$. Similarly, $f(c)$ is the \textit{absolute minimum} of $f$ on $D$ if $f(c) \leq f(x)$ for all $x \in D$. The absolute maximum and minimum are called the \textit{absolute extrema} of $f$ on $D$.
+\end{definition}
+\begin{definition}[Local Maximum and Minimum]
+A function $f$ has a \textit{local maximum} at $c$ if $f(c) \geq f(x)$ for all $x$ in an open interval containing $c$. Similarly, $f$ has a \textit{local minimum} at $c$ if $f(c) \leq f(x)$ for all $x$ in an open interval containing $c$. Local maxima and minima are called \textit{local extrema}.
+\end{definition}
+\begin{theorem}[Extreme Value Theorem]
+If $f$ is continuous on a closed interval $[a, b]$, then $f$ attains both an absolute maximum and an absolute minimum on $[a, b]$.
+\end{theorem}
+\begin{theorem}[Fermat's Theorem]
+If $f$ has a local extremum at $c$ and $f'(c)$ exists, then $f'(c) = 0$.
+\end{theorem}
+\begin{proof}
+Suppose $f$ has a local maximum at $c$. Then for $h$ sufficiently small (positive or negative), $f(c+h) \leq f(c)$, so $f(c+h) - f(c) \leq 0$. For $h > 0$, $\frac{f(c+h) - f(c)}{h} \leq 0$, so the right-hand derivative is $\leq 0$. For $h < 0$, $\frac{f(c+h) - f(c)}{h} \geq 0$, so the left-hand derivative is $\geq 0$. Since $f'(c)$ exists, both one-sided limits must be equal, so $f'(c) = 0$. The proof for a local minimum is similar.
+\end{proof}
+\begin{definition}[Critical Number]
+A \textit{critical number} of a function $f$ is a number $c$ in the domain of $f$ such that either $f'(c) = 0$ or $f'(c)$ does not exist.
+\end{definition}
+\begin{remark}
+If $f$ has a local extremum at $c$, then $c$ is a critical number of $f$. However, not every critical number yields a local extremum. For example, $f(x) = x^3$ has $f'(0) = 0$, but $x = 0$ is neither a local maximum nor a local minimum.
+\end{remark}
+\begin{theorem}[First Derivative Test]
+Suppose $c$ is a critical number of a continuous function $f$.
+\begin{enumerate}
+\item If $f'$ changes from positive to negative at $c$, then $f$ has a local maximum at $c$.
+\item If $f'$ changes from negative to positive at $c$, then $f$ has a local minimum at $c$.
+\item If $f'$ does not change sign at $c$, then $f$ has no local extremum at $c$.
+\end{enumerate}
+\end{theorem}
+\begin{theorem}[Second Derivative Test]
+Suppose $f''$ is continuous near $c$.
+\begin{enumerate}
+\item If $f'(c) = 0$ and $f''(c) > 0$, then $f$ has a local minimum at $c$.
+\item If $f'(c) = 0$ and $f''(c) < 0$, then $f$ has a local maximum at $c$.
+\item If $f'(c) = 0$ and $f''(c) = 0$, the test is inconclusive.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Find the local extrema of $f(x) = x^3 - 3x^2 + 2$.
+First, find critical numbers: $f'(x) = 3x^2 - 6x = 3x(x - 2)$. Setting $f'(x) = 0$ gives $x = 0$ and $x = 2$.
+Second derivative: $f''(x) = 6x - 6$.
+At $x = 0$: $f''(0) = -6 < 0$, so local maximum at $x = 0$, $f(0) = 2$.
+At $x = 2$: $f''(2) = 6 > 0$, so local minimum at $x = 2$, $f(2) = 8 - 12 + 2 = -2$.
+\end{example}
+\begin{theorem}[Closed Interval Method]
+To find the absolute extrema of a continuous function $f$ on a closed interval $[a, b]$:
+\begin{enumerate}
+\item Find the values of $f$ at the critical numbers of $f$ in $(a, b)$.
+\item Find the values of $f$ at the endpoints $a$ and $b$.
+\item The largest of these values is the absolute maximum; the smallest is the absolute minimum.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Find the absolute extrema of $f(x) = x^3 - 3x + 1$ on $[0, 3]$.
+$f'(x) = 3x^2 - 3 = 3(x^2 - 1)$. Critical numbers in $(0, 3)$: $x = 1$.
+Evaluate: $f(0) = 1$, $f(1) = -1$, $f(3) = 27 - 9 + 1 = 19$.
+Absolute maximum: $19$ at $x = 3$. Absolute minimum: $-1$ at $x = 1$.
+\end{example}
+\section{The Mean Value Theorem}
+\begin{theorem}[Rolle's Theorem]
+If $f$ is continuous on $[a, b]$, differentiable on $(a, b)$, and $f(a) = f(b)$, then there exists a number $c \in (a, b)$ such that $f'(c) = 0$.
+\end{theorem}
+\begin{proof}
+If $f$ is constant on $[a, b]$, then $f'(c) = 0$ for all $c \in (a, b)$. Otherwise, by the Extreme Value Theorem, $f$ attains a maximum or minimum at some $c \in (a, b)$. Since $f(a) = f(b)$, this extremum is not at the endpoints, so $c \in (a, b)$. By Fermat's Theorem, $f'(c) = 0$.
+\end{proof}
+\begin{theorem}[Mean Value Theorem]
+If $f$ is continuous on $[a, b]$ and differentiable on $(a, b)$, then there exists a number $c \in (a, b)$ such that
+\[
+f'(c) = \frac{f(b) - f(a)}{b - a}.
+\]
+Equivalently, $f(b) - f(a) = f'(c)(b - a)$.
+\end{theorem}
+\begin{proof}
+Define $g(x) = f(x) - f(a) - \frac{f(b) - f(a)}{b - a}(x - a)$. Then $g$ is continuous on $[a, b]$, differentiable on $(a, b)$, and $g(a) = 0 = g(b)$. By Rolle's Theorem, there exists $c \in (a, b)$ such that $g'(c) = 0$. Since $g'(x) = f'(x) - \frac{f(b) - f(a)}{b - a}$, we get $f'(c) = \frac{f(b) - f(a)}{b - a}$.
+\end{proof}
+\begin{example}
+Verify the Mean Value Theorem for $f(x) = x^2$ on $[0, 2]$.
+$f(0) = 0$, $f(2) = 4$. The average rate of change is $\frac{4 - 0}{2 - 0} = 2$. We need $f'(c) = 2c = 2$, so $c = 1 \in (0, 2)$.
+\end{example}
+\begin{theorem}[Consequences of the Mean Value Theorem]
+\begin{enumerate}
+\item If $f'(x) = 0$ for all $x$ in an interval $(a, b)$, then $f$ is constant on $(a, b)$.
+\item If $f'(x) = g'(x)$ for all $x$ in $(a, b)$, then $f(x) = g(x) + C$ for some constant $C$.
+\item If $f'(x) > 0$ for all $x$ in an interval, then $f$ is increasing on that interval.
+\item If $f'(x) < 0$ for all $x$ in an interval, then $f$ is decreasing on that interval.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+For (1): Let $x_1 < x_2$ be any two points in $(a, b)$. By the Mean Value Theorem, there exists $c \in (x_1, x_2)$ such that $f(x_2) - f(x_1) = f'(c)(x_2 - x_1) = 0$. Thus $f(x_2) = f(x_1)$, so $f$ is constant. The others are similar.
+\end{proof}
+\section{Graphing by the First and Second Derivatives}
+\begin{definition}[Concavity]
+A function $f$ is \textit{concave up} on an interval $I$ if $f'$ is increasing on $I$. It is \textit{concave down} on $I$ if $f'$ is decreasing on $I$.
+\end{definition}
+\begin{theorem}[Test for Concavity]
+\begin{enumerate}
+\item If $f''(x) > 0$ for all $x$ in $I$, then $f$ is concave up on $I$.
+\item If $f''(x) < 0$ for all $x$ in $I$, then $f$ is concave down on $I$.
+\end{enumerate}
+\end{theorem}
+\begin{definition}[Inflection Point]
+A point $(c, f(c))$ on a curve is an \textit{inflection point} if the curve changes from concave up to concave down, or vice versa, at that point.
+\end{definition}
+\begin{theorem}[Second Derivative Test for Inflection Points]
+If $f''(c) = 0$ and $f''$ changes sign at $c$, then $(c, f(c))$ is an inflection point.
+\end{theorem}
+\begin{example}
+Analyze $f(x) = x^4 - 4x^3$.
+$f'(x) = 4x^3 - 12x^2 = 4x^2(x - 3)$. Critical numbers: $x = 0, 3$.
+$f''(x) = 12x^2 - 24x = 12x(x - 2)$. Possible inflection points: $x = 0, 2$.
+Intervals for $f'$: $(-\infty, 0)$: $f' < 0$ (decreasing); $(0, 3)$: $f' < 0$ (decreasing); $(3, \infty)$: $f' > 0$ (increasing).
+Local minimum at $x = 3$, $f(3) = 81 - 108 = -27$.
+Intervals for $f''$: $(-\infty, 0)$: $f'' > 0$ (concave up); $(0, 2)$: $f'' < 0$ (concave down); $(2, \infty)$: $f'' > 0$ (concave up).
+Inflection points at $x = 0$, $f(0) = 0$ and $x = 2$, $f(2) = 16 - 32 = -16$.
+\end{example}
+\begin{theorem}[Summary of Graphing with Derivatives]
+To graph $f$:
+\begin{enumerate}
+\item Find the domain of $f$.
+\item Find the $x$- and $y$-intercepts.
+\item Find vertical and horizontal asymptotes.
+\item Find $f'$ and critical numbers; determine intervals of increase/decrease.
+\item Find $f''$ and possible inflection points; determine concavity.
+\item Plot key points and sketch the curve.
+\end{enumerate}
+\end{theorem}
+\section{Asymptotes and Dominant Terms}
+\begin{definition}[Vertical Asymptote]
+The line $x = a$ is a \textit{vertical asymptote} of $y = f(x)$ if at least one of the following holds: $\lim_{x \to a^-} f(x) = \pm\infty$, $\lim_{x \to a^+} f(x) = \pm\infty$, or $\lim_{x \to a} f(x) = \pm\infty$.
+\end{definition}
+\begin{definition}[Horizontal Asymptote]
+The line $y = L$ is a \textit{horizontal asymptote} of $y = f(x)$ if either $\lim_{x \to \infty} f(x) = L$ or $\lim_{x \to -\infty} f(x) = L$.
+\end{definition}
+\begin{definition}[Slant Asymptote]
+The line $y = mx + b$ (with $m \neq 0$) is a \textit{slant asymptote} of $y = f(x)$ if
+\[
+\lim_{x \to \infty} [f(x) - (mx + b)] = 0 \quad \text{or} \quad \lim_{x \to -\infty} [f(x) - (mx + b)] = 0.
+\]
+\end{definition}
+\begin{theorem}[Finding Slant Asymptotes]
+A rational function $f(x) = \frac{P(x)}{Q(x)}$ has a slant asymptote if the degree of $P$ is exactly one more than the degree of $Q$. The slant asymptote is the quotient obtained by polynomial long division.
+\end{theorem}
+\begin{definition}[Dominant Terms]
+For a rational function $f(x) = \frac{P(x)}{Q(x)}$ as $x \to \pm\infty$, the \textit{dominant term} of the numerator is its highest-degree term, and the dominant term of the denominator is its highest-degree term. The end behavior of $f$ is determined by the ratio of these dominant terms.
+\end{definition}
+\begin{example}
+Find the asymptotes of $f(x) = \frac{2x^2 + 3x - 1}{x^2 - 4}$.
+Vertical asymptotes: set denominator $x^2 - 4 = 0$, so $x = \pm 2$.
+Horizontal asymptote: degrees are equal (both 2). The leading coefficients are 2 and 1, so $y = 2$ is a horizontal asymptote.
+No slant asymptote since degrees are equal.
+\end{example}
+\begin{example}
+Find the asymptotes of $f(x) = \frac{x^2 + 1}{x - 1}$.
+Vertical asymptote: $x = 1$.
+Slant asymptote: degree of numerator is 2, degree of denominator is 1, so a slant asymptote exists. Perform polynomial division:
+\[
+\frac{x^2 + 1}{x - 1} = x + 1 + \frac{2}{x - 1}.
+\]
+As $x \to \pm\infty$, $\frac{2}{x - 1} \to 0$, so the slant asymptote is $y = x + 1$.
+\end{example}
+\section{Graphing Rational Functions}
+\begin{definition}[Rational Function]
+A \textit{rational function} is a function of the form $f(x) = \frac{P(x)}{Q(x)}$, where $P$ and $Q$ are polynomials and $Q(x) \neq 0$.
+\end{definition}
+\begin{theorem}[Steps for Graphing a Rational Function]
+\begin{enumerate}
+\item Factor the numerator and denominator.
+\item Find the domain and vertical asymptotes (where denominator is zero but numerator is not).
+\item Find holes (where both numerator and denominator are zero).
+\item Find horizontal or slant asymptotes using dominant terms.
+\item Find $x$- and $y$-intercepts.
+\item Analyze the first derivative for intervals of increase/decrease and local extrema.
+\item Analyze the second derivative for concavity and inflection points.
+\item Sketch the graph.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Graph $f(x) = \frac{x^2 - 1}{x^2 - 4}$.
+Factor: $f(x) = \frac{(x - 1)(x + 1)}{(x - 2)(x + 2)}$.
+Domain: $x \neq \pm 2$. Vertical asymptotes: $x = 2$ and $x = -2$. No holes.
+Horizontal asymptote: degrees equal, leading coefficients 1 and 1, so $y = 1$.
+Intercepts: $x$-intercepts at $x = \pm 1$; $y$-intercept at $f(0) = \frac{-1}{-4} = \frac{1}{4}$.
+First derivative:
+\[
+f'(x) = \frac{2x(x^2 - 4) - (x^2 - 1)(2x)}{(x^2 - 4)^2} = \frac{2x[(x^2 - 4) - (x^2 - 1)]}{(x^2 - 4)^2} = \frac{2x(-3)}{(x^2 - 4)^2} = \frac{-6x}{(x^2 - 4)^2}.
+\]
+Critical number: $x = 0$. $f' > 0$ for $x < 0$, $f' < 0$ for $x > 0$, so local maximum at $x = 0$, $f(0) = \frac{1}{4}$.
+Second derivative can be computed, but the graph is now well understood.
+\end{example}
+\section{Related Rates of Change}
+\begin{definition}[Related Rates]
+\textit{Related rates} problems involve finding the rate of change of one quantity in terms of the rate of change of another quantity. The key is to find an equation relating the quantities and then differentiate both sides with respect to time $t$ using the chain rule.
+\end{definition}
+\begin{theorem}[Strategy for Related Rates Problems]
+\begin{enumerate}
+\item Draw a diagram and label quantities.
+\item Write an equation relating the variables.
+\item Differentiate both sides with respect to $t$.
+\item Substitute known values and solve for the unknown rate.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+A spherical balloon is being inflated at a rate of $100$ cm$^3$/s. How fast is the radius increasing when the radius is $5$ cm?
+Volume of sphere: $V = \frac{4}{3}\pi r^3$. Differentiate with respect to $t$:
+\[
+\frac{dV}{dt} = 4\pi r^2 \frac{dr}{dt}.
+\]
+Given $\frac{dV}{dt} = 100$ and $r = 5$:
+\[
+100 = 4\pi (25) \frac{dr}{dt} \implies \frac{dr}{dt} = \frac{100}{100\pi} = \frac{1}{\pi} \text{ cm/s}.
+\]
+\end{example}
+\begin{example}
+A ladder $10$ ft long rests against a vertical wall. If the bottom of the ladder slides away from the wall at $1$ ft/s, how fast is the top sliding down the wall when the bottom is $6$ ft from the wall?
+Let $x$ be the distance from the wall to the bottom, $y$ be the height of the top. By Pythagoras: $x^2 + y^2 = 100$. Differentiate with respect to $t$:
+\[
+2x \frac{dx}{dt} + 2y \frac{dy}{dt} = 0 \implies \frac{dy}{dt} = -\frac{x}{y} \frac{dx}{dt}.
+\]
+Given $\frac{dx}{dt} = 1$ and $x = 6$. Then $y = \sqrt{100 - 36} = 8$. So
+\[
+\frac{dy}{dt} = -\frac{6}{8} \cdot 1 = -\frac{3}{4} \text{ ft/s}.
+\]
+The top is sliding down at $0.75$ ft/s.
+\end{example}
+\section{Optimization}
+\begin{definition}[Optimization Problem]
+An \textit{optimization problem} is a problem in which we need to find the maximum or minimum value of a function subject to certain constraints.
+\end{definition}
+\begin{theorem}[Strategy for Optimization]
+\begin{enumerate}
+\item Understand the problem and identify the quantity to be optimized.
+\item Draw a diagram if appropriate.
+\item Introduce variables and write an equation for the quantity.
+\item Express the quantity in terms of a single variable using constraints.
+\item Find the domain of the variable.
+\item Find critical numbers and use the first or second derivative test to find extrema.
+\item Verify the solution answers the question.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Find two numbers whose sum is $20$ and whose product is as large as possible.
+Let the numbers be $x$ and $y$. Constraint: $x + y = 20 \implies y = 20 - x$.
+Product: $P = x y = x(20 - x) = 20x - x^2$.
+$P'(x) = 20 - 2x = 0 \implies x = 10$. $P''(x) = -2 < 0$, so maximum.
+The numbers are $10$ and $10$, product $100$.
+\end{example}
+\begin{example}
+A rectangular box with a square base and no top must have a volume of $32$ cm$^3$. Find the dimensions that minimize the amount of material used.
+Let $x$ be the side of the base and $h$ be the height. Volume: $x^2 h = 32 \implies h = \frac{32}{x^2}$.
+Surface area (no top): $S = x^2 + 4xh = x^2 + 4x \cdot \frac{32}{x^2} = x^2 + \frac{128}{x}$.
+$S'(x) = 2x - \frac{128}{x^2} = 0 \implies 2x^3 = 128 \implies x^3 = 64 \implies x = 4$.
+$S''(x) = 2 + \frac{256}{x^3} > 0$ for $x > 0$, so minimum.
+Then $h = \frac{32}{16} = 2$. Dimensions: $4 \times 4 \times 2$ cm.
+\end{example}
+\section{Indeterminate Forms and L'Hôpital's Rule}
+\begin{definition}[Indeterminate Forms]
+A limit is called an \textit{indeterminate form} if direct substitution yields an expression such as $\frac{0}{0}$, $\frac{\infty}{\infty}$, $0 \cdot \infty$, $\infty - \infty$, $0^0$, $1^\infty$, or $\infty^0$.
+\end{definition}
+\begin{theorem}[L'Hôpital's Rule]
+Suppose $f$ and $g$ are differentiable on an open interval containing $a$ (except possibly at $a$), and $g'(x) \neq 0$ near $a$. If
+\[
+\lim_{x \to a} f(x) = 0 \quad \text{and} \quad \lim_{x \to a} g(x) = 0,
+\]
+or if
+\[
+\lim_{x \to a} f(x) = \pm\infty \quad \text{and} \quad \lim_{x \to a} g(x) = \pm\infty,
+\]
+then
+\[
+\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)},
+\]
+provided the limit on the right exists or is $\pm\infty$. The rule also applies for one-sided limits and as $x \to \pm\infty$.
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \lim_{x \to 0} \frac{\sin x}{x}$.
+Direct substitution gives $\frac{0}{0}$. Apply L'Hôpital's Rule:
+\[
+\lim_{x \to 0} \frac{\sin x}{x} = \lim_{x \to 0} \frac{\cos x}{1} = 1.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \lim_{x \to \infty} \frac{\ln x}{x}$.
+This is of the form $\frac{\infty}{\infty}$. Apply L'Hôpital's Rule:
+\[
+\lim_{x \to \infty} \frac{\ln x}{x} = \lim_{x \to \infty} \frac{1/x}{1} = 0.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \lim_{x \to 0^+} x \ln x$.
+This is of the form $0 \cdot (-\infty)$. Rewrite as $\frac{\ln x}{1/x}$, which is $\frac{-\infty}{\infty}$. Apply L'Hôpital's Rule:
+\[
+\lim_{x \to 0^+} \frac{\ln x}{1/x} = \lim_{x \to 0^+} \frac{1/x}{-1/x^2} = \lim_{x \to 0^+} (-x) = 0.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \lim_{x \to 0^+} x^x$.
+This is of the form $0^0$. Let $y = x^x$, so $\ln y = x \ln x$. Then
+\[
+\lim_{x \to 0^+} \ln y = \lim_{x \to 0^+} x \ln x = 0 \quad \text{(from previous example)}.
+\]
+Thus, $\lim_{x \to 0^+} x^x = e^0 = 1$.
+\end{example}
+\begin{theorem}[Other Indeterminate Forms]
+For forms $\infty - \infty$, $0^0$, $1^\infty$, and $\infty^0$, first transform the expression into a quotient or use logarithms to convert to a form where L'Hôpital's Rule can be applied.
+\end{theorem}
+\end{document}

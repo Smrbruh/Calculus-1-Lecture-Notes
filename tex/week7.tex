@@ -1,0 +1,436 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Lecture Notes: Techniques of Integration}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\titleformat{\section}{\Large\bfseries}{Section \thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{4cm}
+{\Huge\bfseries Lecture Notes:\\ Techniques of Integration\par}
+\vspace{1cm}
+{\Large Calculus I\par}
+\vspace{2cm}
+{\large \textbf{Author:} Bakdaulet Sotsial\par}
+\vspace{1cm}
+\vfill
+{\small Astana IT University \par}
+\vspace*{2cm}
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{Integration by Parts}
+\begin{theorem}[Integration by Parts Formula]
+If $u = f(x)$ and $v = g(x)$ are differentiable functions, then
+\[
+\int u \, dv = uv - \int v \, du.
+\]
+In terms of definite integrals,
+\[
+\int_a^b u \, dv = \left[ uv \right]_a^b - \int_a^b v \, du.
+\]
+\end{theorem}
+\begin{proof}
+The product rule for differentiation states that
+\[
+\frac{d}{dx}(uv) = u \frac{dv}{dx} + v \frac{du}{dx}.
+\]
+Integrating both sides with respect to $x$ gives
+\[
+uv = \int u \, dv + \int v \, du.
+\]
+Rearranging yields $\int u \, dv = uv - \int v \, du$.
+\end{proof}
+\begin{remark}[Choosing $u$ and $dv$]
+A useful guideline for choosing $u$ is the acronym LIATE: Logarithmic, Inverse trigonometric, Algebraic, Trigonometric, Exponential. The function that appears earlier in this list should generally be chosen as $u$, and the remaining part as $dv$.
+\end{remark}
+\begin{example}
+Evaluate $\displaystyle \int x e^x \, dx$.
+Let $u = x$ and $dv = e^x \, dx$. Then $du = dx$ and $v = e^x$. Applying the formula,
+\[
+\int x e^x \, dx = x e^x - \int e^x \, dx = x e^x - e^x + C = e^x(x - 1) + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \ln x \, dx$.
+Let $u = \ln x$ and $dv = dx$. Then $du = \frac{1}{x} \, dx$ and $v = x$. Thus,
+\[
+\int \ln x \, dx = x \ln x - \int x \cdot \frac{1}{x} \, dx = x \ln x - \int 1 \, dx = x \ln x - x + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int x \sin x \, dx$.
+Let $u = x$ and $dv = \sin x \, dx$. Then $du = dx$ and $v = -\cos x$. Thus,
+\[
+\int x \sin x \, dx = -x \cos x - \int (-\cos x) \, dx = -x \cos x + \int \cos x \, dx = -x \cos x + \sin x + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int x^2 e^x \, dx$.
+Apply integration by parts twice. First, let $u = x^2$ and $dv = e^x \, dx$. Then $du = 2x \, dx$ and $v = e^x$:
+\[
+\int x^2 e^x \, dx = x^2 e^x - 2 \int x e^x \, dx.
+\]
+From the previous example, $\int x e^x \, dx = e^x(x - 1) + C$. Therefore,
+\[
+\int x^2 e^x \, dx = x^2 e^x - 2e^x(x - 1) + C = e^x(x^2 - 2x + 2) + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int e^x \sin x \, dx$.
+Let $I = \int e^x \sin x \, dx$. Apply integration by parts with $u = \sin x$ and $dv = e^x \, dx$. Then $du = \cos x \, dx$ and $v = e^x$:
+\[
+I = e^x \sin x - \int e^x \cos x \, dx.
+\]
+Apply integration by parts again to $\int e^x \cos x \, dx$ with $u = \cos x$ and $dv = e^x \, dx$. Then $du = -\sin x \, dx$ and $v = e^x$:
+\[
+\int e^x \cos x \, dx = e^x \cos x + \int e^x \sin x \, dx = e^x \cos x + I.
+\]
+Substituting back,
+\[
+I = e^x \sin x - (e^x \cos x + I) = e^x \sin x - e^x \cos x - I.
+\]
+Thus, $2I = e^x(\sin x - \cos x)$, so
+\[
+I = \frac{e^x}{2}(\sin x - \cos x) + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \arctan x \, dx$.
+Let $u = \arctan x$ and $dv = dx$. Then $du = \frac{1}{1+x^2} \, dx$ and $v = x$. Thus,
+\[
+\int \arctan x \, dx = x \arctan x - \int \frac{x}{1+x^2} \, dx.
+\]
+For the remaining integral, let $w = 1 + x^2$, so $dw = 2x \, dx$:
+\[
+\int \frac{x}{1+x^2} \, dx = \frac{1}{2} \ln(1+x^2) + C.
+\]
+Therefore,
+\[
+\int \arctan x \, dx = x \arctan x - \frac{1}{2} \ln(1+x^2) + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int x \ln x \, dx$.
+Let $u = \ln x$ and $dv = x \, dx$. Then $du = \frac{1}{x} \, dx$ and $v = \frac{x^2}{2}$. Thus,
+\[
+\int x \ln x \, dx = \frac{x^2}{2} \ln x - \int \frac{x^2}{2} \cdot \frac{1}{x} \, dx = \frac{x^2}{2} \ln x - \frac{1}{2} \int x \, dx = \frac{x^2}{2} \ln x - \frac{x^2}{4} + C.
+\]
+\end{example}
+\section{Special Cases of Integration}
+\begin{theorem}[Reduction Formula for $\int \sin^n x \, dx$]
+For $n \geq 2$,
+\[
+\int \sin^n x \, dx = -\frac{1}{n} \sin^{n-1} x \cos x + \frac{n-1}{n} \int \sin^{n-2} x \, dx.
+\]
+\end{theorem}
+\begin{proof}
+Write $\sin^n x = \sin^{n-1} x \sin x$ and integrate by parts with $u = \sin^{n-1} x$ and $dv = \sin x \, dx$. Then $du = (n-1)\sin^{n-2} x \cos x \, dx$ and $v = -\cos x$. Thus,
+\[
+\int \sin^n x \, dx = -\sin^{n-1} x \cos x + (n-1) \int \sin^{n-2} x \cos^2 x \, dx.
+\]
+Using $\cos^2 x = 1 - \sin^2 x$,
+\[
+\int \sin^n x \, dx = -\sin^{n-1} x \cos x + (n-1) \int \sin^{n-2} x \, dx - (n-1) \int \sin^n x \, dx.
+\]
+Adding $(n-1)\int \sin^n x \, dx$ to both sides gives
+\[
+n \int \sin^n x \, dx = -\sin^{n-1} x \cos x + (n-1) \int \sin^{n-2} x \, dx.
+\]
+Dividing by $n$ yields the formula.
+\end{proof}
+\begin{theorem}[Reduction Formula for $\int \cos^n x \, dx$]
+For $n \geq 2$,
+\[
+\int \cos^n x \, dx = \frac{1}{n} \cos^{n-1} x \sin x + \frac{n-1}{n} \int \cos^{n-2} x \, dx.
+\]
+\end{theorem}
+\begin{proof}
+Similar to the sine reduction formula, using $u = \cos^{n-1} x$ and $dv = \cos x \, dx$.
+\end{proof}
+\begin{example}
+Evaluate $\displaystyle \int \sin^4 x \, dx$.
+Using the reduction formula with $n = 4$,
+\[
+\int \sin^4 x \, dx = -\frac{1}{4} \sin^3 x \cos x + \frac{3}{4} \int \sin^2 x \, dx.
+\]
+For $\int \sin^2 x \, dx$, use the identity $\sin^2 x = \frac{1 - \cos 2x}{2}$:
+\[
+\int \sin^2 x \, dx = \frac{x}{2} - \frac{\sin 2x}{4} + C.
+\]
+Therefore,
+\[
+\int \sin^4 x \, dx = -\frac{1}{4} \sin^3 x \cos x + \frac{3}{4} \left( \frac{x}{2} - \frac{\sin 2x}{4} \right) + C = -\frac{1}{4} \sin^3 x \cos x + \frac{3x}{8} - \frac{3 \sin 2x}{16} + C.
+\]
+\end{example}
+\begin{theorem}[Integrals of the Form $\int \tan^n x \, dx$ and $\int \sec^n x \, dx$]
+For $n \geq 2$,
+\[
+\int \tan^n x \, dx = \frac{\tan^{n-1} x}{n-1} - \int \tan^{n-2} x \, dx.
+\]
+For $n \geq 2$,
+\[
+\int \sec^n x \, dx = \frac{\sec^{n-2} x \tan x}{n-1} + \frac{n-2}{n-1} \int \sec^{n-2} x \, dx.
+\]
+\end{theorem}
+\begin{proof}
+For the tangent formula, write $\tan^n x = \tan^{n-2} x \tan^2 x = \tan^{n-2} x (\sec^2 x - 1)$. Then
+\[
+\int \tan^n x \, dx = \int \tan^{n-2} x \sec^2 x \, dx - \int \tan^{n-2} x \, dx.
+\]
+The first integral is $\frac{\tan^{n-1} x}{n-1}$ by substitution $u = \tan x$. For the secant formula, integrate by parts with $u = \sec^{n-2} x$ and $dv = \sec^2 x \, dx$.
+\end{proof}
+\begin{example}
+Evaluate $\displaystyle \int \tan^3 x \, dx$.
+Using the formula with $n = 3$,
+\[
+\int \tan^3 x \, dx = \frac{\tan^2 x}{2} - \int \tan x \, dx = \frac{\tan^2 x}{2} + \ln|\cos x| + C.
+\]
+\end{example}
+\begin{theorem}[Integrals of the Form $\int \sin^m x \cos^n x \, dx$]
+\begin{enumerate}
+\item If $m$ is odd, substitute $u = \cos x$.
+\item If $n$ is odd, substitute $u = \sin x$.
+\item If both $m$ and $n$ are even, use the half-angle identities
+\[
+\sin^2 x = \frac{1 - \cos 2x}{2}, \quad \cos^2 x = \frac{1 + \cos 2x}{2}.
+\]
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \int \sin^3 x \cos^2 x \, dx$.
+Since $m = 3$ is odd, let $u = \cos x$. Then $du = -\sin x \, dx$ and $\sin^2 x = 1 - \cos^2 x = 1 - u^2$. Thus,
+\[
+\int \sin^3 x \cos^2 x \, dx = \int \sin^2 x \cos^2 x \sin x \, dx = \int (1 - u^2) u^2 (-du) = \int (u^4 - u^2) \, du = \frac{u^5}{5} - \frac{u^3}{3} + C = \frac{\cos^5 x}{5} - \frac{\cos^3 x}{3} + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \sin^2 x \cos^4 x \, dx$.
+Both exponents are even. Use $\sin^2 x = \frac{1 - \cos 2x}{2}$ and $\cos^2 x = \frac{1 + \cos 2x}{2}$:
+\[
+\sin^2 x \cos^4 x = \left( \frac{1 - \cos 2x}{2} \right) \left( \frac{1 + \cos 2x}{2} \right)^2 = \frac{1}{8} (1 - \cos 2x)(1 + 2\cos 2x + \cos^2 2x).
+\]
+Expanding,
+\[
+= \frac{1}{8} (1 + 2\cos 2x + \cos^2 2x - \cos 2x - 2\cos^2 2x - \cos^3 2x) = \frac{1}{8} (1 + \cos 2x - \cos^2 2x - \cos^3 2x).
+\]
+Using $\cos^2 2x = \frac{1 + \cos 4x}{2}$,
+\[
+= \frac{1}{8} \left( 1 + \cos 2x - \frac{1 + \cos 4x}{2} - \cos^3 2x \right) = \frac{1}{16} (1 + 2\cos 2x - \cos 4x - 2\cos^3 2x).
+\]
+Thus,
+\[
+\int \sin^2 x \cos^4 x \, dx = \frac{1}{16} \left( x + \sin 2x - \frac{\sin 4x}{4} - 2 \int \cos^3 2x \, dx \right).
+\]
+For $\int \cos^3 2x \, dx$, let $u = \sin 2x$, $du = 2\cos 2x \, dx$, and $\cos^2 2x = 1 - u^2$:
+\[
+\int \cos^3 2x \, dx = \int \cos^2 2x \cos 2x \, dx = \frac{1}{2} \int (1 - u^2) \, du = \frac{1}{2} \left( u - \frac{u^3}{3} \right) = \frac{\sin 2x}{2} - \frac{\sin^3 2x}{6}.
+\]
+Substituting back yields the final answer.
+\end{example}
+\begin{theorem}[Integrals of the Form $\int \sin(mx) \cos(nx) \, dx$]
+Use the product-to-sum identities:
+\[
+\sin A \cos B = \frac{1}{2} [\sin(A-B) + \sin(A+B)],
+\]
+\[
+\sin A \sin B = \frac{1}{2} [\cos(A-B) - \cos(A+B)],
+\]
+\[
+\cos A \cos B = \frac{1}{2} [\cos(A-B) + \cos(A+B)].
+\]
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \int \sin 3x \cos 5x \, dx$.
+Using the identity,
+\[
+\sin 3x \cos 5x = \frac{1}{2} [\sin(3x-5x) + \sin(3x+5x)] = \frac{1}{2} [\sin(-2x) + \sin 8x] = \frac{1}{2} [-\sin 2x + \sin 8x].
+\]
+Thus,
+\[
+\int \sin 3x \cos 5x \, dx = \frac{1}{2} \left( \frac{\cos 2x}{2} - \frac{\cos 8x}{8} \right) + C = \frac{\cos 2x}{4} - \frac{\cos 8x}{16} + C.
+\]
+\end{example}
+\section{Integrals of Rational Functions by Partial Fractions}
+\begin{definition}[Rational Function]
+A \textit{rational function} is a function of the form $f(x) = \frac{P(x)}{Q(x)}$, where $P$ and $Q$ are polynomials and $Q(x) \neq 0$.
+\end{definition}
+\begin{definition}[Proper and Improper Rational Functions]
+A rational function $\frac{P(x)}{Q(x)}$ is \textit{proper} if the degree of $P$ is less than the degree of $Q$. It is \textit{improper} if the degree of $P$ is greater than or equal to the degree of $Q$.
+\end{definition}
+\begin{theorem}[Partial Fraction Decomposition]
+Any proper rational function $\frac{P(x)}{Q(x)}$ can be expressed as a sum of simpler fractions, provided $Q(x)$ is factored completely into linear and irreducible quadratic factors. The form of the decomposition depends on the factors of $Q(x)$:
+\begin{enumerate}
+\item For each distinct linear factor $(ax + b)$, include a term $\frac{A}{ax + b}$.
+\item For each repeated linear factor $(ax + b)^k$, include terms $\frac{A_1}{ax + b} + \frac{A_2}{(ax + b)^2} + \dots + \frac{A_k}{(ax + b)^k}$.
+\item For each distinct irreducible quadratic factor $(ax^2 + bx + c)$, include a term $\frac{Ax + B}{ax^2 + bx + c}$.
+\item For each repeated irreducible quadratic factor $(ax^2 + bx + c)^k$, include terms $\frac{A_1 x + B_1}{ax^2 + bx + c} + \dots + \frac{A_k x + B_k}{(ax^2 + bx + c)^k}$.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \int \frac{1}{x^2 - 1} \, dx$.
+Factor the denominator: $x^2 - 1 = (x - 1)(x + 1)$. Write
+\[
+\frac{1}{(x-1)(x+1)} = \frac{A}{x-1} + \frac{B}{x+1}.
+\]
+Multiply by $(x-1)(x+1)$: $1 = A(x+1) + B(x-1)$.
+Set $x = 1$: $1 = 2A \implies A = \frac{1}{2}$.
+Set $x = -1$: $1 = -2B \implies B = -\frac{1}{2}$.
+Thus,
+\[
+\int \frac{1}{x^2 - 1} \, dx = \frac{1}{2} \int \frac{1}{x-1} \, dx - \frac{1}{2} \int \frac{1}{x+1} \, dx = \frac{1}{2} \ln|x-1| - \frac{1}{2} \ln|x+1| + C = \frac{1}{2} \ln\left| \frac{x-1}{x+1} \right| + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{2x + 3}{x^2 + 3x + 2} \, dx$.
+Factor: $x^2 + 3x + 2 = (x+1)(x+2)$. Write
+\[
+\frac{2x + 3}{(x+1)(x+2)} = \frac{A}{x+1} + \frac{B}{x+2}.
+\]
+Multiply: $2x + 3 = A(x+2) + B(x+1)$.
+Set $x = -1$: $1 = A(1) \implies A = 1$.
+Set $x = -2$: $-1 = B(-1) \implies B = 1$.
+Thus,
+\[
+\int \frac{2x + 3}{x^2 + 3x + 2} \, dx = \int \frac{1}{x+1} \, dx + \int \frac{1}{x+2} \, dx = \ln|x+1| + \ln|x+2| + C = \ln|(x+1)(x+2)| + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{x^2 + 2x - 1}{x^3 - x} \, dx$.
+Factor: $x^3 - x = x(x-1)(x+1)$. Write
+\[
+\frac{x^2 + 2x - 1}{x(x-1)(x+1)} = \frac{A}{x} + \frac{B}{x-1} + \frac{C}{x+1}.
+\]
+Multiply: $x^2 + 2x - 1 = A(x-1)(x+1) + Bx(x+1) + Cx(x-1)$.
+Set $x = 0$: $-1 = A(-1)(1) \implies A = 1$.
+Set $x = 1$: $1 + 2 - 1 = 2 = B(1)(2) \implies B = 1$.
+Set $x = -1$: $1 - 2 - 1 = -2 = C(-1)(-2) \implies C = -1$.
+Thus,
+\[
+\int \frac{x^2 + 2x - 1}{x^3 - x} \, dx = \int \frac{1}{x} \, dx + \int \frac{1}{x-1} \, dx - \int \frac{1}{x+1} \, dx = \ln|x| + \ln|x-1| - \ln|x+1| + C = \ln\left| \frac{x(x-1)}{x+1} \right| + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{x^2 + 1}{x(x^2 + 1)} \, dx$ (note: this simplifies before decomposition).
+Actually, $\frac{x^2 + 1}{x(x^2 + 1)} = \frac{1}{x}$ for $x \neq 0$. Thus,
+\[
+\int \frac{x^2 + 1}{x(x^2 + 1)} \, dx = \int \frac{1}{x} \, dx = \ln|x| + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{1}{x^2(x+1)} \, dx$.
+The factor $x^2$ is a repeated linear factor. Write
+\[
+\frac{1}{x^2(x+1)} = \frac{A}{x} + \frac{B}{x^2} + \frac{C}{x+1}.
+\]
+Multiply: $1 = Ax(x+1) + B(x+1) + Cx^2$.
+Set $x = 0$: $1 = B(1) \implies B = 1$.
+Set $x = -1$: $1 = C(1) \implies C = 1$.
+Expand and compare coefficients: $1 = A(x^2 + x) + (x+1) + x^2 = (A+1)x^2 + (A+1)x + 1$.
+Thus $A+1 = 0 \implies A = -1$.
+Therefore,
+\[
+\int \frac{1}{x^2(x+1)} \, dx = -\int \frac{1}{x} \, dx + \int \frac{1}{x^2} \, dx + \int \frac{1}{x+1} \, dx = -\ln|x| - \frac{1}{x} + \ln|x+1| + C = \ln\left| \frac{x+1}{x} \right| - \frac{1}{x} + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{2x + 1}{x^2 + 2x + 5} \, dx$.
+The denominator $x^2 + 2x + 5$ is irreducible (discriminant $4 - 20 = -16 < 0$). Complete the square: $x^2 + 2x + 5 = (x+1)^2 + 4$. Write the numerator as $2x + 1 = 2(x+1) - 1$. Thus,
+\[
+\int \frac{2x + 1}{x^2 + 2x + 5} \, dx = \int \frac{2(x+1) - 1}{(x+1)^2 + 4} \, dx = \int \frac{2(x+1)}{(x+1)^2 + 4} \, dx - \int \frac{1}{(x+1)^2 + 4} \, dx.
+\]
+For the first integral, let $u = (x+1)^2 + 4$, $du = 2(x+1) \, dx$:
+\[
+\int \frac{2(x+1)}{(x+1)^2 + 4} \, dx = \ln((x+1)^2 + 4) + C_1.
+\]
+For the second, let $v = \frac{x+1}{2}$, $dv = \frac{1}{2} dx$:
+\[
+\int \frac{1}{(x+1)^2 + 4} \, dx = \frac{1}{2} \arctan\left( \frac{x+1}{2} \right) + C_2.
+\]
+Therefore,
+\[
+\int \frac{2x + 1}{x^2 + 2x + 5} \, dx = \ln(x^2 + 2x + 5) - \frac{1}{2} \arctan\left( \frac{x+1}{2} \right) + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{x^3 + x}{x - 1} \, dx$.
+The rational function is improper. Perform polynomial long division:
+\[
+\frac{x^3 + x}{x - 1} = x^2 + x + 2 + \frac{2}{x - 1}.
+\]
+Thus,
+\[
+\int \frac{x^3 + x}{x - 1} \, dx = \int \left( x^2 + x + 2 + \frac{2}{x-1} \right) \, dx = \frac{x^3}{3} + \frac{x^2}{2} + 2x + 2\ln|x-1| + C.
+\]
+\end{example}
+\begin{theorem}[General Method for Integrating Rational Functions]
+\begin{enumerate}
+\item If the rational function is improper, perform polynomial long division.
+\item Factor the denominator completely into linear and irreducible quadratic factors.
+\item Decompose the proper rational function into partial fractions.
+\item Integrate each partial fraction term using standard formulas.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Evaluate $\displaystyle \int \frac{4x^2 + 3x + 2}{x^3 + x^2} \, dx$.
+Factor: $x^3 + x^2 = x^2(x+1)$. Write
+\[
+\frac{4x^2 + 3x + 2}{x^2(x+1)} = \frac{A}{x} + \frac{B}{x^2} + \frac{C}{x+1}.
+\]
+Multiply: $4x^2 + 3x + 2 = Ax(x+1) + B(x+1) + Cx^2$.
+Set $x = 0$: $2 = B \implies B = 2$.
+Set $x = -1$: $4 - 3 + 2 = 3 = C(1) \implies C = 3$.
+Expand: $4x^2 + 3x + 2 = A(x^2 + x) + 2x + 2 + 3x^2 = (A+3)x^2 + (A+2)x + 2$.
+Comparing coefficients: $A + 3 = 4 \implies A = 1$.
+Thus,
+\[
+\int \frac{4x^2 + 3x + 2}{x^3 + x^2} \, dx = \int \frac{1}{x} \, dx + 2 \int \frac{1}{x^2} \, dx + 3 \int \frac{1}{x+1} \, dx = \ln|x| - \frac{2}{x} + 3\ln|x+1| + C.
+\]
+\end{example}
+\begin{example}
+Evaluate $\displaystyle \int \frac{x^2 - 2x - 3}{(x-1)(x^2+1)} \, dx$.
+Write
+\[
+\frac{x^2 - 2x - 3}{(x-1)(x^2+1)} = \frac{A}{x-1} + \frac{Bx + C}{x^2 + 1}.
+\]
+Multiply: $x^2 - 2x - 3 = A(x^2 + 1) + (Bx + C)(x - 1)$.
+Set $x = 1$: $1 - 2 - 3 = -4 = A(2) \implies A = -2$.
+Expand: $x^2 - 2x - 3 = -2x^2 - 2 + Bx^2 - Bx + Cx - C = (B - 2)x^2 + (C - B)x + (-2 - C)$.
+Comparing coefficients:
+$B - 2 = 1 \implies B = 3$.
+$C - B = -2 \implies C - 3 = -2 \implies C = 1$.
+Check constant: $-2 - C = -3 \implies -2 - 1 = -3$, correct.
+Thus,
+\[
+\int \frac{x^2 - 2x - 3}{(x-1)(x^2+1)} \, dx = -2 \int \frac{1}{x-1} \, dx + \int \frac{3x + 1}{x^2 + 1} \, dx.
+\]
+For the second integral,
+\[
+\int \frac{3x + 1}{x^2 + 1} \, dx = \frac{3}{2} \int \frac{2x}{x^2 + 1} \, dx + \int \frac{1}{x^2 + 1} \, dx = \frac{3}{2} \ln(x^2 + 1) + \arctan x + C.
+\]
+Therefore,
+\[
+\int \frac{x^2 - 2x - 3}{(x-1)(x^2+1)} \, dx = -2\ln|x-1| + \frac{3}{2} \ln(x^2 + 1) + \arctan x + C.
+\]
+\end{example}
+\end{document}

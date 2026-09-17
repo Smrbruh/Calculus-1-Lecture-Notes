@@ -1,0 +1,1144 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usetikzlibrary{patterns,arrows.meta,calc,decorations.markings,shapes.geometric}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\newtheorem{proposition}{Proposition}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Lecture Notes: Calculus I -- Complete Course}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\titleformat{\section}{\Large\bfseries}{Chapter \thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{1em}{}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{3cm}
+{\Huge\bfseries Lecture Notes:\\ Calculus I\par}
+\vspace{1cm}
+{\Large Complete Course: Weeks 1--10\par}
+\vspace{0.5cm}
+{\large Functions, Limits, Derivatives, Integrals, and Polar Coordinates\par}
+\vspace{2cm}
+{\large \textbf{Author:} Bakdaulet Sotsial\par}
+\vspace{1cm}
+\vfill
+{\small Astana IT University \par}
+\vspace*{2cm}
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{Functions and Sets}
+\subsection{Sets and Their Properties}
+\begin{definition}[Set]
+A \textit{set} is a well-defined collection of distinct objects, considered as an object in its own right. The objects in a set are called its \textit{elements} or \textit{members}. If $a$ is an element of set $A$, we write $a \in A$. If $a$ is not an element of $A$, we write $a \notin A$. The set containing no elements is called the \textit{empty set} and is denoted by $\emptyset$ or $\{\}$.
+\end{definition}
+\begin{definition}[Subset]
+If every element of set $A$ is also an element of set $B$, then $A$ is a \textit{subset} of $B$, denoted $A \subseteq B$. If $A \subseteq B$ and $B \subseteq A$, then $A = B$. If $A \subseteq B$ but $A \neq B$, then $A$ is a \textit{proper subset} of $B$, denoted $A \subset B$.
+\end{definition}
+\begin{definition}[Set Operations]
+Let $A$ and $B$ be sets.
+\begin{itemize}
+\item The \textit{union} of $A$ and $B$: $A \cup B = \{x \mid x \in A \text{ or } x \in B\}$.
+\item The \textit{intersection} of $A$ and $B$: $A \cap B = \{x \mid x \in A \text{ and } x \in B\}$.
+\item The \textit{difference} of $A$ and $B$: $A \setminus B = \{x \mid x \in A \text{ and } x \notin B\}$.
+\item The \textit{complement} of $A$: $\bar{A} = \{x \in U \mid x \notin A\}$ where $U$ is the universal set.
+\item The \textit{Cartesian product}: $A \times B = \{(a, b) \mid a \in A, b \in B\}$.
+\end{itemize}
+\end{definition}
+\begin{theorem}[De Morgan's Laws for Sets]
+For any sets $A$ and $B$:
+\[
+\overline{A \cup B} = \bar{A} \cap \bar{B}, \quad \overline{A \cap B} = \bar{A} \cup \bar{B}.
+\]
+\end{theorem}
+\begin{definition}[Important Number Sets]
+\begin{itemize}
+\item $\mathbb{N} = \{1, 2, 3, 4, \dots\}$: natural numbers.
+\item $\mathbb{Z} = \{\dots, -2, -1, 0, 1, 2, \dots\}$: integers.
+\item $\mathbb{Q} = \{\frac{p}{q} \mid p, q \in \mathbb{Z}, q \neq 0\}$: rational numbers.
+\item $\mathbb{R}$: real numbers (rationals and irrationals).
+\item $\mathbb{C} = \{a + bi \mid a, b \in \mathbb{R}, i^2 = -1\}$: complex numbers.
+\end{itemize}
+\end{definition}
+\begin{definition}[Intervals]
+Let $a, b \in \mathbb{R}$ with $a < b$.
+\begin{itemize}
+\item \textbf{Open:} $(a, b) = \{x \in \mathbb{R} \mid a < x < b\}$.
+\item \textbf{Closed:} $[a, b] = \{x \in \mathbb{R} \mid a \leq x \leq b\}$.
+\item \textbf{Half-open:} $[a, b) = \{x \mid a \leq x < b\}$, $(a, b] = \{x \mid a < x \leq b\}$.
+\item \textbf{Infinite:} $(a, \infty) = \{x \mid x > a\}$, $(-\infty, b] = \{x \mid x \leq b\}$, $(-\infty, \infty) = \mathbb{R}$.
+\end{itemize}
+\end{definition}
+\begin{definition}[Absolute Value]
+The absolute value of a real number $x$, denoted $|x|$, is
+\[
+|x| = \begin{cases} x & \text{if } x \geq 0 \\ -x & \text{if } x < 0 \end{cases}
+\]
+\end{definition}
+\begin{theorem}[Properties of Absolute Value]
+For $a, b \in \mathbb{R}$:
+\begin{enumerate}
+\item $|ab| = |a||b|$.
+\item $\left|\frac{a}{b}\right| = \frac{|a|}{|b|}$ for $b \neq 0$.
+\item $|a + b| \leq |a| + |b|$ (Triangle Inequality).
+\item $|a - b| \geq ||a| - |b||$.
+\item $|a| < c \iff -c < a < c$ for $c > 0$.
+\item $|a| > c \iff a > c$ or $a < -c$ for $c > 0$.
+\end{enumerate}
+\end{theorem}
+\subsection{Functions and Their Graphs}
+\begin{definition}[Function]
+A \textit{function} $f$ from a set $D$ to a set $E$ is a rule that assigns to each element $x$ in $D$ exactly one element, called $f(x)$, in $E$. The set $D$ is called the \textit{domain} of $f$. The set $E$ is called the \textit{codomain} of $f$. The \textit{range} (or image) of $f$ is the set $\{f(x) \mid x \in D\}$. We write $f: D \to E$.
+\end{definition}
+\begin{definition}[Graph of a Function]
+The \textit{graph} of a function $f$ is the set of ordered pairs $(x, y)$ such that $y = f(x)$ and $x$ is in the domain of $f$.
+\end{definition}
+\begin{theorem}[Vertical Line Test]
+A curve in the $xy$-plane is the graph of a function of $x$ if and only if no vertical line intersects the curve more than once.
+\end{theorem}
+\begin{definition}[Piecewise Defined Functions]
+A function may be defined by different formulas in different parts of its domain. Such a function is called \textit{piecewise defined}.
+\end{definition}
+\begin{example}
+The absolute value function is a piecewise function:
+\[
+|x| = \begin{cases} x & \text{if } x \geq 0 \\ -x & \text{if } x < 0 \end{cases}
+\]
+The sign function is another example:
+\[
+\operatorname{sgn}(x) = \begin{cases} 1 & \text{if } x > 0 \\ 0 & \text{if } x = 0 \\ -1 & \text{if } x < 0 \end{cases}
+\]
+\end{example}
+\begin{definition}[Even and Odd Functions]
+Let $f$ be a function with domain $D$ symmetric about the origin.
+\begin{itemize}
+\item $f$ is \textit{even} if $f(-x) = f(x)$ for all $x \in D$. The graph is symmetric about the $y$-axis.
+\item $f$ is \textit{odd} if $f(-x) = -f(x)$ for all $x \in D$. The graph is symmetric about the origin.
+\end{itemize}
+\end{definition}
+\begin{example}
+$f(x) = x^2$ is even. $f(x) = x^3$ is odd. $f(x) = x^2 + x$ is neither even nor odd.
+\end{example}
+\begin{definition}[Increasing and Decreasing Functions]
+A function $f$ is called:
+\begin{itemize}
+\item \textit{increasing} on $I$ if $x_1 < x_2 \implies f(x_1) < f(x_2)$.
+\item \textit{decreasing} on $I$ if $x_1 < x_2 \implies f(x_1) > f(x_2)$.
+\item \textit{non-decreasing} on $I$ if $x_1 < x_2 \implies f(x_1) \leq f(x_2)$.
+\item \textit{non-increasing} on $I$ if $x_1 < x_2 \implies f(x_1) \geq f(x_2)$.
+\end{itemize}
+\end{definition}
+\subsection{Shifts and Scaling of Graphs}
+Given a basic function $y = f(x)$ and a constant $c > 0$:
+\begin{itemize}
+\item \textbf{Vertical Shift:} $y = f(x) + c$ shifts up by $c$. $y = f(x) - c$ shifts down by $c$.
+\item \textbf{Horizontal Shift:} $y = f(x - c)$ shifts right by $c$. $y = f(x + c)$ shifts left by $c$.
+\item \textbf{Vertical Scaling:} $y = cf(x)$ stretches vertically by factor $c$ if $c > 1$, compresses if $0 < c < 1$.
+\item \textbf{Horizontal Scaling:} $y = f(cx)$ compresses horizontally by factor $c$ if $c > 1$, stretches if $0 < c < 1$.
+\item \textbf{Reflections:} $y = -f(x)$ reflects across $x$-axis. $y = f(-x)$ reflects across $y$-axis.
+\end{itemize}
+\begin{example}
+Consider $f(x) = x^2$. The graph of $y = (x-2)^2 + 3$ is obtained by shifting the parabola right by 2 units and up by 3 units.
+\end{example}
+\begin{example}
+The graph of $y = -2\sqrt{x+1}$ is obtained from $y = \sqrt{x}$ by: shifting left by 1, stretching vertically by factor 2, and reflecting across the $x$-axis.
+\end{example}
+\subsection{Elementary Functions}
+\begin{definition}[Polynomial Function]
+A function of the form
+\[
+P(x) = a_n x^n + a_{n-1} x^{n-1} + \dots + a_1 x + a_0
+\]
+where $n \geq 0$ is an integer and $a_0, a_1, \dots, a_n$ are constants called coefficients. The domain is $\mathbb{R}$.
+\end{definition}
+\begin{definition}[Rational Function]
+A function of the form $f(x) = \frac{P(x)}{Q(x)}$ where $P$ and $Q$ are polynomials. The domain is $\{x \mid Q(x) \neq 0\}$.
+\end{definition}
+\begin{definition}[Power Function]
+A function of the form $f(x) = x^a$ where $a$ is a constant.
+\end{definition}
+\begin{definition}[Root Function]
+A function of the form $f(x) = \sqrt[n]{x}$.
+\end{definition}
+\subsection{Transcendental Functions}
+\begin{definition}[Exponential Function]
+$f(x) = a^x$ where $a > 0, a \neq 1$. Domain: $\mathbb{R}$. Range: $(0, \infty)$. The most important is $f(x) = e^x$ with $e \approx 2.71828$.
+\end{definition}
+\begin{definition}[Logarithmic Function]
+$f(x) = \log_a x$ is the inverse of $a^x$. Domain: $(0, \infty)$. Range: $\mathbb{R}$. The natural logarithm is $\ln x = \log_e x$.
+\end{definition}
+\begin{theorem}[Properties of Logarithms]
+For $a, b > 0$, $a \neq 1$, and $x, y > 0$:
+\begin{enumerate}
+\item $\log_a(xy) = \log_a x + \log_a y$.
+\item $\log_a\left(\frac{x}{y}\right) = \log_a x - \log_a y$.
+\item $\log_a(x^r) = r \log_a x$.
+\item $\log_a 1 = 0$ and $\log_a a = 1$.
+\item $a^{\log_a x} = x$ and $\log_a(a^x) = x$.
+\item Change of base: $\log_a x = \frac{\ln x}{\ln a}$.
+\end{enumerate}
+\end{theorem}
+\subsection{Inverse Functions}
+\begin{definition}[One-to-One Function]
+A function $f$ is \textit{one-to-one} (injective) if $f(x_1) = f(x_2) \implies x_1 = x_2$.
+\end{definition}
+\begin{theorem}[Horizontal Line Test]
+A function is one-to-one if and only if no horizontal line intersects its graph more than once.
+\end{theorem}
+\begin{definition}[Inverse Function]
+Let $f$ be one-to-one with domain $D$ and range $R$. Its \textit{inverse} $f^{-1}$ has domain $R$ and range $D$, defined by $f^{-1}(y) = x \iff f(x) = y$.
+\end{definition}
+\begin{theorem}[Properties of Inverses]
+\begin{enumerate}
+\item $f^{-1}(f(x)) = x$ for all $x \in D$.
+\item $f(f^{-1}(y)) = y$ for all $y \in R$.
+\item $(f^{-1})^{-1} = f$.
+\item The graph of $f^{-1}$ is the reflection of the graph of $f$ across $y = x$.
+\item If $f$ is strictly increasing (or decreasing), then $f$ is one-to-one.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+Find the inverse of $f(x) = 2x + 3$.
+Set $y = 2x + 3$, interchange: $x = 2y + 3$, solve: $y = \frac{x-3}{2}$. So $f^{-1}(x) = \frac{x-3}{2}$.
+\end{example}
+\begin{example}
+Find the inverse of $f(x) = x^2$ for $x \geq 0$.
+$y = x^2$ with $x \geq 0$ implies $y \geq 0$. Interchange: $x = y^2$, solve: $y = \sqrt{x}$. So $f^{-1}(x) = \sqrt{x}$.
+\end{example}
+\subsection{Composition of Functions}
+\begin{definition}[Composition]
+Given $f$ and $g$, the \textit{composite} $(f \circ g)(x) = f(g(x))$. The domain is $\{x \in \operatorname{dom}(g) \mid g(x) \in \operatorname{dom}(f)\}$.
+\end{definition}
+\begin{example}
+Let $f(x) = x^2$ and $g(x) = x + 1$. Then $(f \circ g)(x) = (x+1)^2$ and $(g \circ f)(x) = x^2 + 1$. In general, $f \circ g \neq g \circ f$.
+\end{example}
+\begin{theorem}[Associativity of Composition]
+$f \circ (g \circ h) = (f \circ g) \circ h$.
+\end{theorem}
+\begin{theorem}[Inverse and Composition]
+$f \circ f^{-1} = \operatorname{id}_R$ and $f^{-1} \circ f = \operatorname{id}_D$.
+\end{theorem}
+\subsection{Trigonometric Functions}
+\begin{definition}[Unit Circle Definition]
+Let $t$ be a real number and $(x, y)$ the terminal point of an arc of length $t$ on the unit circle starting at $(1, 0)$. Then $\cos t = x$ and $\sin t = y$.
+\end{definition}
+\begin{definition}[Other Trigonometric Functions]
+$\tan t = \frac{\sin t}{\cos t}$, $\cot t = \frac{\cos t}{\sin t}$, $\sec t = \frac{1}{\cos t}$, $\csc t = \frac{1}{\sin t}$.
+\end{definition}
+\begin{theorem}[Fundamental Trigonometric Identities]
+\begin{align*}
+\sin^2 t + \cos^2 t &= 1, \\
+1 + \tan^2 t &= \sec^2 t, \\
+1 + \cot^2 t &= \csc^2 t, \\
+\sin(-t) &= -\sin t \text{ (odd)}, \\
+\cos(-t) &= \cos t \text{ (even)}.
+\end{align*}
+\end{theorem}
+\begin{theorem}[Addition and Subtraction Formulas]
+\begin{align*}
+\sin(x + y) &= \sin x \cos y + \cos x \sin y, \\
+\sin(x - y) &= \sin x \cos y - \cos x \sin y, \\
+\cos(x + y) &= \cos x \cos y - \sin x \sin y, \\
+\cos(x - y) &= \cos x \cos y + \sin x \sin y.
+\end{align*}
+\end{theorem}
+\begin{theorem}[Double-Angle Formulas]
+\begin{align*}
+\sin 2x &= 2\sin x \cos x, \\
+\cos 2x &= \cos^2 x - \sin^2 x = 1 - 2\sin^2 x = 2\cos^2 x - 1.
+\end{align*}
+\end{theorem}
+\begin{theorem}[Half-Angle Formulas]
+\[
+\sin^2 x = \frac{1 - \cos 2x}{2}, \quad \cos^2 x = \frac{1 + \cos 2x}{2}.
+\]
+\end{theorem}
+\begin{theorem}[Product-to-Sum Formulas]
+\begin{align*}
+\sin A \cos B &= \frac{1}{2}[\sin(A-B) + \sin(A+B)], \\
+\sin A \sin B &= \frac{1}{2}[\cos(A-B) - \cos(A+B)], \\
+\cos A \cos B &= \frac{1}{2}[\cos(A-B) + \cos(A+B)].
+\end{align*}
+\end{theorem}
+\begin{definition}[Inverse Trigonometric Functions]
+\begin{itemize}
+\item $y = \arcsin x \iff \sin y = x$, $x \in [-1,1]$, $y \in [-\frac{\pi}{2}, \frac{\pi}{2}]$.
+\item $y = \arccos x \iff \cos y = x$, $x \in [-1,1]$, $y \in [0, \pi]$.
+\item $y = \arctan x \iff \tan y = x$, $x \in \mathbb{R}$, $y \in (-\frac{\pi}{2}, \frac{\pi}{2})$.
+\end{itemize}
+\end{definition}
+\section{Sequences and Limits}
+\subsection{Sequences and Their Limits}
+\begin{definition}[Sequence]
+A \textit{sequence} is an ordered list of numbers denoted by $\{a_n\}_{n=1}^{\infty}$ or $\{a_n\}$. Each $a_n$ is a \textit{term}. A sequence is a function with domain $\mathbb{N}$.
+\end{definition}
+\begin{example}
+Some sequences:
+\begin{enumerate}
+\item $a_n = \frac{1}{n}$: $1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \dots$
+\item $a_n = (-1)^n$: $-1, 1, -1, 1, \dots$
+\item $a_n = \frac{n}{n+1}$: $\frac{1}{2}, \frac{2}{3}, \frac{3}{4}, \dots$
+\item $a_n = 2^n$: $2, 4, 8, 16, \dots$
+\item Fibonacci: $a_1 = 1, a_2 = 1, a_n = a_{n-1} + a_{n-2}$: $1, 1, 2, 3, 5, 8, \dots$
+\end{enumerate}
+\end{example}
+\begin{definition}[Limit of a Sequence]
+A sequence $\{a_n\}$ \textit{converges} to a limit $L$, written $\lim_{n \to \infty} a_n = L$, if for every $\epsilon > 0$ there exists $N \in \mathbb{N}$ such that $n > N \implies |a_n - L| < \epsilon$.
+\end{definition}
+\begin{example}
+Show that $\lim_{n \to \infty} \frac{1}{n} = 0$.
+Given $\epsilon > 0$, we need $\left|\frac{1}{n}\right| < \epsilon \iff n > \frac{1}{\epsilon}$. Choose $N = \lceil 1/\epsilon \rceil$. Then for $n > N$, $\frac{1}{n} < \epsilon$.
+\end{example}
+\begin{example}
+Show that $\lim_{n \to \infty} \frac{n}{n+1} = 1$.
+$\left|\frac{n}{n+1} - 1\right| = \left|\frac{-1}{n+1}\right| = \frac{1}{n+1} < \epsilon \iff n+1 > \frac{1}{\epsilon}$. Choose $N = \lceil 1/\epsilon \rceil - 1$.
+\end{example}
+\begin{definition}[Divergence to Infinity]
+$\lim_{n \to \infty} a_n = \infty$ if for every $M > 0$ there exists $N$ such that $n > N \implies a_n > M$.
+\end{definition}
+\subsection{Properties of Convergent Sequences}
+\begin{theorem}[Uniqueness of Limit]
+If a sequence converges, its limit is unique.
+\end{theorem}
+\begin{proof}
+Suppose $a_n \to L_1$ and $a_n \to L_2$. Let $\epsilon = \frac{|L_1 - L_2|}{2} > 0$. There exist $N_1, N_2$ such that $n > N_1 \implies |a_n - L_1| < \epsilon$ and $n > N_2 \implies |a_n - L_2| < \epsilon$. Let $N = \max(N_1, N_2)$. Then for $n > N$:
+\[
+|L_1 - L_2| \leq |L_1 - a_n| + |a_n - L_2| < 2\epsilon = |L_1 - L_2|,
+\]
+a contradiction. Hence $L_1 = L_2$.
+\end{proof}
+\begin{theorem}[Algebraic Limit Theorem]
+If $a_n \to A$ and $b_n \to B$, then:
+\begin{enumerate}
+\item $\lim (a_n + b_n) = A + B$.
+\item $\lim (a_n - b_n) = A - B$.
+\item $\lim (c a_n) = cA$.
+\item $\lim (a_n b_n) = AB$.
+\item $\lim \frac{a_n}{b_n} = \frac{A}{B}$ if $B \neq 0$.
+\item $\lim (a_n)^p = A^p$ for $p > 0$ if $A > 0$.
+\end{enumerate}
+\end{theorem}
+\begin{theorem}[Squeeze Theorem for Sequences]
+If $a_n \leq b_n \leq c_n$ eventually and $a_n \to L$, $c_n \to L$, then $b_n \to L$.
+\end{theorem}
+\begin{example}
+Find $\lim_{n \to \infty} \frac{\sin n}{n}$.
+Since $-1 \leq \sin n \leq 1$, we have $-\frac{1}{n} \leq \frac{\sin n}{n} \leq \frac{1}{n}$. Both bounds converge to 0. By Squeeze Theorem, the limit is 0.
+\end{example}
+\subsection{Monotone Sequences}
+\begin{definition}[Monotone Sequence]
+$\{a_n\}$ is \textit{increasing} if $a_n \leq a_{n+1}$ for all $n$; \textit{decreasing} if $a_n \geq a_{n+1}$; \textit{strictly increasing} if $a_n < a_{n+1}$; \textit{strictly decreasing} if $a_n > a_{n+1}$. A sequence that is either increasing or decreasing is \textit{monotone}.
+\end{definition}
+\begin{definition}[Bounded Sequence]
+$\{a_n\}$ is \textit{bounded above} if $\exists M: a_n \leq M$ for all $n$. \textit{Bounded below} if $\exists m: a_n \geq m$. \textit{Bounded} if both.
+\end{definition}
+\begin{theorem}[Monotone Convergence Theorem]
+Every bounded monotone sequence converges. If increasing and bounded above, it converges to its supremum. If decreasing and bounded below, it converges to its infimum.
+\end{theorem}
+\begin{proof}
+We prove the increasing case. Let $S = \{a_n : n \in \mathbb{N}\}$ and $L = \sup S$. Since $\{a_n\}$ is bounded above, $L$ exists. Let $\epsilon > 0$. Since $L - \epsilon$ is not an upper bound, there exists $N$ with $a_N > L - \epsilon$. Since the sequence is increasing, for $n > N$: $a_n \geq a_N > L - \epsilon$. Also $a_n \leq L$. So $|a_n - L| < \epsilon$ for $n > N$. Hence $a_n \to L$.
+\end{proof}
+\begin{example}
+$a_n = 1 - \frac{1}{n}$ is increasing and bounded above by 1, converging to 1.
+\end{example}
+\begin{example}
+$a_n = \left(1 + \frac{1}{n}\right)^n$ is increasing and bounded above by 3, converging to $e \approx 2.71828$.
+\end{example}
+\subsection{Limits of Functions}
+\begin{definition}[Limit of a Function]
+Let $f$ be defined on an open interval containing $a$, except possibly at $a$. We say $\lim_{x \to a} f(x) = L$ if for every $\epsilon > 0$ there exists $\delta > 0$ such that
+\[
+0 < |x - a| < \delta \implies |f(x) - L| < \epsilon.
+\]
+\end{definition}
+\begin{example}
+Show $\lim_{x \to 2} (3x + 1) = 7$.
+Given $\epsilon > 0$, need $\delta$ such that $0 < |x-2| < \delta \implies |(3x+1) - 7| < \epsilon$. This simplifies to $3|x-2| < \epsilon$, so $|x-2| < \epsilon/3$. Choose $\delta = \epsilon/3$.
+\end{example}
+\begin{theorem}[Algebraic Limit Laws]
+If $\lim_{x \to a} f(x) = L$ and $\lim_{x \to a} g(x) = M$, then:
+\begin{enumerate}
+\item $\lim (f+g) = L+M$.
+\item $\lim (f-g) = L-M$.
+\item $\lim (cf) = cL$.
+\item $\lim (fg) = LM$.
+\item $\lim \frac{f}{g} = \frac{L}{M}$ if $M \neq 0$.
+\end{enumerate}
+\end{theorem}
+\begin{theorem}[One-Sided and Two-Sided Limits]
+$\lim_{x \to a} f(x) = L \iff \lim_{x \to a^-} f(x) = L$ and $\lim_{x \to a^+} f(x) = L$.
+\end{theorem}
+\subsection{The Sandwich Theorem}
+\begin{theorem}[Sandwich Theorem]
+If $f(x) \leq g(x) \leq h(x)$ near $a$, and $\lim_{x \to a} f(x) = \lim_{x \to a} h(x) = L$, then $\lim_{x \to a} g(x) = L$.
+\end{theorem}
+\begin{proof}
+Let $\epsilon > 0$. There exist $\delta_1, \delta_2 > 0$ such that $0 < |x-a| < \delta_1 \implies L - \epsilon < f(x) < L + \epsilon$ and $0 < |x-a| < \delta_2 \implies L - \epsilon < h(x) < L + \epsilon$. Let $\delta = \min(\delta_1, \delta_2)$. Then for $0 < |x-a| < \delta$:
+\[
+L - \epsilon < f(x) \leq g(x) \leq h(x) < L + \epsilon,
+\]
+so $|g(x) - L| < \epsilon$.
+\end{proof}
+\begin{example}
+$\lim_{x \to 0} x^2 \sin(1/x) = 0$ since $-x^2 \leq x^2 \sin(1/x) \leq x^2$ and both bounds converge to 0.
+\end{example}
+\begin{example}
+Show $\lim_{x \to 0} \frac{\sin x}{x} = 1$.
+For $0 < x < \pi/2$, geometric reasoning gives $\cos x < \frac{\sin x}{x} < 1$. Since $\lim_{x \to 0^+} \cos x = 1$, the Squeeze Theorem gives the result. Since $\frac{\sin x}{x}$ is even, the two-sided limit is 1.
+\end{example}
+\section{Limits and Continuity}
+\subsection{One-Sided Limits}
+\begin{definition}[Left-Hand Limit]
+$\lim_{x \to a^-} f(x) = L$ if for every $\epsilon > 0$ there exists $\delta > 0$ such that $a - \delta < x < a \implies |f(x) - L| < \epsilon$.
+\end{definition}
+\begin{definition}[Right-Hand Limit]
+$\lim_{x \to a^+} f(x) = L$ if for every $\epsilon > 0$ there exists $\delta > 0$ such that $a < x < a + \delta \implies |f(x) - L| < \epsilon$.
+\end{definition}
+\begin{example}
+For $f(x) = \frac{|x|}{x}$: $\lim_{x \to 0^+} f(x) = 1$ and $\lim_{x \to 0^-} f(x) = -1$. The two-sided limit does not exist.
+\end{example}
+\subsection{Continuous Functions}
+\begin{definition}[Continuity at a Point]
+$f$ is \textit{continuous at $a$} if:
+\begin{enumerate}
+\item $f(a)$ is defined.
+\item $\lim_{x \to a} f(x)$ exists.
+\item $\lim_{x \to a} f(x) = f(a)$.
+\end{enumerate}
+\end{definition}
+\begin{definition}[Continuity on an Interval]
+$f$ is continuous on $(a, b)$ if continuous at every point. On $[a, b]$ if continuous on $(a, b)$, right-continuous at $a$, and left-continuous at $b$.
+\end{definition}
+\begin{theorem}[Properties of Continuous Functions]
+If $f$ and $g$ are continuous at $a$ and $c$ is constant:
+\begin{enumerate}
+\item $f + g$, $f - g$, $cf$, $fg$ are continuous at $a$.
+\item $\frac{f}{g}$ is continuous if $g(a) \neq 0$.
+\item If $f$ is continuous at $b$ and $\lim_{x \to a} g(x) = b$, then $\lim_{x \to a} f(g(x)) = f(b)$.
+\end{enumerate}
+\end{theorem}
+\begin{theorem}[Continuity of Elementary Functions]
+Polynomials, rational functions, root functions, trigonometric, exponential, and logarithmic functions are continuous on their domains.
+\end{theorem}
+\begin{theorem}[Intermediate Value Theorem]
+If $f$ is continuous on $[a, b]$ and $N$ is between $f(a)$ and $f(b)$, then there exists $c \in (a, b)$ with $f(c) = N$.
+\end{theorem}
+\begin{example}
+Show $x^3 - x - 1 = 0$ has a root in $(1, 2)$.
+Let $f(x) = x^3 - x - 1$. $f(1) = -1 < 0$, $f(2) = 5 > 0$. By IVT, there exists $c \in (1,2)$ with $f(c) = 0$.
+\end{example}
+\begin{example}
+Show $\cos x = x$ has a solution.
+Let $f(x) = \cos x - x$. $f(0) = 1 > 0$, $f(\pi/2) = -\pi/2 < 0$. By IVT, there exists $c \in (0, \pi/2)$ with $f(c) = 0$.
+\end{example}
+\subsection{Types of Discontinuities}
+\begin{definition}[Removable Discontinuity]
+$\lim_{x \to a} f(x)$ exists but $f(a)$ is undefined or different. The graph has a hole.
+\end{definition}
+\begin{definition}[Jump Discontinuity]
+Both one-sided limits exist but are different.
+\end{definition}
+\begin{definition}[Infinite Discontinuity]
+At least one one-sided limit is $\pm\infty$. Vertical asymptote.
+\end{definition}
+\begin{definition}[Oscillating Discontinuity]
+Function oscillates infinitely as $x \to a$.
+\end{definition}
+\begin{example}
+$f(x) = \frac{x^2-4}{x-2}$ has removable discontinuity at $x=2$. $f(x) = \begin{cases} x & x<0 \\ x+1 & x \geq 0 \end{cases}$ has jump at $x=0$. $f(x) = \frac{1}{x^2}$ has infinite at $x=0$. $f(x) = \sin(1/x)$ has oscillating at $x=0$.
+\end{example}
+\subsection{Limits Involving Infinity}
+\begin{definition}[Limit at Infinity]
+$\lim_{x \to \infty} f(x) = L$ if for every $\epsilon > 0$ there exists $N$ such that $x > N \implies |f(x) - L| < \epsilon$.
+\end{definition}
+\begin{definition}[Horizontal Asymptote]
+$y = L$ is a horizontal asymptote if $\lim_{x \to \infty} f(x) = L$ or $\lim_{x \to -\infty} f(x) = L$.
+\end{definition}
+\begin{theorem}[End Behavior of Rational Functions]
+For $f(x) = \frac{P(x)}{Q(x)}$ with degrees $n$ and $m$:
+\begin{enumerate}
+\item $n < m$: $\lim_{x \to \pm\infty} f = 0$.
+\item $n = m$: $\lim_{x \to \pm\infty} f = \frac{a_n}{b_m}$.
+\item $n > m$: limit is $\pm\infty$.
+\end{enumerate}
+\end{theorem}
+\begin{definition}[Infinite Limit]
+$\lim_{x \to a} f(x) = \infty$ if for every $M > 0$ there exists $\delta > 0$ such that $0 < |x-a| < \delta \implies f(x) > M$.
+\end{definition}
+\begin{definition}[Vertical Asymptote]
+$x = a$ is a vertical asymptote if at least one one-sided limit is $\pm\infty$.
+\end{definition}
+\subsection{Relative Rates of Growth}
+\begin{definition}[Growth Rates]
+$f$ grows faster than $g$ ($f \gg g$) if $\lim_{x \to \infty} \frac{f(x)}{g(x)} = \infty$. $f$ grows slower than $g$ ($f \ll g$) if the limit is 0. Same rate if limit is positive finite.
+\end{definition}
+\begin{theorem}[Hierarchy of Growth]
+\[
+\ln x \ll x^p \ll b^x \ll x^x \quad (p > 0, b > 1).
+\]
+\end{theorem}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Function} & \textbf{Equivalent} & \textbf{Condition} \\
+\hline
+$\sin x$ & $x$ & $x \to 0$ \\
+$\tan x$ & $x$ & $x \to 0$ \\
+$\arcsin x$ & $x$ & $x \to 0$ \\
+$\arctan x$ & $x$ & $x \to 0$ \\
+$1 - \cos x$ & $\frac{x^2}{2}$ & $x \to 0$ \\
+$e^x - 1$ & $x$ & $x \to 0$ \\
+$\ln(1+x)$ & $x$ & $x \to 0$ \\
+$(1+x)^\alpha - 1$ & $\alpha x$ & $x \to 0$ \\
+\hline
+\end{tabular}
+\end{center}
+\section{Derivatives}
+\subsection{Definition of the Derivative}
+\begin{definition}[Derivative at a Point]
+\[
+f'(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h}.
+\]
+\end{definition}
+\begin{definition}[Derivative Function]
+\[
+f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}.
+\]
+\end{definition}
+\begin{remark}[Notation]
+$f'(x)$, $y'$, $\frac{dy}{dx}$, $\frac{df}{dx}$, $D_x f(x)$.
+\end{remark}
+\begin{example}
+$f(x) = x^2$: $f'(x) = \lim_{h \to 0} \frac{(x+h)^2 - x^2}{h} = \lim_{h \to 0} \frac{2xh + h^2}{h} = 2x$.
+\end{example}
+\begin{example}
+$f(x) = \sqrt{x}$: $f'(x) = \lim_{h \to 0} \frac{\sqrt{x+h} - \sqrt{x}}{h} = \lim_{h \to 0} \frac{1}{\sqrt{x+h}+\sqrt{x}} = \frac{1}{2\sqrt{x}}$.
+\end{example}
+\begin{theorem}[Differentiability Implies Continuity]
+If $f$ is differentiable at $a$, then $f$ is continuous at $a$.
+\end{theorem}
+\begin{proof}
+$\lim_{x \to a} (f(x) - f(a)) = \lim_{x \to a} \frac{f(x)-f(a)}{x-a} \cdot (x-a) = f'(a) \cdot 0 = 0$.
+\end{proof}
+\begin{remark}
+Converse is false: $f(x) = |x|$ is continuous at 0 but not differentiable.
+\end{remark}
+\subsection{Basic Differentiation Rules}
+\begin{theorem}[Power Rule]
+$\frac{d}{dx}(x^n) = nx^{n-1}$ for any real $n$.
+\end{theorem}
+\begin{theorem}[Constant Multiple and Sum Rules]
+$(cf)' = cf'$, $(f \pm g)' = f' \pm g'$.
+\end{theorem}
+\begin{theorem}[Product Rule]
+$(fg)' = f'g + fg'$.
+\end{theorem}
+\begin{theorem}[Quotient Rule]
+$\left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2}$.
+\end{theorem}
+\begin{example}
+$f(x) = 3x^4 - 2x^2 + 5x - 7$: $f'(x) = 12x^3 - 4x + 5$.
+\end{example}
+\begin{example}
+$f(x) = (x^2+1)(x^3-2x)$: $f'(x) = 2x(x^3-2x) + (x^2+1)(3x^2-2) = 5x^4 - 3x^2 - 2$.
+\end{example}
+\begin{example}
+$f(x) = \frac{x^2+1}{x-1}$: $f'(x) = \frac{2x(x-1) - (x^2+1)}{(x-1)^2} = \frac{x^2-2x-1}{(x-1)^2}$.
+\end{example}
+\subsection{Derivatives of Trigonometric Functions}
+\begin{theorem}
+\begin{align*}
+(\sin x)' &= \cos x, & (\cos x)' &= -\sin x, \\
+(\tan x)' &= \sec^2 x, & (\cot x)' &= -\csc^2 x, \\
+(\sec x)' &= \sec x \tan x, & (\csc x)' &= -\csc x \cot x.
+\end{align*}
+\end{theorem}
+\begin{proof}
+For sine: $\frac{d}{dx}\sin x = \lim_{h \to 0} \frac{\sin x \cos h + \cos x \sin h - \sin x}{h} = \sin x \cdot 0 + \cos x \cdot 1 = \cos x$.
+\end{proof}
+\subsection{Derivatives of Transcendental Functions}
+\begin{theorem}
+\begin{align*}
+(e^x)' &= e^x, & (a^x)' &= a^x \ln a, \\
+(\ln x)' &= \frac{1}{x}, & (\log_a x)' &= \frac{1}{x \ln a}, \\
+(\arcsin x)' &= \frac{1}{\sqrt{1-x^2}}, & (\arctan x)' &= \frac{1}{1+x^2}.
+\end{align*}
+\end{theorem}
+\subsection{The Chain Rule}
+\begin{theorem}[Chain Rule]
+If $y = f(u)$ and $u = g(x)$, then
+\[
+\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx} = f'(g(x)) g'(x).
+\]
+\end{theorem}
+\begin{example}
+$f(x) = (3x^2+1)^5$: $f'(x) = 5(3x^2+1)^4 \cdot 6x = 30x(3x^2+1)^4$.
+\end{example}
+\begin{example}
+$f(x) = \sin(e^{x^2})$: $f'(x) = \cos(e^{x^2}) \cdot e^{x^2} \cdot 2x$.
+\end{example}
+\subsection{Second and Higher Order Derivatives}
+\begin{definition}
+$f'' = (f')'$, $f''' = (f'')'$, $f^{(n)} = (f^{(n-1)})'$.
+\end{definition}
+\begin{example}
+$f(x) = x^5 - 3x^3 + 2x$: $f' = 5x^4 - 9x^2 + 2$, $f'' = 20x^3 - 18x$, $f''' = 60x^2 - 18$, $f^{(4)} = 120x$, $f^{(5)} = 120$, $f^{(6)} = 0$.
+\end{example}
+\subsection{Implicit Differentiation}
+\begin{definition}
+Differentiate both sides of an equation with respect to $x$, treating $y$ as a function of $x$, then solve for $\frac{dy}{dx}$.
+\end{definition}
+\begin{example}
+$x^2 + y^2 = 25$: $2x + 2y\frac{dy}{dx} = 0 \implies \frac{dy}{dx} = -\frac{x}{y}$.
+\end{example}
+\begin{example}
+$x^3 + y^3 = 6xy$: $3x^2 + 3y^2 y' = 6y + 6x y' \implies y' = \frac{2y - x^2}{y^2 - 2x}$.
+\end{example}
+\subsection{Linearization and Differentials}
+\begin{definition}[Linearization]
+$L(x) = f(a) + f'(a)(x-a)$.
+\end{definition}
+\begin{definition}[Differential]
+$dy = f'(x) dx$.
+\end{definition}
+\begin{example}
+Approximate $\sqrt{4.1}$: $f(x) = \sqrt{x}$, $a=4$. $L(x) = 2 + \frac{1}{4}(x-4)$. $L(4.1) = 2.025$.
+\end{example}
+\subsection{Derivatives of Parametric Functions}
+\begin{theorem}
+For $x = f(t)$, $y = g(t)$:
+\[
+\frac{dy}{dx} = \frac{dy/dt}{dx/dt}, \quad \frac{d^2y}{dx^2} = \frac{\frac{d}{dt}(dy/dx)}{dx/dt}.
+\]
+\end{theorem}
+\begin{example}
+$x = t^2$, $y = t^3$: $\frac{dy}{dx} = \frac{3t^2}{2t} = \frac{3t}{2}$, $\frac{d^2y}{dx^2} = \frac{3/2}{2t} = \frac{3}{4t}$.
+\end{example}
+\subsection{Tangents and Normal Lines}
+\begin{definition}[Tangent Line]
+$y - f(a) = f'(a)(x-a)$.
+\end{definition}
+\begin{definition}[Normal Line]
+$y - f(a) = -\frac{1}{f'(a)}(x-a)$.
+\end{definition}
+\begin{example}
+$f(x) = x^2$ at $x=1$: Tangent: $y = 2x - 1$. Normal: $y = -\frac{1}{2}x + \frac{3}{2}$.
+\end{example}
+\section{Applications of Derivatives}
+\subsection{Maxima and Minima}
+\begin{definition}[Absolute Extrema]
+$f(c)$ is absolute maximum on $D$ if $f(c) \geq f(x)$ for all $x \in D$. Absolute minimum if $f(c) \leq f(x)$.
+\end{definition}
+\begin{definition}[Local Extrema]
+$f$ has local maximum at $c$ if $f(c) \geq f(x)$ for $x$ near $c$. Local minimum if $f(c) \leq f(x)$.
+\end{definition}
+\begin{theorem}[Extreme Value Theorem]
+If $f$ is continuous on $[a, b]$, it attains both absolute max and min.
+\end{theorem}
+\begin{theorem}[Fermat's Theorem]
+If $f$ has local extremum at $c$ and $f'(c)$ exists, then $f'(c) = 0$.
+\end{theorem}
+\begin{definition}[Critical Number]
+$c$ is a critical number if $f'(c) = 0$ or $f'(c)$ does not exist.
+\end{definition}
+\begin{theorem}[First Derivative Test]
+If $f'$ changes $+ \to -$ at $c$: local max. If $- \to +$: local min.
+\end{theorem}
+\begin{theorem}[Second Derivative Test]
+$f'(c) = 0$ and $f''(c) > 0$: local min. $f''(c) < 0$: local max.
+\end{theorem}
+\begin{theorem}[Closed Interval Method]
+For absolute extrema on $[a,b]$: evaluate $f$ at critical numbers and endpoints.
+\end{theorem}
+\begin{example}
+$f(x) = x^3 - 3x^2 + 2$: $f' = 3x(x-2)$, $f'' = 6x-6$. Local max at $x=0$ ($f=2$), local min at $x=2$ ($f=-2$).
+\end{example}
+\subsection{The Mean Value Theorem}
+\begin{theorem}[Rolle's Theorem]
+If $f$ continuous on $[a,b]$, differentiable on $(a,b)$, and $f(a) = f(b)$, then exists $c \in (a,b)$ with $f'(c) = 0$.
+\end{theorem}
+\begin{theorem}[Mean Value Theorem]
+If $f$ continuous on $[a,b]$ and differentiable on $(a,b)$, then exists $c \in (a,b)$ with
+\[
+f'(c) = \frac{f(b)-f(a)}{b-a}.
+\]
+\end{theorem}
+\begin{proof}
+Define $g(x) = f(x) - f(a) - \frac{f(b)-f(a)}{b-a}(x-a)$. Then $g(a) = g(b) = 0$. By Rolle's Theorem, exists $c$ with $g'(c) = 0$, i.e., $f'(c) = \frac{f(b)-f(a)}{b-a}$.
+\end{proof}
+\begin{corollary}
+If $f'(x) = 0$ on $(a,b)$, then $f$ is constant. If $f'(x) > 0$, $f$ is increasing. If $f'(x) < 0$, $f$ is decreasing.
+\end{corollary}
+\subsection{Graphing by First and Second Derivatives}
+\begin{definition}[Concavity]
+$f$ is concave up if $f'$ is increasing ($f'' > 0$). Concave down if $f'$ is decreasing ($f'' < 0$).
+\end{definition}
+\begin{definition}[Inflection Point]
+Point where concavity changes.
+\end{definition}
+\begin{theorem}[Second Derivative Test for Inflection]
+If $f''(c) = 0$ and $f''$ changes sign at $c$, then $(c, f(c))$ is an inflection point.
+\end{theorem}
+\subsection{Asymptotes and Dominant Terms}
+\begin{definition}[Slant Asymptote]
+$y = mx + b$ is a slant asymptote if $\lim_{x \to \pm\infty}[f(x) - (mx+b)] = 0$.
+\end{definition}
+\begin{theorem}
+A rational function has a slant asymptote if degree of numerator is exactly one more than denominator.
+\end{theorem}
+\begin{example}
+$f(x) = \frac{x^2+1}{x-1} = x+1+\frac{2}{x-1}$. Slant asymptote: $y = x+1$.
+\end{example}
+\subsection{Graphing Rational Functions}
+Steps: factor, find domain and vertical asymptotes, find holes, find horizontal/slant asymptotes, find intercepts, analyze derivatives, sketch.
+\subsection{Related Rates}
+\begin{theorem}[Strategy]
+Draw diagram, write equation, differentiate with respect to $t$, substitute known values, solve.
+\end{theorem}
+\begin{example}
+Balloon inflated at $100$ cm$^3$/s. $V = \frac{4}{3}\pi r^3$, $\frac{dV}{dt} = 4\pi r^2 \frac{dr}{dt}$. At $r=5$: $100 = 100\pi \frac{dr}{dt} \implies \frac{dr}{dt} = \frac{1}{\pi}$ cm/s.
+\end{example}
+\begin{example}
+Ladder: $x^2 + y^2 = 100$. $2x\frac{dx}{dt} + 2y\frac{dy}{dt} = 0$. At $x=6$, $y=8$, $\frac{dx}{dt}=1$: $\frac{dy}{dt} = -\frac{3}{4}$ ft/s.
+\end{example}
+\subsection{Optimization}
+\begin{theorem}[Strategy]
+Identify quantity, draw diagram, introduce variables, write equation, express in one variable, find domain, find critical numbers, verify extrema.
+\end{theorem}
+\begin{example}
+Two numbers summing to 20 with max product: $P = x(20-x)$, $P' = 20-2x = 0 \implies x=10$. Numbers 10 and 10.
+\end{example}
+\begin{example}
+Box with square base, no top, volume 32. $S = x^2 + \frac{128}{x}$, $S' = 2x - \frac{128}{x^2} = 0 \implies x = 4$, $h = 2$.
+\end{example}
+\subsection{Indeterminate Forms and L'Hôpital's Rule}
+\begin{definition}[Indeterminate Forms]
+$\frac{0}{0}$, $\frac{\infty}{\infty}$, $0 \cdot \infty$, $\infty - \infty$, $0^0$, $1^\infty$, $\infty^0$.
+\end{definition}
+\begin{theorem}[L'Hôpital's Rule]
+If $\lim_{x \to a} \frac{f(x)}{g(x)}$ is $\frac{0}{0}$ or $\frac{\infty}{\infty}$, then
+\[
+\lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}
+\]
+provided the latter exists.
+\end{theorem}
+\begin{example}
+$\lim_{x \to 0} \frac{\sin x}{x} = \lim_{x \to 0} \frac{\cos x}{1} = 1$.
+\end{example}
+\begin{example}
+$\lim_{x \to \infty} \frac{\ln x}{x} = \lim_{x \to \infty} \frac{1/x}{1} = 0$.
+\end{example}
+\begin{example}
+$\lim_{x \to 0^+} x^x$: Let $y = x^x$, $\ln y = x \ln x \to 0$. So limit is $e^0 = 1$.
+\end{example}
+\section{Integrals: Antiderivatives and Substitution}
+\subsection{Antiderivatives}
+\begin{definition}[Antiderivative]
+$F$ is an antiderivative of $f$ if $F'(x) = f(x)$.
+\end{definition}
+\begin{theorem}[General Antiderivative]
+If $F$ is an antiderivative of $f$, the most general is $F(x) + C$.
+\end{theorem}
+\begin{example}
+$f(x) = 3x^2$: $F(x) = x^3 + C$.
+\end{example}
+\begin{example}
+$f(x) = \cos x$: $F(x) = \sin x + C$.
+\end{example}
+\subsection{Indefinite Integrals}
+\begin{definition}
+$\int f(x) dx = F(x) + C$ where $F' = f$.
+\end{definition}
+\begin{theorem}[Linearity]
+$\int [f+g] dx = \int f dx + \int g dx$ and $\int kf dx = k \int f dx$.
+\end{theorem}
+\begin{example}
+$\int (4x^3 - 2x + 5) dx = x^4 - x^2 + 5x + C$.
+\end{example}
+\subsection{Basic Integration Formulas}
+\[
+\int x^n dx = \frac{x^{n+1}}{n+1} + C \quad (n \neq -1),
+\]
+\[
+\int \frac{1}{x} dx = \ln|x| + C,
+\]
+\[
+\int e^x dx = e^x + C, \quad \int a^x dx = \frac{a^x}{\ln a} + C,
+\]
+\[
+\int \sin x dx = -\cos x + C, \quad \int \cos x dx = \sin x + C,
+\]
+\[
+\int \sec^2 x dx = \tan x + C, \quad \int \csc^2 x dx = -\cot x + C,
+\]
+\[
+\int \sec x \tan x dx = \sec x + C, \quad \int \csc x \cot x dx = -\csc x + C,
+\]
+\[
+\int \frac{1}{1+x^2} dx = \arctan x + C, \quad \int \frac{1}{\sqrt{1-x^2}} dx = \arcsin x + C.
+\]
+\subsection{Substitution in Indefinite Integrals}
+\begin{theorem}[Substitution Rule]
+$\int f(g(x)) g'(x) dx = \int f(u) du$ where $u = g(x)$.
+\end{theorem}
+\begin{example}
+$\int 2x\cos(x^2) dx = \sin(x^2) + C$.
+\end{example}
+\begin{example}
+$\int e^{5x} dx = \frac{1}{5}e^{5x} + C$.
+\end{example}
+\begin{example}
+$\int \frac{1}{2x+1} dx = \frac{1}{2}\ln|2x+1| + C$.
+\end{example}
+\begin{example}
+$\int \tan x dx = -\ln|\cos x| + C = \ln|\sec x| + C$.
+\end{example}
+\begin{theorem}[Trigonometric Substitution]
+$\sqrt{a^2-x^2}$: $x = a\sin\theta$. $\sqrt{a^2+x^2}$: $x = a\tan\theta$. $\sqrt{x^2-a^2}$: $x = a\sec\theta$.
+\end{theorem}
+\section{Techniques of Integration}
+\subsection{Integration by Parts}
+\begin{theorem}[Integration by Parts]
+\[
+\int u \, dv = uv - \int v \, du.
+\]
+\end{theorem}
+LIATE rule for choosing $u$: Logarithmic, Inverse trigonometric, Algebraic, Trigonometric, Exponential.
+\begin{example}
+$\int xe^x dx = xe^x - e^x + C = e^x(x-1) + C$.
+\end{example}
+\begin{example}
+$\int \ln x dx = x\ln x - x + C$.
+\end{example}
+\begin{example}
+$\int x\sin x dx = -x\cos x + \sin x + C$.
+\end{example}
+\begin{example}
+$\int x^2 e^x dx = e^x(x^2 - 2x + 2) + C$.
+\end{example}
+\begin{example}
+$\int e^x \sin x dx = \frac{e^x}{2}(\sin x - \cos x) + C$.
+\end{example}
+\begin{example}
+$\int \arctan x dx = x\arctan x - \frac{1}{2}\ln(1+x^2) + C$.
+\end{example}
+\subsection{Trigonometric Integrals}
+\begin{theorem}[Reduction Formula for $\int \sin^n x \, dx$]
+\[
+\int \sin^n x dx = -\frac{1}{n}\sin^{n-1}x\cos x + \frac{n-1}{n}\int \sin^{n-2}x dx.
+\]
+\end{theorem}
+\begin{theorem}[Reduction Formula for $\int \cos^n x \, dx$]
+\[
+\int \cos^n x dx = \frac{1}{n}\cos^{n-1}x\sin x + \frac{n-1}{n}\int \cos^{n-2}x dx.
+\]
+\end{theorem}
+\begin{theorem}[Strategy for $\int \sin^m x \cos^n x \, dx$]
+If $m$ odd, $u = \cos x$. If $n$ odd, $u = \sin x$. If both even, use half-angle identities.
+\end{theorem}
+\begin{example}
+$\int \sin^4 x dx = -\frac{1}{4}\sin^3 x\cos x + \frac{3x}{8} - \frac{3\sin 2x}{16} + C$.
+\end{example}
+\begin{theorem}[Product-to-Sum]
+$\sin A \cos B = \frac{1}{2}[\sin(A-B) + \sin(A+B)]$, etc.
+\end{theorem}
+\begin{example}
+$\int \sin 3x \cos 5x dx = \frac{\cos 2x}{4} - \frac{\cos 8x}{16} + C$.
+\end{example}
+\subsection{Partial Fractions}
+\begin{theorem}[Partial Fraction Decomposition]
+For proper $\frac{P(x)}{Q(x)}$:
+\begin{enumerate}
+\item Distinct linear $(ax+b)$: $\frac{A}{ax+b}$.
+\item Repeated linear $(ax+b)^k$: $\sum_{j=1}^k \frac{A_j}{(ax+b)^j}$.
+\item Distinct irreducible quadratic $(ax^2+bx+c)$: $\frac{Ax+B}{ax^2+bx+c}$.
+\item Repeated quadratic: sum with powers.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+$\int \frac{1}{x^2-1} dx = \frac{1}{2}\ln\left|\frac{x-1}{x+1}\right| + C$.
+\end{example}
+\begin{example}
+$\int \frac{2x+3}{x^2+3x+2} dx = \ln|(x+1)(x+2)| + C$.
+\end{example}
+\begin{example}
+$\int \frac{x^2+2x-1}{x^3-x} dx = \ln\left|\frac{x(x-1)}{x+1}\right| + C$.
+\end{example}
+\begin{example}
+$\int \frac{1}{x^2(x+1)} dx = \ln\left|\frac{x+1}{x}\right| - \frac{1}{x} + C$.
+\end{example}
+\begin{example}
+$\int \frac{2x+1}{x^2+2x+5} dx = \ln(x^2+2x+5) - \frac{1}{2}\arctan\left(\frac{x+1}{2}\right) + C$.
+\end{example}
+\section{Definite Integrals}
+\subsection{Area and Estimating with Finite Sums}
+\begin{definition}[Riemann Sum]
+$S = \sum_{i=1}^n f(c_i) \Delta x_i$ where $c_i \in [x_{i-1}, x_i]$.
+\end{definition}
+\begin{example}
+Estimate area under $f(x) = x^2$ on $[0,1]$ with $n=4$: right endpoints give $0.46875$, left give $0.21875$. Actual is $1/3$.
+\end{example}
+\subsection{Sigma Notation}
+\begin{theorem}[Properties]
+\begin{enumerate}
+\item $\sum_{i=1}^n (a_i + b_i) = \sum a_i + \sum b_i$.
+\item $\sum_{i=1}^n c a_i = c \sum a_i$.
+\item $\sum_{i=1}^n c = nc$.
+\item $\sum_{i=1}^n i = \frac{n(n+1)}{2}$.
+\item $\sum_{i=1}^n i^2 = \frac{n(n+1)(2n+1)}{6}$.
+\item $\sum_{i=1}^n i^3 = \left(\frac{n(n+1)}{2}\right)^2$.
+\end{enumerate}
+\end{theorem}
+\begin{example}
+$\int_0^1 x^2 dx = \lim_{n \to \infty} \frac{(n+1)(2n+1)}{6n^2} = \frac{1}{3}$.
+\end{example}
+\subsection{The Definite Integral}
+\begin{definition}
+$\int_a^b f(x) dx = \lim_{n \to \infty} \sum_{i=1}^n f(c_i) \Delta x$.
+\end{definition}
+\begin{theorem}[Properties]
+\begin{enumerate}
+\item $\int_a^a f dx = 0$.
+\item $\int_a^b f dx = -\int_b^a f dx$.
+\item $\int_a^b [f+g] dx = \int_a^b f dx + \int_a^b g dx$.
+\item $\int_a^b cf dx = c\int_a^b f dx$.
+\item $\int_a^b f dx = \int_a^c f dx + \int_c^b f dx$.
+\item If $f \geq 0$ on $[a,b]$, then $\int_a^b f dx \geq 0$.
+\end{enumerate}
+\end{theorem}
+\subsection{The Fundamental Theorem of Calculus}
+\begin{theorem}[FTC Part 1]
+If $f$ is continuous on $[a,b]$, then $F(x) = \int_a^x f(t) dt$ is differentiable on $(a,b)$ and $F'(x) = f(x)$.
+\end{theorem}
+\begin{proof}
+$F(x+h) - F(x) = \int_x^{x+h} f(t) dt = f(c)h$ by MVT for integrals. So $\frac{F(x+h)-F(x)}{h} = f(c)$ where $c$ is between $x$ and $x+h$. As $h \to 0$, $c \to x$, so $F'(x) = f(x)$.
+\end{proof}
+\begin{theorem}[FTC Part 2]
+If $f$ is continuous on $[a,b]$ and $F' = f$, then
+\[
+\int_a^b f(x) dx = F(b) - F(a).
+\]
+\end{theorem}
+\begin{proof}
+Let $G(x) = \int_a^x f(t)dt$. By Part 1, $G' = f$, so $G = F + C$. Then $F(b) - F(a) = G(b) - G(a) = \int_a^b f - \int_a^a f = \int_a^b f$.
+\end{proof}
+\begin{example}
+$\int_1^3 x^2 dx = \frac{x^3}{3}\Big|_1^3 = \frac{26}{3}$.
+\end{example}
+\begin{example}
+$\int_0^{\pi/2} \cos x dx = \sin x \Big|_0^{\pi/2} = 1$.
+\end{example}
+\begin{example}
+$\int_1^e \frac{1}{x} dx = \ln x \Big|_1^e = 1$.
+\end{example}
+\subsection{Substitution in Definite Integrals}
+\begin{theorem}
+\[
+\int_a^b f(g(x)) g'(x) dx = \int_{g(a)}^{g(b)} f(u) du.
+\]
+\end{theorem}
+\begin{example}
+$\int_0^1 2x e^{x^2} dx = \int_0^1 e^u du = e - 1$.
+\end{example}
+\begin{example}
+$\int_1^2 \frac{1}{2x+1} dx = \frac{1}{2}\ln\frac{5}{3}$.
+\end{example}
+\begin{theorem}[Even and Odd Functions]
+If $f$ even: $\int_{-a}^a f = 2\int_0^a f$. If $f$ odd: $\int_{-a}^a f = 0$.
+\end{theorem}
+\subsection{Improper Integrals}
+\begin{definition}[Type I]
+$\int_a^{\infty} f dx = \lim_{t \to \infty} \int_a^t f dx$.
+\end{definition}
+\begin{definition}[Type II]
+Infinite discontinuity at endpoint or interior point.
+\end{definition}
+\begin{theorem}[$p$-Integral Test]
+$\int_1^{\infty} \frac{1}{x^p} dx$ converges iff $p > 1$.
+\end{theorem}
+\begin{example}
+$\int_1^{\infty} \frac{1}{x^2} dx = 1$ (converges).
+\end{example}
+\begin{example}
+$\int_1^{\infty} \frac{1}{x} dx = \infty$ (diverges).
+\end{example}
+\begin{example}
+$\int_0^1 \frac{1}{\sqrt{x}} dx = 2$ (converges).
+\end{example}
+\begin{example}
+$\int_0^1 \frac{1}{x} dx = \infty$ (diverges).
+\end{example}
+\begin{theorem}[Comparison Test]
+If $0 \leq f \leq g$ on $[a, \infty)$: if $\int g$ converges then $\int f$ converges; if $\int f$ diverges then $\int g$ diverges.
+\end{theorem}
+\section{Applications of Integrals}
+\subsection{The Area Between Curves}
+\begin{theorem}
+If $f(x) \geq g(x)$ on $[a,b]$:
+\[
+A = \int_a^b [f(x) - g(x)] dx.
+\]
+\end{theorem}
+\begin{example}
+Area between $y = x^2$ and $y = x+2$: intersection at $x = -1, 2$. $A = \int_{-1}^2 [(x+2) - x^2] dx = \frac{9}{2}$.
+\end{example}
+\begin{theorem}
+With respect to $y$: $A = \int_c^d [R(y) - L(y)] dy$.
+\end{theorem}
+\subsection{Volumes}
+\begin{definition}[Disk Method]
+$V = \pi \int_a^b [f(x)]^2 dx$.
+\end{definition}
+\begin{definition}[Washer Method]
+$V = \pi \int_a^b ([f(x)]^2 - [g(x)]^2) dx$.
+\end{definition}
+\begin{definition}[Cylindrical Shells]
+$V = 2\pi \int_a^b x f(x) dx$.
+\end{definition}
+\begin{example}
+Revolve $y = \sqrt{x}$ on $[1,4]$ about $x$-axis: $V = \pi \int_1^4 x dx = \frac{15\pi}{2}$.
+\end{example}
+\begin{example}
+Revolve region between $y=x$ and $y=x^2$ about $x$-axis: $V = \pi \int_0^1 (x^2 - x^4) dx = \frac{2\pi}{15}$.
+\end{example}
+\begin{example}
+Revolve $y = x - x^2$ on $[0,1]$ about $y$-axis: $V = 2\pi \int_0^1 x(x-x^2) dx = \frac{\pi}{6}$.
+\end{example}
+\subsection{Arc Length}
+\begin{theorem}
+\[
+L = \int_a^b \sqrt{1 + [f'(x)]^2} dx.
+\]
+\end{theorem}
+\begin{example}
+$y = x^{3/2}$ on $[0,4]$: $L = \int_0^4 \sqrt{1 + \frac{9}{4}x} dx = \frac{8}{27}(10\sqrt{10}-1)$.
+\end{example}
+\begin{theorem}[Parametric]
+$L = \int_{\alpha}^{\beta} \sqrt{(dx/dt)^2 + (dy/dt)^2} dt$.
+\end{theorem}
+\begin{example}
+Circle radius $r$: $L = 2\pi r$.
+\end{example}
+\subsection{Surface Area of Revolution}
+\begin{theorem}[About $x$-axis]
+\[
+S = \int_a^b 2\pi f(x) \sqrt{1 + [f'(x)]^2} dx.
+\]
+\end{theorem}
+\begin{theorem}[About $y$-axis]
+\[
+S = \int_c^d 2\pi g(y) \sqrt{1 + [g'(y)]^2} dy.
+\]
+\end{theorem}
+\begin{example}
+$y = \sqrt{x}$ on $[1,4]$: $S = \frac{\pi}{6}(17\sqrt{17} - 5\sqrt{5})$.
+\end{example}
+\begin{example}
+Sphere radius $r$: $S = 4\pi r^2$.
+\end{example}
+\section{Complex Numbers and Polar Coordinates}
+\subsection{Complex Numbers}
+\begin{definition}
+$z = a + bi$, $i^2 = -1$. $\operatorname{Re}(z) = a$, $\operatorname{Im}(z) = b$.
+\end{definition}
+\begin{definition}[Conjugate]
+$\bar{z} = a - bi$.
+\end{definition}
+\begin{definition}[Modulus]
+$|z| = \sqrt{a^2 + b^2}$.
+\end{definition}
+\begin{theorem}[Properties]
+\begin{enumerate}
+\item $z\bar{z} = |z|^2$.
+\item $|z_1 z_2| = |z_1||z_2|$.
+\item $|z_1 + z_2| \leq |z_1| + |z_2|$.
+\end{enumerate}
+\end{theorem}
+\subsection{Operations with Complex Numbers}
+\begin{definition}[Addition]
+$(a_1+b_1 i) + (a_2+b_2 i) = (a_1+a_2) + (b_1+b_2)i$.
+\end{definition}
+\begin{definition}[Multiplication]
+$(a_1+b_1 i)(a_2+b_2 i) = (a_1 a_2 - b_1 b_2) + (a_1 b_2 + a_2 b_1)i$.
+\end{definition}
+\begin{definition}[Division]
+$\frac{z_1}{z_2} = \frac{z_1 \bar{z_2}}{|z_2|^2}$.
+\end{definition}
+\begin{example}
+$(3+4i)(1-2i) = 11 - 2i$. $\frac{3+4i}{1-2i} = -1 + 2i$.
+\end{example}
+\subsection{Polar Coordinates}
+\begin{theorem}[Conversion]
+$x = r\cos\theta$, $y = r\sin\theta$, $r^2 = x^2+y^2$, $\tan\theta = y/x$.
+\end{theorem}
+\begin{example}
+$(2, \pi/6) \to (\sqrt{3}, 1)$. $(-1,1) \to (\sqrt{2}, 3\pi/4)$.
+\end{example}
+\subsection{Graphing Polar Equations}
+Common curves: Circle $r = a$; Cardioid $r = a(1\pm\cos\theta)$; Rose $r = a\cos n\theta$ ($n$ petals if odd, $2n$ if even); Lemniscate $r^2 = a^2\cos 2\theta$.
+\subsection{Integration in Polar Coordinates}
+\begin{theorem}[Area]
+\[
+A = \int_{\alpha}^{\beta} \frac{1}{2} r^2 d\theta.
+\]
+\end{theorem}
+\begin{theorem}[Area Between Curves]
+\[
+A = \int_{\alpha}^{\beta} \frac{1}{2}(r_1^2 - r_2^2) d\theta.
+\]
+\end{theorem}
+\begin{example}
+Cardioid $r = 1+\cos\theta$: $A = \frac{3\pi}{2}$.
+\end{example}
+\begin{example}
+One petal of $r = \cos 2\theta$: $A = \frac{\pi}{8}$.
+\end{example}
+\begin{example}
+Inside $r=2$, outside $r=1+\cos\theta$: $A = \frac{5\pi}{2}$.
+\end{example}
+\subsection{Arc Length in Polar Coordinates}
+\begin{theorem}
+\[
+L = \int_{\alpha}^{\beta} \sqrt{r^2 + (dr/d\theta)^2} d\theta.
+\]
+\end{theorem}
+\begin{example}
+Cardioid $r = 1+\cos\theta$: $L = 8$.
+\end{example}
+\begin{example}
+Circle $r = 4\sin\theta$: $L = 4\pi$.
+\end{example}
+\begin{example}
+Spiral $r = e^{\theta}$ on $[0,2\pi]$: $L = \sqrt{2}(e^{2\pi}-1)$.
+\end{example}
+\subsection{Surface Area in Polar Coordinates}
+\begin{theorem}
+About polar axis:
+\[
+S = \int_{\alpha}^{\beta} 2\pi r\sin\theta \sqrt{r^2 + (dr/d\theta)^2} d\theta.
+\]
+\end{theorem}
+\begin{example}
+Cardioid $r = 1+\cos\theta$ about polar axis: $S = 4\pi$.
+\end{example}
+\end{document}

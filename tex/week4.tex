@@ -1,0 +1,497 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Lecture Notes: Derivatives}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\titleformat{\section}{\Large\bfseries}{Section \thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{4cm}
+{\Huge\bfseries Lecture Notes:\\ Derivatives\par}
+\vspace{1cm}
+{\Large Calculus I\par}
+\vspace{2cm}
+{\large \textbf{Author:} Bakdaulet Sotsial\par}
+\vspace{1cm}
+\vfill
+{\small Astana IT University \par}
+\vspace*{2cm}
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{The Definition of the Derivative}
+\begin{definition}[Derivative at a Point]
+The \textit{derivative of a function $f$ at a number $a$}, denoted by $f'(a)$, is defined as
+\[
+f'(a) = \lim_{h \to 0} \frac{f(a+h) - f(a)}{h},
+\]
+provided this limit exists. If the limit exists, we say $f$ is \textit{differentiable at $a$}. If the limit does not exist, we say $f$ is \textit{not differentiable at $a$}.
+\end{definition}
+\begin{definition}[Derivative Function]
+The \textit{derivative function} $f'$ is defined by
+\[
+f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}
+\]
+for all $x$ for which the limit exists. The domain of $f'$ consists of all numbers in the domain of $f$ where $f$ is differentiable.
+\end{definition}
+\begin{remark}[Notation]
+Several notations are commonly used for the derivative:
+\[
+f'(x), \quad y', \quad \frac{dy}{dx}, \quad \frac{df}{dx}, \quad D_x f(x), \quad D f(x).
+\]
+The notation $\frac{dy}{dx}$ is called Leibniz notation and is particularly useful when dealing with differentials and implicit differentiation.
+\end{remark}
+\begin{example}
+Compute the derivative of $f(x) = x^2$ using the definition.
+\[
+f'(x) = \lim_{h \to 0} \frac{(x+h)^2 - x^2}{h} = \lim_{h \to 0} \frac{x^2 + 2xh + h^2 - x^2}{h} = \lim_{h \to 0} \frac{2xh + h^2}{h} = \lim_{h \to 0} (2x + h) = 2x.
+\]
+Thus, $f'(x) = 2x$.
+\end{example}
+\begin{example}
+Compute the derivative of $f(x) = \sqrt{x}$ using the definition.
+\[
+f'(x) = \lim_{h \to 0} \frac{\sqrt{x+h} - \sqrt{x}}{h}.
+\]
+Multiply numerator and denominator by the conjugate $\sqrt{x+h} + \sqrt{x}$:
+\[
+f'(x) = \lim_{h \to 0} \frac{(\sqrt{x+h} - \sqrt{x})(\sqrt{x+h} + \sqrt{x})}{h(\sqrt{x+h} + \sqrt{x})} = \lim_{h \to 0} \frac{(x+h) - x}{h(\sqrt{x+h} + \sqrt{x})} = \lim_{h \to 0} \frac{1}{\sqrt{x+h} + \sqrt{x}} = \frac{1}{2\sqrt{x}}.
+\]
+Thus, $f'(x) = \frac{1}{2\sqrt{x}}$ for $x > 0$.
+\end{example}
+\begin{theorem}[Differentiability Implies Continuity]
+If $f$ is differentiable at $a$, then $f$ is continuous at $a$.
+\end{theorem}
+\begin{proof}
+Suppose $f$ is differentiable at $a$. Then
+\[
+\lim_{x \to a} (f(x) - f(a)) = \lim_{x \to a} \left( \frac{f(x) - f(a)}{x - a} \cdot (x - a) \right) = \left( \lim_{x \to a} \frac{f(x) - f(a)}{x - a} \right) \cdot \left( \lim_{x \to a} (x - a) \right) = f'(a) \cdot 0 = 0.
+\]
+Therefore, $\lim_{x \to a} f(x) = f(a)$, so $f$ is continuous at $a$.
+\end{proof}
+\begin{remark}
+The converse of the theorem is false. The function $f(x) = |x|$ is continuous at $0$ but not differentiable at $0$. Indeed,
+\[
+\lim_{h \to 0^+} \frac{|0+h| - |0|}{h} = \lim_{h \to 0^+} \frac{h}{h} = 1, \quad \text{but} \quad \lim_{h \to 0^-} \frac{|0+h| - |0|}{h} = \lim_{h \to 0^-} \frac{-h}{h} = -1.
+\]
+Since the left and right limits differ, $f'(0)$ does not exist.
+\end{remark}
+\section{Basic Differentiation Rules}
+\begin{theorem}[Constant Rule]
+If $f(x) = c$ for a constant $c$, then $f'(x) = 0$.
+\end{theorem}
+\begin{proof}
+\[
+f'(x) = \lim_{h \to 0} \frac{c - c}{h} = \lim_{h \to 0} 0 = 0.
+\]
+\end{proof}
+\begin{theorem}[Power Rule]
+If $f(x) = x^n$ for a positive integer $n$, then $f'(x) = n x^{n-1}$.
+\end{theorem}
+\begin{proof}
+Using the binomial theorem,
+\[
+(x+h)^n = x^n + n x^{n-1} h + \frac{n(n-1)}{2} x^{n-2} h^2 + \dots + h^n.
+\]
+Then
+\[
+f'(x) = \lim_{h \to 0} \frac{(x+h)^n - x^n}{h} = \lim_{h \to 0} \frac{n x^{n-1} h + \frac{n(n-1)}{2} x^{n-2} h^2 + \dots + h^n}{h} = \lim_{h \to 0} \left( n x^{n-1} + \frac{n(n-1)}{2} x^{n-2} h + \dots + h^{n-1} \right) = n x^{n-1}.
+\]
+\end{proof}
+\begin{theorem}[Constant Multiple Rule]
+If $c$ is a constant and $f$ is differentiable, then
+\[
+\frac{d}{dx} [c f(x)] = c f'(x).
+\]
+\end{theorem}
+\begin{theorem}[Sum and Difference Rules]
+If $f$ and $g$ are differentiable, then
+\[
+\frac{d}{dx} [f(x) + g(x)] = f'(x) + g'(x), \quad \frac{d}{dx} [f(x) - g(x)] = f'(x) - g'(x).
+\]
+\end{theorem}
+\begin{theorem}[Product Rule]
+If $f$ and $g$ are differentiable, then
+\[
+\frac{d}{dx} [f(x) g(x)] = f'(x) g(x) + f(x) g'(x).
+\]
+\end{theorem}
+\begin{proof}
+Let $F(x) = f(x) g(x)$. Then
+\[
+F'(x) = \lim_{h \to 0} \frac{f(x+h)g(x+h) - f(x)g(x)}{h}.
+\]
+Add and subtract $f(x+h)g(x)$ in the numerator:
+\[
+F'(x) = \lim_{h \to 0} \frac{f(x+h)g(x+h) - f(x+h)g(x) + f(x+h)g(x) - f(x)g(x)}{h}
+\]
+\[
+= \lim_{h \to 0} \left( f(x+h) \frac{g(x+h) - g(x)}{h} + g(x) \frac{f(x+h) - f(x)}{h} \right) = f(x) g'(x) + g(x) f'(x).
+\]
+\end{proof}
+\begin{theorem}[Quotient Rule]
+If $f$ and $g$ are differentiable and $g(x) \neq 0$, then
+\[
+\frac{d}{dx} \left[ \frac{f(x)}{g(x)} \right] = \frac{f'(x) g(x) - f(x) g'(x)}{[g(x)]^2}.
+\]
+\end{theorem}
+\begin{proof}
+Let $F(x) = \frac{f(x)}{g(x)}$. Then
+\[
+F'(x) = \lim_{h \to 0} \frac{\frac{f(x+h)}{g(x+h)} - \frac{f(x)}{g(x)}}{h} = \lim_{h \to 0} \frac{f(x+h)g(x) - f(x)g(x+h)}{h g(x+h) g(x)}.
+\]
+Add and subtract $f(x)g(x)$ in the numerator:
+\[
+F'(x) = \lim_{h \to 0} \frac{f(x+h)g(x) - f(x)g(x) + f(x)g(x) - f(x)g(x+h)}{h g(x+h) g(x)}
+\]
+\[
+= \lim_{h \to 0} \frac{g(x) \frac{f(x+h) - f(x)}{h} - f(x) \frac{g(x+h) - g(x)}{h}}{g(x+h) g(x)} = \frac{g(x) f'(x) - f(x) g'(x)}{[g(x)]^2}.
+\]
+\end{proof}
+\begin{example}
+Differentiate $f(x) = 3x^4 - 2x^2 + 5x - 7$.
+\[
+f'(x) = 3(4x^3) - 2(2x) + 5(1) - 0 = 12x^3 - 4x + 5.
+\]
+\end{example}
+\begin{example}
+Differentiate $f(x) = (x^2 + 1)(x^3 - 2x)$.
+Using the product rule with $u = x^2 + 1$ and $v = x^3 - 2x$:
+\[
+f'(x) = (2x)(x^3 - 2x) + (x^2 + 1)(3x^2 - 2) = 2x^4 - 4x^2 + 3x^4 - 2x^2 + 3x^2 - 2 = 5x^4 - 3x^2 - 2.
+\]
+\end{example}
+\begin{example}
+Differentiate $f(x) = \frac{x^2 + 1}{x - 1}$.
+Using the quotient rule with $u = x^2 + 1$ and $v = x - 1$:
+\[
+f'(x) = \frac{(2x)(x - 1) - (x^2 + 1)(1)}{(x - 1)^2} = \frac{2x^2 - 2x - x^2 - 1}{(x - 1)^2} = \frac{x^2 - 2x - 1}{(x - 1)^2}.
+\]
+\end{example}
+\section{Derivatives of Trigonometric Functions}
+\begin{theorem}[Derivative of Sine and Cosine]
+\[
+\frac{d}{dx} (\sin x) = \cos x, \quad \frac{d}{dx} (\cos x) = -\sin x.
+\]
+\end{theorem}
+\begin{proof}
+We use the definition and the trigonometric identity $\sin(x+h) = \sin x \cos h + \cos x \sin h$.
+\[
+\frac{d}{dx} (\sin x) = \lim_{h \to 0} \frac{\sin(x+h) - \sin x}{h} = \lim_{h \to 0} \frac{\sin x \cos h + \cos x \sin h - \sin x}{h}
+\]
+\[
+= \lim_{h \to 0} \left( \sin x \frac{\cos h - 1}{h} + \cos x \frac{\sin h}{h} \right) = \sin x \cdot 0 + \cos x \cdot 1 = \cos x.
+\]
+The derivative of cosine is similar, using $\cos(x+h) = \cos x \cos h - \sin x \sin h$.
+\end{proof}
+\begin{theorem}[Derivatives of Other Trigonometric Functions]
+\[
+\frac{d}{dx} (\tan x) = \sec^2 x, \quad \frac{d}{dx} (\cot x) = -\csc^2 x,
+\]
+\[
+\frac{d}{dx} (\sec x) = \sec x \tan x, \quad \frac{d}{dx} (\csc x) = -\csc x \cot x.
+\]
+\end{theorem}
+\begin{proof}
+For $\tan x = \frac{\sin x}{\cos x}$, use the quotient rule:
+\[
+\frac{d}{dx} (\tan x) = \frac{\cos x \cdot \cos x - \sin x \cdot (-\sin x)}{\cos^2 x} = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} = \frac{1}{\cos^2 x} = \sec^2 x.
+\]
+The others follow similarly.
+\end{proof}
+\begin{example}
+Differentiate $f(x) = x^2 \sin x$.
+Using the product rule:
+\[
+f'(x) = 2x \sin x + x^2 \cos x.
+\]
+\end{example}
+\begin{example}
+Differentiate $f(x) = \frac{\sin x}{1 + \cos x}$.
+Using the quotient rule:
+\[
+f'(x) = \frac{\cos x (1 + \cos x) - \sin x (-\sin x)}{(1 + \cos x)^2} = \frac{\cos x + \cos^2 x + \sin^2 x}{(1 + \cos x)^2} = \frac{\cos x + 1}{(1 + \cos x)^2} = \frac{1}{1 + \cos x}.
+\]
+\end{example}
+\section{Derivatives of Transcendental Functions}
+\begin{theorem}[Derivative of Exponential Functions]
+\[
+\frac{d}{dx} (e^x) = e^x, \quad \frac{d}{dx} (a^x) = a^x \ln a \quad (a > 0).
+\]
+\end{theorem}
+\begin{proof}
+For $e^x$, use the definition:
+\[
+\frac{d}{dx} (e^x) = \lim_{h \to 0} \frac{e^{x+h} - e^x}{h} = e^x \lim_{h \to 0} \frac{e^h - 1}{h} = e^x \cdot 1 = e^x.
+\]
+For $a^x = e^{x \ln a}$, use the chain rule:
+\[
+\frac{d}{dx} (a^x) = \frac{d}{dx} (e^{x \ln a}) = e^{x \ln a} \cdot \ln a = a^x \ln a.
+\]
+\end{proof}
+\begin{theorem}[Derivative of Logarithmic Functions]
+\[
+\frac{d}{dx} (\ln x) = \frac{1}{x}, \quad \frac{d}{dx} (\log_a x) = \frac{1}{x \ln a}.
+\]
+\end{theorem}
+\begin{proof}
+Let $y = \ln x$. Then $e^y = x$. Differentiate implicitly with respect to $x$:
+\[
+e^y \frac{dy}{dx} = 1 \implies \frac{dy}{dx} = \frac{1}{e^y} = \frac{1}{x}.
+\]
+For $\log_a x = \frac{\ln x}{\ln a}$, we get $\frac{d}{dx} (\log_a x) = \frac{1}{x \ln a}$.
+\end{proof}
+\begin{theorem}[Derivatives of Inverse Trigonometric Functions]
+\[
+\frac{d}{dx} (\arcsin x) = \frac{1}{\sqrt{1 - x^2}}, \quad \frac{d}{dx} (\arccos x) = -\frac{1}{\sqrt{1 - x^2}},
+\]
+\[
+\frac{d}{dx} (\arctan x) = \frac{1}{1 + x^2}, \quad \frac{d}{dx} (\text{arccot } x) = -\frac{1}{1 + x^2}.
+\]
+\end{theorem}
+\begin{proof}
+Let $y = \arcsin x$. Then $\sin y = x$ and $-\frac{\pi}{2} \leq y \leq \frac{\pi}{2}$. Differentiate implicitly:
+\[
+\cos y \frac{dy}{dx} = 1 \implies \frac{dy}{dx} = \frac{1}{\cos y}.
+\]
+Since $\cos y \geq 0$ on the range of $\arcsin$, $\cos y = \sqrt{1 - \sin^2 y} = \sqrt{1 - x^2}$. Thus $\frac{dy}{dx} = \frac{1}{\sqrt{1 - x^2}}$.
+The others are similar.
+\end{proof}
+\begin{example}
+Differentiate $f(x) = e^{2x} \ln x$.
+Using the product rule:
+\[
+f'(x) = 2e^{2x} \ln x + e^{2x} \cdot \frac{1}{x} = e^{2x} \left( 2 \ln x + \frac{1}{x} \right).
+\]
+\end{example}
+\begin{example}
+Differentiate $f(x) = \arctan(x^2)$.
+Using the chain rule:
+\[
+f'(x) = \frac{1}{1 + (x^2)^2} \cdot 2x = \frac{2x}{1 + x^4}.
+\]
+\end{example}
+\section{The Chain Rule}
+\begin{theorem}[Chain Rule]
+If $g$ is differentiable at $x$ and $f$ is differentiable at $g(x)$, then the composite function $F = f \circ g$ defined by $F(x) = f(g(x))$ is differentiable at $x$, and
+\[
+F'(x) = f'(g(x)) \cdot g'(x).
+\]
+In Leibniz notation, if $y = f(u)$ and $u = g(x)$, then
+\[
+\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}.
+\]
+\end{theorem}
+\begin{proof}
+Let $u = g(x)$. We want to find $\frac{dy}{dx}$ where $y = f(u)$. Using the definition,
+\[
+\frac{dy}{dx} = \lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \lim_{\Delta x \to 0} \left( \frac{\Delta y}{\Delta u} \cdot \frac{\Delta u}{\Delta x} \right).
+\]
+As $\Delta x \to 0$, $\Delta u \to 0$ because $g$ is continuous (since it is differentiable). Thus,
+\[
+\frac{dy}{dx} = \left( \lim_{\Delta u \to 0} \frac{\Delta y}{\Delta u} \right) \cdot \left( \lim_{\Delta x \to 0} \frac{\Delta u}{\Delta x} \right) = \frac{dy}{du} \cdot \frac{du}{dx}.
+\]
+\end{proof}
+\begin{example}
+Differentiate $f(x) = (3x^2 + 1)^5$.
+Let $u = 3x^2 + 1$. Then $f(x) = u^5$.
+\[
+f'(x) = 5u^4 \cdot \frac{du}{dx} = 5(3x^2 + 1)^4 \cdot 6x = 30x(3x^2 + 1)^4.
+\]
+\end{example}
+\begin{example}
+Differentiate $f(x) = \sin(e^{x^2})$.
+Let $u = e^{x^2}$. Then $f(x) = \sin u$.
+\[
+f'(x) = \cos u \cdot \frac{du}{dx} = \cos(e^{x^2}) \cdot e^{x^2} \cdot 2x = 2x e^{x^2} \cos(e^{x^2}).
+\]
+\end{example}
+\begin{example}
+Differentiate $f(x) = \ln(\sqrt{x} + 1)$.
+\[
+f'(x) = \frac{1}{\sqrt{x} + 1} \cdot \frac{1}{2\sqrt{x}} = \frac{1}{2\sqrt{x}(\sqrt{x} + 1)}.
+\]
+\end{example}
+\section{Second and Higher Order Derivatives}
+\begin{definition}[Higher Order Derivatives]
+The \textit{second derivative} of $f$ is the derivative of $f'$, denoted by $f''$ or $\frac{d^2y}{dx^2}$. In general, the \textit{$n$-th derivative} of $f$ is denoted by $f^{(n)}$ or $\frac{d^ny}{dx^n}$.
+\end{definition}
+\begin{example}
+Find all derivatives of $f(x) = x^5 - 3x^3 + 2x$.
+\begin{align*}
+f'(x) &= 5x^4 - 9x^2 + 2, \\
+f''(x) &= 20x^3 - 18x, \\
+f'''(x) &= 60x^2 - 18, \\
+f^{(4)}(x) &= 120x, \\
+f^{(5)}(x) &= 120, \\
+f^{(6)}(x) &= 0.
+\end{align*}
+\end{example}
+\begin{example}
+Find the second derivative of $f(x) = \sin x$.
+\[
+f'(x) = \cos x, \quad f''(x) = -\sin x.
+\]
+\end{example}
+\begin{remark}
+In physics, if $s(t)$ is the position of an object at time $t$, then $s'(t)$ is the velocity $v(t)$ and $s''(t)$ is the acceleration $a(t)$.
+\end{remark}
+\section{Implicit Differentiation}
+\begin{definition}[Implicit Differentiation]
+When a function is defined implicitly by an equation relating $x$ and $y$, we can find $\frac{dy}{dx}$ by differentiating both sides of the equation with respect to $x$ and then solving for $\frac{dy}{dx}$. This technique is called \textit{implicit differentiation}.
+\end{definition}
+\begin{example}
+Find $\frac{dy}{dx}$ if $x^2 + y^2 = 25$.
+Differentiate both sides with respect to $x$:
+\[
+2x + 2y \frac{dy}{dx} = 0 \implies \frac{dy}{dx} = -\frac{x}{y}.
+\]
+\end{example}
+\begin{example}
+Find the equation of the tangent line to the circle $x^2 + y^2 = 25$ at the point $(3, 4)$.
+From the previous example, the slope is $\frac{dy}{dx} = -\frac{x}{y} = -\frac{3}{4}$.
+The tangent line is $y - 4 = -\frac{3}{4}(x - 3)$, or $3x + 4y = 25$.
+\end{example}
+\begin{example}
+Find $\frac{dy}{dx}$ if $x^3 + y^3 = 6xy$.
+Differentiate both sides:
+\[
+3x^2 + 3y^2 \frac{dy}{dx} = 6y + 6x \frac{dy}{dx}.
+\]
+Solve for $\frac{dy}{dx}$:
+\[
+3y^2 \frac{dy}{dx} - 6x \frac{dy}{dx} = 6y - 3x^2 \implies \frac{dy}{dx} = \frac{6y - 3x^2}{3y^2 - 6x} = \frac{2y - x^2}{y^2 - 2x}.
+\]
+\end{example}
+\section{Linearization and Differentials}
+\begin{definition}[Linearization]
+The \textit{linearization} of $f$ at $a$ is the linear function
+\[
+L(x) = f(a) + f'(a)(x - a).
+\]
+The approximation $f(x) \approx L(x)$ for $x$ near $a$ is called the \textit{linear approximation} or \textit{tangent line approximation}.
+\end{definition}
+\begin{definition}[Differentials]
+Let $y = f(x)$ be a differentiable function. The \textit{differential} $dx$ is an independent variable. The \textit{differential} $dy$ is defined as
+\[
+dy = f'(x) \, dx.
+\]
+\end{definition}
+\begin{example}
+Use linearization to approximate $\sqrt{4.1}$.
+Let $f(x) = \sqrt{x}$ and $a = 4$. Then $f(4) = 2$ and $f'(x) = \frac{1}{2\sqrt{x}}$, so $f'(4) = \frac{1}{4}$.
+\[
+L(x) = 2 + \frac{1}{4}(x - 4).
+\]
+For $x = 4.1$:
+\[
+\sqrt{4.1} \approx L(4.1) = 2 + \frac{1}{4}(0.1) = 2 + 0.025 = 2.025.
+\]
+The actual value is approximately $2.02484567$, so the approximation is quite accurate.
+\end{example}
+\begin{example}
+The radius of a sphere is measured to be $5$ cm with a possible error of $0.1$ cm. Estimate the maximum error in the calculated volume.
+The volume is $V = \frac{4}{3}\pi r^3$. The differential is
+\[
+dV = 4\pi r^2 \, dr.
+\]
+With $r = 5$ and $dr = 0.1$:
+\[
+dV = 4\pi (5)^2 (0.1) = 4\pi (25)(0.1) = 10\pi \approx 31.4 \text{ cm}^3.
+\]
+\end{example}
+\section{Derivative of Parametric Functions}
+\begin{definition}[Parametric Curves]
+A \textit{parametric curve} is defined by equations
+\[
+x = f(t), \quad y = g(t)
+\]
+where $t$ is a parameter. The derivative $\frac{dy}{dx}$ is given by
+\[
+\frac{dy}{dx} = \frac{\frac{dy}{dt}}{\frac{dx}{dt}}, \quad \text{provided } \frac{dx}{dt} \neq 0.
+\]
+\end{definition}
+\begin{proof}
+By the chain rule, $\frac{dy}{dt} = \frac{dy}{dx} \cdot \frac{dx}{dt}$. Solving for $\frac{dy}{dx}$ gives the result.
+\end{proof}
+\begin{theorem}[Second Derivative of Parametric Curves]
+\[
+\frac{d^2y}{dx^2} = \frac{\frac{d}{dt} \left( \frac{dy}{dx} \right)}{\frac{dx}{dt}}.
+\]
+\end{theorem}
+\begin{example}
+Find $\frac{dy}{dx}$ and $\frac{d^2y}{dx^2}$ for the curve $x = t^2$, $y = t^3$.
+\[
+\frac{dx}{dt} = 2t, \quad \frac{dy}{dt} = 3t^2 \implies \frac{dy}{dx} = \frac{3t^2}{2t} = \frac{3t}{2} \quad (t \neq 0).
+\]
+For the second derivative:
+\[
+\frac{d}{dt} \left( \frac{dy}{dx} \right) = \frac{d}{dt} \left( \frac{3t}{2} \right) = \frac{3}{2}, \quad \frac{d^2y}{dx^2} = \frac{3/2}{2t} = \frac{3}{4t}.
+\]
+\end{example}
+\begin{example}
+Find the equation of the tangent line to the curve $x = \cos t$, $y = \sin t$ at $t = \frac{\pi}{4}$.
+\[
+\frac{dx}{dt} = -\sin t, \quad \frac{dy}{dt} = \cos t \implies \frac{dy}{dx} = \frac{\cos t}{-\sin t} = -\cot t.
+\]
+At $t = \frac{\pi}{4}$, the point is $\left( \frac{\sqrt{2}}{2}, \frac{\sqrt{2}}{2} \right)$ and the slope is $-\cot \frac{\pi}{4} = -1$.
+The tangent line is $y - \frac{\sqrt{2}}{2} = -1 \left( x - \frac{\sqrt{2}}{2} \right)$, or $x + y = \sqrt{2}$.
+\end{example}
+\section{Tangents and Normal Lines}
+\begin{definition}[Tangent Line]
+The \textit{tangent line} to the curve $y = f(x)$ at the point $(a, f(a))$ is the line with slope $f'(a)$:
+\[
+y - f(a) = f'(a)(x - a).
+\]
+\end{definition}
+\begin{definition}[Normal Line]
+The \textit{normal line} to the curve $y = f(x)$ at the point $(a, f(a))$ is the line perpendicular to the tangent line at that point. Its slope is $-\frac{1}{f'(a)}$ (provided $f'(a) \neq 0$):
+\[
+y - f(a) = -\frac{1}{f'(a)}(x - a).
+\]
+\end{definition}
+\begin{example}
+Find the equations of the tangent and normal lines to $f(x) = x^2$ at $x = 1$.
+$f(1) = 1$, $f'(x) = 2x$, so $f'(1) = 2$.
+Tangent line: $y - 1 = 2(x - 1) \implies y = 2x - 1$.
+Normal line: $y - 1 = -\frac{1}{2}(x - 1) \implies y = -\frac{1}{2}x + \frac{3}{2}$.
+\end{example}
+\begin{example}
+Find the points on the curve $y = x^3 - 3x^2 + 2x$ where the tangent line is horizontal.
+The tangent line is horizontal when $y' = 0$.
+\[
+y' = 3x^2 - 6x + 2.
+\]
+Set $y' = 0$: $3x^2 - 6x + 2 = 0$. Using the quadratic formula,
+\[
+x = \frac{6 \pm \sqrt{36 - 24}}{6} = \frac{6 \pm \sqrt{12}}{6} = \frac{6 \pm 2\sqrt{3}}{6} = 1 \pm \frac{\sqrt{3}}{3}.
+\]
+The corresponding $y$-values can be found by substitution.
+\end{example}
+\begin{example}
+Find the equation of the normal line to $y = \ln x$ at $x = e$.
+$f(e) = \ln e = 1$. $f'(x) = \frac{1}{x}$, so $f'(e) = \frac{1}{e}$.
+The slope of the normal line is $-e$.
+The normal line is $y - 1 = -e(x - e) \implies y = -ex + e^2 + 1$.
+\end{example}
+\end{document}

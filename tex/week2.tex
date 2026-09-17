@@ -1,0 +1,239 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\newtheorem{example}{Example}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Lecture Notes: Sequences and Limits}
+\fancyhead[R]{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\titleformat{\section}{\Large\bfseries}{Section \thesection}{1em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+\renewcommand{\cftsecfont}{\bfseries}
+\renewcommand{\cftsubsecfont}{\normalfont}
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{4cm}
+{\Huge\bfseries Lecture Notes:\\ Sequences and Limits\par}
+\vspace{1cm}
+{\Large Calculus I\par}
+\vspace{2cm}
+{\large \textbf{Author:} Bakdaulet Sotsial\par}
+\vspace{1cm}
+\vfill
+{\small Astana IT University \par}
+\vspace*{2cm}
+\end{titlepage}
+\tableofcontents
+\newpage
+\section{Sequences and Their Limits}
+\begin{definition}[Sequence]
+A \textit{sequence} is an ordered list of numbers, denoted by $\{a_n\}_{n=1}^{\infty}$ or simply $\{a_n\}$, where each number $a_n$ is called a \textit{term}. The subscript $n$ is the index, usually a positive integer. A sequence can be thought of as a function whose domain is the set of positive integers.
+\end{definition}
+\begin{example}
+Some examples of sequences:
+\begin{enumerate}
+\item $a_n = \frac{1}{n}$: $1, \frac{1}{2}, \frac{1}{3}, \frac{1}{4}, \dots$
+\item $a_n = (-1)^n$: $-1, 1, -1, 1, \dots$
+\item $a_n = \frac{n}{n+1}$: $\frac{1}{2}, \frac{2}{3}, \frac{3}{4}, \frac{4}{5}, \dots$
+\item $a_n = 2^n$: $2, 4, 8, 16, \dots$
+\end{enumerate}
+\end{example}
+\begin{definition}[Limit of a Sequence]
+A sequence $\{a_n\}$ \textit{converges} to a limit $L$, written as
+\[
+\lim_{n \to \infty} a_n = L \quad \text{or} \quad a_n \to L \text{ as } n \to \infty,
+\]
+if for every $\epsilon > 0$ there exists a positive integer $N$ such that for all $n > N$, we have $|a_n - L| < \epsilon$. If no such $L$ exists, the sequence \textit{diverges}.
+\end{definition}
+\begin{example}
+Show that $\displaystyle \lim_{n \to \infty} \frac{1}{n} = 0$.
+Let $\epsilon > 0$ be given. We need to find $N$ such that for all $n > N$, $\left|\frac{1}{n} - 0\right| < \epsilon$. This inequality is equivalent to $\frac{1}{n} < \epsilon$, or $n > \frac{1}{\epsilon}$. Choose $N = \left\lceil \frac{1}{\epsilon} \right\rceil$. Then for all $n > N$, we have $n > \frac{1}{\epsilon}$, so $\frac{1}{n} < \epsilon$. Thus, $\left|\frac{1}{n} - 0\right| < \epsilon$. Hence the limit is 0.
+\end{example}
+\begin{definition}[Divergence to Infinity]
+A sequence $\{a_n\}$ \textit{diverges to infinity}, written $\lim_{n \to \infty} a_n = \infty$, if for every $M > 0$ there exists $N$ such that for all $n > N$, $a_n > M$. Similarly, $\lim_{n \to \infty} a_n = -\infty$ if for every $M > 0$ there exists $N$ such that for all $n > N$, $a_n < -M$.
+\end{definition}
+\begin{example}
+The sequence $a_n = n$ diverges to infinity. The sequence $a_n = (-1)^n$ diverges but not to infinity; it oscillates.
+\end{example}
+\section{Properties of Convergent Sequences}
+\begin{theorem}[Uniqueness of Limit]
+If a sequence converges, its limit is unique.
+\end{theorem}
+\begin{proof}
+Suppose $\{a_n\}$ converges to both $L_1$ and $L_2$ with $L_1 \neq L_2$. Let $\epsilon = \frac{|L_1 - L_2|}{2} > 0$. Since $a_n \to L_1$, there exists $N_1$ such that for $n > N_1$, $|a_n - L_1| < \epsilon$. Since $a_n \to L_2$, there exists $N_2$ such that for $n > N_2$, $|a_n - L_2| < \epsilon$. Let $N = \max(N_1, N_2)$. For $n > N$, both inequalities hold. Then
+\[
+|L_1 - L_2| = |L_1 - a_n + a_n - L_2| \leq |L_1 - a_n| + |a_n - L_2| < \epsilon + \epsilon = 2\epsilon = |L_1 - L_2|,
+\]
+a contradiction. Hence $L_1 = L_2$.
+\end{proof}
+\begin{theorem}[Algebraic Limit Theorem]
+If $\{a_n\}$ and $\{b_n\}$ are convergent sequences with $\lim_{n \to \infty} a_n = A$ and $\lim_{n \to \infty} b_n = B$, then:
+\begin{enumerate}
+\item $\lim_{n \to \infty} (a_n + b_n) = A + B$.
+\item $\lim_{n \to \infty} (a_n - b_n) = A - B$.
+\item $\lim_{n \to \infty} (c a_n) = c A$ for any constant $c$.
+\item $\lim_{n \to \infty} (a_n b_n) = A B$.
+\item $\displaystyle \lim_{n \to \infty} \frac{a_n}{b_n} = \frac{A}{B}$, provided $B \neq 0$ and $b_n \neq 0$ for all $n$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+We prove (1) and (4); the others are similar.
+For (1): Let $\epsilon > 0$. Choose $N_1$ such that $|a_n - A| < \epsilon/2$ for $n > N_1$, and $N_2$ such that $|b_n - B| < \epsilon/2$ for $n > N_2$. Let $N = \max(N_1, N_2)$. Then for $n > N$,
+\[
+|(a_n + b_n) - (A + B)| \leq |a_n - A| + |b_n - B| < \epsilon/2 + \epsilon/2 = \epsilon.
+\]
+For (4): Note that
+\[
+|a_n b_n - AB| = |a_n b_n - a_n B + a_n B - AB| \leq |a_n||b_n - B| + |B||a_n - A|.
+\]
+Since $\{a_n\}$ converges, it is bounded, so there exists $M > 0$ such that $|a_n| \leq M$ for all $n$. Let $\epsilon > 0$. Choose $N_1$ such that $|a_n - A| < \frac{\epsilon}{2(|B|+1)}$ for $n > N_1$, and $N_2$ such that $|b_n - B| < \frac{\epsilon}{2M}$ for $n > N_2$. Let $N = \max(N_1, N_2)$. Then for $n > N$,
+\[
+|a_n b_n - AB| \leq M \cdot \frac{\epsilon}{2M} + |B| \cdot \frac{\epsilon}{2(|B|+1)} < \frac{\epsilon}{2} + \frac{\epsilon}{2} = \epsilon.
+\]
+\end{proof}
+\begin{theorem}[Squeeze Theorem for Sequences]
+If $a_n \leq b_n \leq c_n$ for all $n$ beyond some index, and $\lim_{n \to \infty} a_n = \lim_{n \to \infty} c_n = L$, then $\lim_{n \to \infty} b_n = L$.
+\end{theorem}
+\begin{example}
+Find $\displaystyle \lim_{n \to \infty} \frac{\sin n}{n}$.
+Since $-1 \leq \sin n \leq 1$ for all $n$, we have $-\frac{1}{n} \leq \frac{\sin n}{n} \leq \frac{1}{n}$. Both $-\frac{1}{n}$ and $\frac{1}{n}$ converge to 0. By the Squeeze Theorem, $\lim_{n \to \infty} \frac{\sin n}{n} = 0$.
+\end{example}
+\section{Monotone Sequences}
+\begin{definition}[Monotone Sequence]
+A sequence $\{a_n\}$ is called:
+\begin{itemize}
+\item \textit{increasing} if $a_n \leq a_{n+1}$ for all $n$.
+\item \textit{decreasing} if $a_n \geq a_{n+1}$ for all $n$.
+\item \textit{strictly increasing} if $a_n < a_{n+1}$ for all $n$.
+\item \textit{strictly decreasing} if $a_n > a_{n+1}$ for all $n$.
+\end{itemize}
+A sequence that is either increasing or decreasing is called \textit{monotone}.
+\end{definition}
+\begin{definition}[Bounded Sequence]
+A sequence $\{a_n\}$ is \textit{bounded above} if there exists a number $M$ such that $a_n \leq M$ for all $n$. It is \textit{bounded below} if there exists a number $m$ such that $a_n \geq m$ for all $n$. It is \textit{bounded} if it is both bounded above and below.
+\end{definition}
+\begin{theorem}[Monotone Convergence Theorem]
+Every bounded, monotone sequence is convergent. Specifically:
+\begin{itemize}
+\item If $\{a_n\}$ is increasing and bounded above, then it converges to its least upper bound.
+\item If $\{a_n\}$ is decreasing and bounded below, then it converges to its greatest lower bound.
+\end{itemize}
+\end{theorem}
+\begin{proof}
+We prove the increasing case. Let $S = \{a_n : n \in \mathbb{N}\}$ and let $L = \sup S$. Since the sequence is bounded above, $L$ exists. We claim $a_n \to L$. Let $\epsilon > 0$. Since $L$ is the least upper bound, $L - \epsilon$ is not an upper bound, so there exists $N$ such that $a_N > L - \epsilon$. Since the sequence is increasing, for all $n > N$, we have $a_n \geq a_N > L - \epsilon$. Also, since $L$ is an upper bound, $a_n \leq L$ for all $n$. Thus for $n > N$, $L - \epsilon < a_n \leq L < L + \epsilon$, so $|a_n - L| < \epsilon$. Hence $a_n \to L$.
+\end{proof}
+\begin{example}
+The sequence $a_n = 1 - \frac{1}{n}$ is increasing and bounded above by 1. By the Monotone Convergence Theorem, it converges. Its limit is 1.
+\end{example}
+\begin{example}
+The sequence $a_n = \left(1 + \frac{1}{n}\right)^n$ is increasing and bounded above by 3. It converges to Euler's number $e \approx 2.71828$.
+\end{example}
+\section{Limits of Functions}
+\begin{definition}[Limit of a Function]
+Let $f$ be a function defined on an open interval containing $a$, except possibly at $a$ itself. We say that the \textit{limit of $f(x)$ as $x$ approaches $a$} is $L$, written
+\[
+\lim_{x \to a} f(x) = L,
+\]
+if for every $\epsilon > 0$ there exists $\delta > 0$ such that if $0 < |x - a| < \delta$, then $|f(x) - L| < \epsilon$.
+\end{definition}
+\begin{example}
+Show that $\displaystyle \lim_{x \to 2} (3x + 1) = 7$.
+Let $\epsilon > 0$. We need $\delta$ such that if $0 < |x - 2| < \delta$, then $|(3x+1) - 7| < \epsilon$. Simplify: $|3x - 6| = 3|x - 2| < \epsilon$, so $|x - 2| < \epsilon/3$. Choose $\delta = \epsilon/3$. Then if $0 < |x - 2| < \delta$, we have $|3x + 1 - 7| = 3|x - 2| < 3\delta = \epsilon$. Hence the limit is 7.
+\end{example}
+\begin{definition}[One-Sided Limits]
+The \textit{left-hand limit} of $f(x)$ as $x$ approaches $a$ from the left is $L$, written $\lim_{x \to a^-} f(x) = L$, if for every $\epsilon > 0$ there exists $\delta > 0$ such that if $a - \delta < x < a$, then $|f(x) - L| < \epsilon$. The \textit{right-hand limit} $\lim_{x \to a^+} f(x) = L$ is defined similarly with $a < x < a + \delta$.
+\end{definition}
+\begin{theorem}
+$\displaystyle \lim_{x \to a} f(x) = L$ if and only if $\displaystyle \lim_{x \to a^-} f(x) = L$ and $\displaystyle \lim_{x \to a^+} f(x) = L$.
+\end{theorem}
+\begin{example}
+Consider $f(x) = \begin{cases} x + 1 & \text{if } x < 0 \\ x^2 + 2 & \text{if } x \geq 0 \end{cases}$. Find $\lim_{x \to 0^-} f(x)$ and $\lim_{x \to 0^+} f(x)$.
+As $x \to 0^-$, $f(x) = x + 1 \to 1$. As $x \to 0^+$, $f(x) = x^2 + 2 \to 2$. Since the one-sided limits are different, the two-sided limit does not exist.
+\end{example}
+\begin{theorem}[Algebraic Limit Laws for Functions]
+If $\lim_{x \to a} f(x) = L$ and $\lim_{x \to a} g(x) = M$, then:
+\begin{enumerate}
+\item $\lim_{x \to a} (f(x) + g(x)) = L + M$.
+\item $\lim_{x \to a} (f(x) - g(x)) = L - M$.
+\item $\lim_{x \to a} (c f(x)) = c L$.
+\item $\lim_{x \to a} (f(x) g(x)) = L M$.
+\item $\displaystyle \lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M}$, provided $M \neq 0$.
+\end{enumerate}
+\end{theorem}
+\section{The Precise Definition of a Limit}
+The precise definition, also known as the epsilon-delta definition, is the foundation of calculus. We restate it clearly:
+\begin{definition}[Epsilon-Delta Definition]
+Let $f$ be a function defined on an open interval containing $a$, except possibly at $a$. We say that $\lim_{x \to a} f(x) = L$ if for every $\epsilon > 0$ there exists $\delta > 0$ such that
+\[
+0 < |x - a| < \delta \implies |f(x) - L| < \epsilon.
+\]
+\end{definition}
+\begin{example}
+Prove that $\displaystyle \lim_{x \to 3} x^2 = 9$.
+Let $\epsilon > 0$. We need to find $\delta > 0$ such that if $0 < |x - 3| < \delta$, then $|x^2 - 9| < \epsilon$. Note that $|x^2 - 9| = |x - 3||x + 3|$. We can bound $|x + 3|$ by restricting $x$ to be close to 3. Suppose $|x - 3| < 1$, then $2 < x < 4$, so $5 < x + 3 < 7$, hence $|x + 3| < 7$. Then $|x^2 - 9| < 7|x - 3|$. To make this less than $\epsilon$, choose $|x - 3| < \epsilon/7$. Let $\delta = \min(1, \epsilon/7)$. Then if $0 < |x - 3| < \delta$, we have $|x^2 - 9| < 7 \cdot \frac{\epsilon}{7} = \epsilon$. Thus the limit is 9.
+\end{example}
+\begin{theorem}[Uniqueness of Limits]
+If $\lim_{x \to a} f(x) = L_1$ and $\lim_{x \to a} f(x) = L_2$, then $L_1 = L_2$.
+\end{theorem}
+\begin{proof}
+Suppose $L_1 \neq L_2$. Let $\epsilon = \frac{|L_1 - L_2|}{2} > 0$. There exist $\delta_1 > 0$ such that $0 < |x - a| < \delta_1 \implies |f(x) - L_1| < \epsilon$, and $\delta_2 > 0$ such that $0 < |x - a| < \delta_2 \implies |f(x) - L_2| < \epsilon$. Let $\delta = \min(\delta_1, \delta_2)$. Choose any $x$ with $0 < |x - a| < \delta$. Then
+\[
+|L_1 - L_2| = |L_1 - f(x) + f(x) - L_2| \leq |L_1 - f(x)| + |f(x) - L_2| < \epsilon + \epsilon = 2\epsilon = |L_1 - L_2|,
+\]
+a contradiction. Hence $L_1 = L_2$.
+\end{proof}
+\section{The Sandwich Theorem}
+\begin{theorem}[Sandwich Theorem or Squeeze Theorem]
+If $f(x) \leq g(x) \leq h(x)$ for all $x$ in an open interval containing $a$ (except possibly at $a$), and
+\[
+\lim_{x \to a} f(x) = \lim_{x \to a} h(x) = L,
+\]
+then
+\[
+\lim_{x \to a} g(x) = L.
+\]
+\end{theorem}
+\begin{proof}
+Let $\epsilon > 0$. Since $\lim_{x \to a} f(x) = L$, there exists $\delta_1 > 0$ such that if $0 < |x - a| < \delta_1$, then $|f(x) - L| < \epsilon$, which implies $L - \epsilon < f(x) < L + \epsilon$. Similarly, since $\lim_{x \to a} h(x) = L$, there exists $\delta_2 > 0$ such that if $0 < |x - a| < \delta_2$, then $|h(x) - L| < \epsilon$, which implies $L - \epsilon < h(x) < L + \epsilon$. Let $\delta = \min(\delta_1, \delta_2)$. For $0 < |x - a| < \delta$, both inequalities hold. Since $f(x) \leq g(x) \leq h(x)$, we have
+\[
+L - \epsilon < f(x) \leq g(x) \leq h(x) < L + \epsilon.
+\]
+Thus $L - \epsilon < g(x) < L + \epsilon$, so $|g(x) - L| < \epsilon$. Therefore, $\lim_{x \to a} g(x) = L$.
+\end{proof}
+\begin{example}
+Find $\displaystyle \lim_{x \to 0} x^2 \sin\left(\frac{1}{x}\right)$.
+Since $-1 \leq \sin\left(\frac{1}{x}\right) \leq 1$ for all $x \neq 0$, we have
+\[
+-x^2 \leq x^2 \sin\left(\frac{1}{x}\right) \leq x^2.
+\]
+Both $-x^2$ and $x^2$ approach 0 as $x \to 0$. By the Sandwich Theorem, $\lim_{x \to 0} x^2 \sin\left(\frac{1}{x}\right) = 0$.
+\end{example}
+\begin{example}
+Show that $\displaystyle \lim_{x \to 0} \frac{\sin x}{x} = 1$.
+For $0 < x < \frac{\pi}{2}$, consider the unit circle. The area of the sector is $\frac{x}{2}$, the area of the triangle with vertices $(0,0)$, $(1,0)$, and $(\cos x, \sin x)$ is $\frac{1}{2}\sin x$, and the area of the larger triangle with vertices $(0,0)$, $(1,0)$, and $(1, \tan x)$ is $\frac{1}{2}\tan x$. Thus
+\[
+\frac{1}{2}\sin x < \frac{1}{2}x < \frac{1}{2}\tan x.
+\]
+Dividing by $\frac{1}{2}\sin x > 0$ gives
+\[
+1 < \frac{x}{\sin x} < \frac{1}{\cos x}.
+\]
+Taking reciprocals (which reverses inequalities) yields
+\[
+\cos x < \frac{\sin x}{x} < 1.
+\]
+Since $\lim_{x \to 0^+} \cos x = 1$ and $\lim_{x \to 0^+} 1 = 1$, by the Sandwich Theorem, $\lim_{x \to 0^+} \frac{\sin x}{x} = 1$. Because $\frac{\sin x}{x}$ is an even function, the left-hand limit is also 1. Hence the two-sided limit is 1.
+\end{example}
+\end{document}
